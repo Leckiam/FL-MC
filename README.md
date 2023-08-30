@@ -1,6 +1,6 @@
 # FL-MC
 
-Repositorios para Compartir con mis fans :D.
+Repositorios para Compartir con nuestros fans :D.
 
 Los proyectos se suben sin su carpeta node_modules
 
