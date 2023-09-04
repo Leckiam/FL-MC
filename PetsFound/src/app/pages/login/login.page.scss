@@ -1,0 +1,22 @@
+.container {
+    background: transparent; /* Fondo transparente para permitir que se muestre la imagen de fondo */
+    background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.xtrafondos.com%2Fwallpaper%2F7680x4320%2F6403-lineas-de-colores-minimalista.html&psig=AOvVaw0nO74B1Ytrnc_aI_u92ThX&ust=1693849180824000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCLjSs4j-joEDFQAAAAAdAAAAABAI');
+    background-size: cover; /* Ajusta el tamaño de la imagen para que cubra todo el contenido */
+    background-repeat: no-repeat; /* Evita que la imagen de fondo se repita */
+    background-position: center center; /* Centra la imagen de fondo */
+  }
+  
+.continer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+.center-content {
+    width: 100%;
+    max-width: 400px; /* Ancho máximo de la tarjeta*/
+  }
+  
+  
