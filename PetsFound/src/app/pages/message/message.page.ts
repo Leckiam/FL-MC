@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-message',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessagePage implements OnInit {
 
-  constructor() { }
+  data:any;
+  constructor(private appComponentt:AppComponent) {
+    this.appComponentt.transfer(this.data)
+    this.data = this.appComponentt.returnData();
+  }
 
   ngOnInit() {
+  }
+
+  changePage(namePage:any){
+    this.appComponentt.ingresar(namePage);
   }
 
 }

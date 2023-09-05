@@ -6,23 +6,28 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="container">
 
-  <h1 style="text-align: center;">Proximamente...</h1>
-  
+  <h1 style="text-align: center;"></h1>
+
+  <ion-label>{{data.username}}</ion-label>
+
+  <ion-item>
+    <ion-button (click)="mostrarData()">Hola xd</ion-button>
+  </ion-item>
   <ion-tabs>
     <ion-tab-bar slot="bottom">
-      <ion-tab-button>
+      <ion-tab-button (click)="changePage('home')">
         <ion-icon name="home"></ion-icon>
         Inicio
       </ion-tab-button>
-      <ion-tab-button>
+      <ion-tab-button (click)="changePage('message')">
         <ion-img src="https://play-lh.googleusercontent.com/lomBq_jOClZ5skh0ELcMx4HMHAMW802kp9Z02_A84JevajkqD87P48--is1rEVPfzGVf" 
           style="height: 35px; width: 35px;"></ion-img>
         QR
       </ion-tab-button>
-      <ion-tab-button>
-        <ion-icon name="person" (click)="ingresar()"></ion-icon>
+      <ion-tab-button (click)="changePage('login')">
+        <ion-icon name="person"></ion-icon>
         Iniciar Sesi&oacute;n
       </ion-tab-button>
     </ion-tab-bar>

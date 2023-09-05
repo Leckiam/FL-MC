@@ -1,25 +1,22 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-account',
+  templateUrl: './account.page.html',
+  styleUrls: ['./account.page.scss'],
 })
-export class HomePage {
+export class AccountPage implements OnInit {
 
   data:any;
   constructor(private appComponentt:AppComponent) {
     this.appComponentt.transfer(this.data)
     this.data = this.appComponentt.returnData();
   }
+  ngOnInit() {
+  }
 
   changePage(namePage:any){
     this.appComponentt.ingresar(namePage);
   }
-  mostrarData(){
-    console.log(this.data);
-  }
-
 }
