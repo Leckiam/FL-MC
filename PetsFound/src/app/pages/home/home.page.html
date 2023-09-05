@@ -1,9 +1,8 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
+  <div class="colorxd"> <br>
+    <ion-title>Inicio</ion-title>
+    <br>
+  </div>
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -18,24 +17,49 @@
     <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
   </div>
 
+  <ion-card style="background-color: aquamarine;" >
+    <ion-card-header>
+      <ion-card-title>Bienvenido, {{data.usuario}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      ¡Has iniciado sesión con éxito!
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card style="background-color: aquamarine;">
+    <ion-card-header>
+      <ion-card-title>Presentamos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+     PetsFound una aplicación donde podras escanear los codigos qr de los collares de tus mascotas para cuidarlas y poder ver la infromación del dueño por si se pierde.
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card>
+    <ion-card-header>
+    </ion-card-header>
+    <ion-card-content>
+      <img src="https://static.vecteezy.com/system/resources/previews/010/821/564/original/cute-pets-isolated-poster-banner-dog-cat-rabbit-hare-doodle-welcome-line-hello-vector.jpg" alt="Descripción de la imagen" style="width: 100%; max-width: 300px; height: auto;" />
+      <p>PETSFOUND</p>
+    </ion-card-content>
+  </ion-card>
 
   <ion-tabs>
     <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="radio">
-        <ion-icon name="radio"></ion-icon>
-        Radio
+      <ion-tab-button >
+        <ion-icon name="home"></ion-icon>
+        Home
       </ion-tab-button>
-      <ion-tab-button tab="Qr">
+      <ion-tab-button >
         <ion-img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Codigo_QR.svg/1200px-Codigo_QR.svg.png" style="width: 30px; height: 30px;"></ion-img>
         Qr
       </ion-tab-button>
-      <ion-tab-button (click)="goToHome()" tab="login"> <!-- Asegúrarse de que 'tab' sea 'login' -->
-        <ion-img src="https://cdn-icons-png.flaticon.com/512/121/121693.png" style="height: 30px; width: 30px;"></ion-img>
-        Iniciar Sesión
+      <ion-tab-button (click)="irCuenta()" > 
+        <ion-icon name="person" style="height: 30px; width: 30px;"></ion-icon>
+        Cuenta
       </ion-tab-button>
       
     </ion-tab-bar>
   </ion-tabs>
 
-  
 </ion-content>

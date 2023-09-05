@@ -1,0 +1,22 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/cuenta"></ion-back-button>
+    </ion-buttons>
+    <ion-title>messages</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item>
+    <ion-label>Para: </ion-label>
+    <ion-input [readonly]="true" value="usuario@gmail.com"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-checkbox>Enviar con copia al correo</ion-checkbox>
+  </ion-item>
+  <ion-item>
+    <ion-textarea placeholder="Mensaje" style="height: 50vh;"></ion-textarea>
+  </ion-item>
+  <ion-button>Env&iacute;ar</ion-button>
+</ion-content>

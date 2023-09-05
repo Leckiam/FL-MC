@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Animation, AnimationController } from '@ionic/angular';
-
-
+import { NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,22 +11,27 @@ import { Animation, AnimationController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
   isLoggingIn = false;
-
-  constructor(private navCtrl: NavController, private router: Router, private animationCtrl: AnimationController) { }
+  
+  user={
+    usuario:"",
+    password:""
+  }
+  constructor(private navCtrl: NavController, private router: Router, private animationCtrl: AnimationController,) { }
   
   ngOnInit() {
   }
 
-    // Función para iniciar sesión
-    async goToHome() {
-      this.isLoggingIn = true; // Mostrar el mensaje "Ingresando..."
-      
-      // Simular una demora de 2 segundos 
-      await new Promise(resolve => setTimeout(resolve, 2000));
-  
-      // Navegar al home después de completar la acción de inicio de sesión
-      this.router.navigate(['/home']);
+    ingresar(){
+      console.log(this.user)
+      let navigationextras: NavigationExtras={
+        state:{
+          user: this.user 
+        }
+      }
+      this.router.navigate(['/home'],navigationextras);
     }
+
+    
 }
 
 
