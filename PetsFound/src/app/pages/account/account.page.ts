@@ -16,7 +16,10 @@ export class AccountPage implements OnInit {
   ngOnInit() {
   }
 
-  changePage(namePage:any){
+  changePage(namePage:any,nro?:any){
+    if (nro==1) {
+      this.appComponentt.logOut();
+    }
     this.appComponentt.ingresar(namePage);
   }
 }

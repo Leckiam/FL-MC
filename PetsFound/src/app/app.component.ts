@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NavController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -8,17 +9,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AppComponent {
   data:any
-  constructor(private activateRoute: ActivatedRoute,private router: Router) { 
+  firstTime:any
+  constructor(private activateRoute: ActivatedRoute,private router: Router, private navCtrl:NavController, private toastController: ToastController) { 
     this.data = '';
+    this.firstTime = true;
   }
 
-  estadoData(datotmp:any){
+  estadoData(){
     if (this.data=='') {
-      console.log('true')
       return true;
     } else {
-      this.data=datotmp;
-      console.log('false')
       return false;
     }
   }
@@ -26,30 +26,59 @@ export class AppComponent {
   returnData(){
     return this.data;
   }
+  retroceder() {
+    this.navCtrl.pop();
+  }
 
   transfer(datotmp:any){
-    if (this.estadoData(datotmp)) {
+    if (this.estadoData()) {
       this.activateRoute.queryParams.subscribe(params =>{
         if (this.router.getCurrentNavigation()?.extras.state) {
           this.data = this.router.getCurrentNavigation()?.extras.state?.["user"];
-          console.log(this.data)
           datotmp = this.data;
+          this.bienvenida(this.data.usuario)
         } else {
           this.ingresar('login');
         }
       });
     }
   }
+
+  bienvenida(data:any){
+    let msg1 = 'Bienvenido, '+ data;
+    this.presentToast('top', msg1);
+    let msg2 = 'Has iniciado sesión con éxito!';
+    this.presentToast('bottom', msg2);
+  }
+  
+  async presentToast(position: 'top' | 'middle' | 'bottom',msg:any) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 2000,
+      position: position,
+    });
+
+    await toast.present();
+  }
+
   ingresar(nombrePage:any,navigationExt?:any){
     if (navigationExt) {
       this.router.navigate(['/'+nombrePage],navigationExt);
-      console.log('True');
-      console.log(navigationExt)
     } else {
       this.router.navigate(['/'+nombrePage]);
-      console.log('False');
-      console.log(navigationExt)
     }
   }
 
+  returnFirstTime(){
+    return this.firstTime
+  }
+
+  logOut(){
+    this.data='';
+    this.firstTime=false;
+    this.ionViewWillEnter()
+  }
+  
+  ionViewWillEnter() {
+  }
 }

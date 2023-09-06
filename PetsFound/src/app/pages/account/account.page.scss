@@ -1,0 +1,22 @@
+.botonCR {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: red;
+  color: white; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    background-color: darkred; 
+  }
+
+
+  &:active {
+    background-color: maroon;
+  }
+}
+.color-title{
+  background-Color: #0dd4ba ;
+}

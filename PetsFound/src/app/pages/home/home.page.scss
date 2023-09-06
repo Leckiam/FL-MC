@@ -25,3 +25,36 @@
 #container a {
   text-decoration: none;
 }
+
+.headercolor {
+  background-color: #7fffd4;
+}
+
+.color-title{
+  background-Color: #0dd4ba ;
+}
+
+.Agregarmas {
+  width: 150px; 
+  height: 150px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #000; 
+  border-radius: 10px; /* Borde redondeado */
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; 
+  &:hover {
+    background-color: #f0f0f0; 
+  }
+
+
+  &:active {
+    background-color: #ccc; 
+  }
+}
+

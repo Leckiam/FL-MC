@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationExtras } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
-import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,13 +8,18 @@ import { NavigationExtras, Router } from '@angular/router';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  isLoggingIn = false;
+  
   user={
-    username:'',
-    password:''
+    usuario:"",
+    password:""
   }
-
-  constructor(private appComponentt:AppComponent) {}
-
+  constructor(private appComponentt:AppComponent) {
+    if (!this.appComponentt.returnFirstTime()) {
+      window.location.reload();
+    }
+  }
+  
   ngOnInit() {
   }
 
@@ -24,7 +29,16 @@ export class LoginPage implements OnInit {
         user: this.user
       }
     }
-    console.log(this.user)
+    
     this.appComponentt.ingresar(namePage,navegationExtras);
   }
+  ionViewWillEnter() {
+    if (!this.appComponentt.returnFirstTime()) {
+      window.location.reload();
+    }
+  }
 }
+
+
+
+

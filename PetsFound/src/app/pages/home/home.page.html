@@ -1,35 +1,59 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      PetsFound
-    </ion-title>
-  </ion-toolbar>
+  <div class="color-title"> <br>
+    <ion-title>Inicio</ion-title>
+    <br>
+  </div>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="container">
+<ion-content [fullscreen]="true">
+  <ion-card style="background-color: aquamarine;">
+    <ion-card-header>
+      <ion-card-title>Presentamos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+     PetsFound una aplicación donde podras escanear los codigos qr de los collares de tus mascotas para cuidarlas y poder ver la infromación del dueño por si se pierde.
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card>
+    <ion-card-header>
+    </ion-card-header>
+    <ion-card-content>
+      <img src="https://static.vecteezy.com/system/resources/previews/010/821/564/original/cute-pets-isolated-poster-banner-dog-cat-rabbit-hare-doodle-welcome-line-hello-vector.jpg" alt="Descripción de la imagen" style="width: 100%; max-width: 300px; height: auto;" />
+      <p>PETSFOUND</p>
+    </ion-card-content>
+  </ion-card>
 
-  <h1 style="text-align: center;"></h1>
+  <div style="display: flex; align-items: center;">
+    <ion-card class="Agregarmas">
+      <ion-card-content>
+        <img src="https://i.pinimg.com/736x/80/0a/c9/800ac981c916bcb6e5e9b0cd969f1d9d.jpg" />
+      </ion-card-content>
+    </ion-card>
+    <ion-card class="Agregarmas">
+      <ion-card-content>
+        Agregar mascota +
+      </ion-card-content>
+    </ion-card>
+  </div>
 
-  <ion-label>{{data.username}}</ion-label>
-
-  <ion-item>
-    <ion-button (click)="mostrarData()">Hola xd</ion-button>
-  </ion-item>
   <ion-tabs>
     <ion-tab-bar slot="bottom">
       <ion-tab-button (click)="changePage('home')">
         <ion-icon name="home"></ion-icon>
-        Inicio
+        Home
       </ion-tab-button>
       <ion-tab-button (click)="changePage('message')">
-        <ion-img src="https://play-lh.googleusercontent.com/lomBq_jOClZ5skh0ELcMx4HMHAMW802kp9Z02_A84JevajkqD87P48--is1rEVPfzGVf" 
-          style="height: 35px; width: 35px;"></ion-img>
+        <ion-img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Codigo_QR.svg/1200px-Codigo_QR.svg.png" style="width: 30px; height: 30px;"></ion-img>
         QR
       </ion-tab-button>
-      <ion-tab-button (click)="changePage('login')">
-        <ion-icon name="person"></ion-icon>
-        Iniciar Sesi&oacute;n
+      <ion-tab-button (click)="changePage('account')" > 
+        <ion-icon name="person" style="height: 30px; width: 30px;"></ion-icon>
+        Cuenta
       </ion-tab-button>
+      
     </ion-tab-bar>
   </ion-tabs>
+  
+
 </ion-content>

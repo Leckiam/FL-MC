@@ -16,9 +16,16 @@ export class MessagePage implements OnInit {
 
   ngOnInit() {
   }
-
+  retroceder() {
+    this.appComponentt.retroceder();
+  }
   changePage(namePage:any){
     this.appComponentt.ingresar(namePage);
   }
 
+  enviarMsj(){
+    this.changePage('home')
+    let msg = 'Su mensaje se ha enviado correctamente'
+    this.appComponentt.presentToast('top',msg)
+  }
 }

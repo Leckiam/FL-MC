@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
-  <div class="colorxd"><br>
-  <ion-title>PetsFound</ion-title>
+  <div class="color-title"><br>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="retroceder()"></ion-back-button>
+    <ion-title>Mensajes</ion-title>
+  </ion-buttons>
   <br></div>
 </ion-header>
 
@@ -16,6 +19,8 @@
   <ion-item>
     <ion-textarea placeholder="Mensaje" style="height: 50vh;"></ion-textarea>
   </ion-item>
-  <ion-button>Env&iacute;ar</ion-button>
+  <ion-row class="ion-justify-content-center">
+    <ion-button (click)="enviarMsj()">Env&iacute;ar</ion-button>
+  </ion-row>
 
 </ion-content>
