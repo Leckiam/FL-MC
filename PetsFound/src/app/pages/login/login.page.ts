@@ -23,15 +23,28 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
+  validarLogin(user:any){
+    if (user.usuario.length >=6 and user.password.length >=6) {
+      return true
+    } else {
+      return false
+    } 
+  } 
   changePageLog(namePage:any){
-    let navegationExtras: NavigationExtras = {
+  if (!this.validarLogin(this.user)){
+    let msg= 'Su usuario y/o contraseña no está dentro del rango de caracteres (6 caracteres)'
+    This.appComponentt.presentToast.presentToast("buttom", msg)
+Break
+} 
+let navegationExtras: NavigationExtras = {
       state:{
         user: this.user
       }
     }
     
     this.appComponentt.ingresar(namePage,navegationExtras);
-  }
+  } 
+    
   ionViewWillEnter() {
     if (!this.appComponentt.returnFirstTime()) {
       window.location.reload();
