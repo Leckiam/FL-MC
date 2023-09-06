@@ -16,12 +16,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   },
   {
-    path: 'cuenta',
-    loadChildren: () => import('./pages/cuenta/cuenta.module').then( m => m.CuentaPageModule)
+    path: 'account',
+    loadChildren: () => import('./pages/account/account.module').then( m => m.AccountPageModule)
   },
   {
-    path: 'messages',
-    loadChildren: () => import('./pages/messages/messages.module').then( m => m.MessagesPageModule)
+    path: 'message',
+    loadChildren: () => import('./pages/message/message.module').then( m => m.MessagePageModule)
   },
 ];
 

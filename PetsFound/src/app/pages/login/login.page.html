@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
-  <ion-toolbar >
-    <ion-title >Inicio de Sesión</ion-title >
-  </ion-toolbar>
+  <div class="color-title"> <br>
+    <ion-title>Inicio de Sesión</ion-title>
+  <br></div>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-text-center ion-align-items-center">
@@ -23,7 +23,7 @@
         </ion-item>
         <ion-row>
           <ion-col>
-            <ion-button expand="block" (click)="ingresar()">Ingresar</ion-button>
+            <ion-button expand="block" (click)="changePageLog('home')">Ingresar</ion-button>
           </ion-col>
         </ion-row>
       </ion-card-content>
