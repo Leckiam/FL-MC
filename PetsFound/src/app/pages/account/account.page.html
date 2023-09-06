@@ -1,0 +1,56 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item>
+    <ion-avatar slot="start">
+      <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+    </ion-avatar>
+    <ion-label>Item Avatar</ion-label>
+  </ion-item>
+  <ion-list>
+      <ion-item >
+        <ion-label> Configuracion de la cuenta </ion-label>
+      </ion-item>
+
+      <ion-item >
+        <ion-label>Editar Perfil</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Cambiar Contraseña</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label> Cerrar Sesión</ion-label>
+      </ion-item>
+
+  </ion-list>
+
+  <ion-item>
+    <ion-button (click)="changePage('message')">
+      <ion-label> Mensajes </ion-label>
+    </ion-button>
+  </ion-item>
+
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button (click)="changePage('home')">
+        <ion-icon name="home"></ion-icon>
+        Home
+      </ion-tab-button>
+      <ion-tab-button (click)="changePage('message')">
+        <ion-img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Codigo_QR.svg/1200px-Codigo_QR.svg.png" style="width: 30px; height: 30px;"></ion-img>
+        Qr
+      </ion-tab-button>
+      <ion-tab-button (click)="changePage('account')" > 
+        <ion-icon name="person" style="height: 30px; width: 30px;"></ion-icon>
+        Cuenta
+      </ion-tab-button>
+      
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-content>

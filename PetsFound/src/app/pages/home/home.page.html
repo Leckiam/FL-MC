@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <div class="colorxd"> <br>
+    <ion-title>Inicio</ion-title>
+    <br>
+  </div>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Blank</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+    <strong>Ready to create an app?</strong>
+    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  </div>
+
+  <ion-card style="background-color: aquamarine;" >
+    <ion-card-header>
+      <ion-card-title>Bienvenido, {{data.usuario}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      ¡Has iniciado sesión con éxito!
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card style="background-color: aquamarine;">
+    <ion-card-header>
+      <ion-card-title>Presentamos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+     PetsFound una aplicación donde podras escanear los codigos qr de los collares de tus mascotas para cuidarlas y poder ver la infromación del dueño por si se pierde.
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card>
+    <ion-card-header>
+    </ion-card-header>
+    <ion-card-content>
+      <img src="https://static.vecteezy.com/system/resources/previews/010/821/564/original/cute-pets-isolated-poster-banner-dog-cat-rabbit-hare-doodle-welcome-line-hello-vector.jpg" alt="Descripción de la imagen" style="width: 100%; max-width: 300px; height: auto;" />
+      <p>PETSFOUND</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button (click)="changePage('home')">
+        <ion-icon name="home"></ion-icon>
+        Home
+      </ion-tab-button>
+      <ion-tab-button (click)="changePage('message')">
+        <ion-img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Codigo_QR.svg/1200px-Codigo_QR.svg.png" style="width: 30px; height: 30px;"></ion-img>
+        Qr
+      </ion-tab-button>
+      <ion-tab-button (click)="changePage('account')" > 
+        <ion-icon name="person" style="height: 30px; width: 30px;"></ion-icon>
+        Cuenta
+      </ion-tab-button>
+      
+    </ion-tab-bar>
+  </ion-tabs>
+
+</ion-content>
