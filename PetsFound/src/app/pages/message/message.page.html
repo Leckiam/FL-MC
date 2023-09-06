@@ -1,10 +1,10 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <div class="color-title"><br>
     <ion-buttons slot="start">
       <ion-back-button (click)="retroceder()"></ion-back-button>
-    </ion-buttons>
-    <ion-title>messages</ion-title>
-  </ion-toolbar>
+    <ion-title>Mensajes</ion-title>
+  </ion-buttons>
+  <br></div>
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -19,6 +19,8 @@
   <ion-item>
     <ion-textarea placeholder="Mensaje" style="height: 50vh;"></ion-textarea>
   </ion-item>
-  <ion-button>Env&iacute;ar</ion-button>
+  <ion-row class="ion-justify-content-center">
+    <ion-button (click)="enviarMsj()">Env&iacute;ar</ion-button>
+  </ion-row>
 
 </ion-content>

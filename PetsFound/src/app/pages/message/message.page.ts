@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
 import { AppComponent } from 'src/app/app.component';
 
 @Component({
@@ -24,4 +23,9 @@ export class MessagePage implements OnInit {
     this.appComponentt.ingresar(namePage);
   }
 
+  enviarMsj(){
+    this.changePage('home')
+    let msg = 'Su mensaje se ha enviado correctamente'
+    this.appComponentt.presentToast('top',msg)
+  }
 }
