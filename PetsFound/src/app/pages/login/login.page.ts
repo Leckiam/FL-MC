@@ -24,7 +24,7 @@ export class LoginPage implements OnInit {
   }
 
   validarLogin(user:any){
-    if (user.usuario.length >=6 and user.password.length >=6) {
+    if (user.usuario.length >=6 && user.password.length >=6) {
       return true
     } else {
       return false
@@ -33,17 +33,17 @@ export class LoginPage implements OnInit {
   changePageLog(namePage:any){
   if (!this.validarLogin(this.user)){
     let msg= 'Su usuario y/o contraseña no está dentro del rango de caracteres (6 caracteres)'
-    This.appComponentt.presentToast.presentToast("buttom", msg)
-Break
-} 
-let navegationExtras: NavigationExtras = {
+    this.appComponentt.presentToast('bottom',msg)
+    
+  } else {
+    let navegationExtras: NavigationExtras = {
       state:{
         user: this.user
       }
     }
     
     this.appComponentt.ingresar(namePage,navegationExtras);
-  } 
+  }} 
     
   ionViewWillEnter() {
     if (!this.appComponentt.returnFirstTime()) {
