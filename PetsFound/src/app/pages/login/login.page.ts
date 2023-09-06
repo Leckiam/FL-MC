@@ -30,6 +30,9 @@ export class LoginPage implements OnInit {
       return false
     } 
   } 
+  changePage(namePage:any){
+    this.appComponentt.ingresar(namePage);
+  }
   changePageLog(namePage:any){
   if (!this.validarLogin(this.user)){
     let msg= 'Su usuario y/o contraseña no está dentro del rango de caracteres (6 caracteres)'

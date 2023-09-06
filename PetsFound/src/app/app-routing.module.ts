@@ -23,6 +23,10 @@ const routes: Routes = [
     path: 'message',
     loadChildren: () => import('./pages/message/message.module').then( m => m.MessagePageModule)
   },
+  {
+    path: 'register',
+    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
+  },
 ];
 
 @NgModule({

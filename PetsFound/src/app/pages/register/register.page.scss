@@ -1,0 +1,29 @@
+.background {
+    background-image: url('https://www.xtrafondos.com/wallpapers/vertical/lineas-de-colores-minimalista-6403.jpg'); // Ruta a tu imagen de fondo
+    background-size: cover; // Ajusta el tamaño de la imagen para cubrir toda la página
+    background-position: center center; // Ajusta la posición de la imagen
+    background-repeat: no-repeat; // Evita que la imagen se repita
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1; // Asegura que la imagen esté detrás del contenido
+  }
+  
+  
+  ion-card {
+    background-image: url('https://www.xtrafondos.com/wallpapers/vertical/paisaje-de-montanas-en-el-bosque-diseno-minimalista-6345.jpg');
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-position: center center; // Ajusta la posición de la imagen
+    background-repeat: no-repeat; // Evita que la imagen se repita
+    background-size: cover; // Ajusta el tamaño de la imagen para cubrir toda la página
+    height: 85vh; /* Esto establecerá la altura al 100% de la ventana */
+  }
+  
+  .color-title{
+    background-Color: #0dd4ba ;
+  }

@@ -7,7 +7,7 @@
 <ion-content [fullscreen]="true" class="ion-text-center ion-align-items-center">
   <div class="center-content">
     <ion-card>
-      <img alt="login_img" src="https://cdn-icons-png.flaticon.com/512/1000/1000946.png" style="height: 100px; width: 100px;" />
+      <img alt="login_img" src="https://images.vexels.com/media/users/3/237008/isolated/preview/b09c042b0807bf1bfcde5d3737810b1d-llaveros-animales-21.png" style="height: 140px; width: 140px;" />
       <ion-card-header>
         <ion-card-title>Inicio de Sesión</ion-card-title>
       </ion-card-header>
@@ -23,6 +23,7 @@
         </ion-item>
         <ion-row>
           <ion-col>
+            <a (click)="changePage('register')" style="color: white;">¿No posee una cuenta?</a>
             <ion-button expand="block" (click)="changePageLog('home')">Ingresar</ion-button>
           </ion-col>
         </ion-row>
