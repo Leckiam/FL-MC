@@ -15,11 +15,11 @@
       <ion-card-content>
         <ion-item>
           <ion-label position="floating">Usuario</ion-label>
-          <ion-input [(ngModel)]="user.usuario" type="text"></ion-input>
+          <ion-input [(ngModel)]="user.usuario" type="text" minlength="6"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Password</ion-label>
-          <ion-input [(ngModel)]="user.password" type="password"></ion-input>
+          <ion-input [(ngModel)]="user.password" type="password" minlength="6"></ion-input>
         </ion-item>
         <ion-row>
           <ion-col>
