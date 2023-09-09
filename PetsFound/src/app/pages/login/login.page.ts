@@ -20,6 +20,7 @@ export class LoginPage implements OnInit {
     let LoginObj = this
     const content = document.getElementById('content-login-pf');
     const btn_irRegister = content?.querySelector('#btn-irRegister') as HTMLElement;
+    const btn_irRecover = content?.querySelector('#btn-irRecover') as HTMLElement;
     const btn_login = content?.querySelector('#btn-login') as HTMLElement;
     const spinner = content?.querySelector('#div-spinner') as HTMLElement;
     btn_login?.addEventListener('click',function(){
@@ -39,6 +40,9 @@ export class LoginPage implements OnInit {
     });
     btn_irRegister?.addEventListener('click',function(){
       LoginObj.changePage('register');
+    });
+    btn_irRecover?.addEventListener('click',function(){
+      LoginObj.changePage('recoverpass');
     });
   }
 

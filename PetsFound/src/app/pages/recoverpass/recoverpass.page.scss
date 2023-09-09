@@ -10,8 +10,8 @@
   left: 0;
   z-index: -1; // Asegura que la imagen esté detrás del contenido
 }
-
-
+  
+  
 ion-card {
   background-color: #acacac5d;
   display: flex;
@@ -24,7 +24,7 @@ ion-card {
   background-size: cover; // Ajusta el tamaño de la imagen para cubrir toda la página
   height: 85vh; /* Esto establecerá la altura al 100% de la ventana */
 }
-
+  
 .tool-bar-pf{
   background-Color: #0dd4ba ;
   padding-top: 20px;

@@ -1,3 +1,23 @@
+.body {
+  width: 100%;
+  min-height: 90vh;
+  position: absolute;
+  z-index: -1;
+}
+
+.tool-bar-pf{
+  background-Color: #0dd4ba ;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.fixed-tabs {
+  position: fixed;
+  top: 90vh; /* Distancia desde la parte inferior de la pantalla */
+  height: 10vh;
+  width: 100%;
+}
+
 .botonCR {
   display: inline-block;
   padding: 10px 20px;
@@ -12,11 +32,7 @@
     background-color: darkred; 
   }
 
-
   &:active {
     background-color: maroon;
   }
-}
-.color-title{
-  background-Color: #0dd4ba ;
 }

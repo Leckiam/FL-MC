@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
-  <div class="color-title"> <br>
+  <div class="tool-bar-pf">
     <ion-title>Cuenta</ion-title>
-  <br></div>
+  </div>
 </ion-header>
 
 <ion-content [fullscreen]="true" id="content-account-pf">
@@ -32,22 +32,21 @@
         <ion-label> Cerrar Sesión </ion-label>
       </button>
     </ion-item>
-
-    <ion-tabs>
-      <ion-tab-bar slot="bottom">
-        <ion-tab-button (click)="changePage('home')">
-          <ion-icon name="home"></ion-icon>
-          Home
-        </ion-tab-button>
-        <ion-tab-button (click)="changePage('message')">
-          <ion-img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Codigo_QR.svg/1200px-Codigo_QR.svg.png" style="width: 30px; height: 30px;"></ion-img>
-          QR
-        </ion-tab-button>
-        <ion-tab-button (click)="changePage('account')" > 
-          <ion-icon name="person" style="height: 30px; width: 30px;"></ion-icon>
-          Cuenta
-        </ion-tab-button>
-      </ion-tab-bar>
-    </ion-tabs>
-  </div>
+  <br><br></div>
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button (click)="changePage('home')">
+        <ion-icon name="home"></ion-icon>
+        Home
+      </ion-tab-button>
+      <ion-tab-button (click)="changePage('message')">
+        <ion-img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Codigo_QR.svg/1200px-Codigo_QR.svg.png" style="width: 30px; height: 30px;"></ion-img>
+        QR
+      </ion-tab-button>
+      <ion-tab-button (click)="changePage('account')" > 
+        <ion-icon name="person" style="height: 30px; width: 30px;"></ion-icon>
+        Cuenta
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
 </ion-content>

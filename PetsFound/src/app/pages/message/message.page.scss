@@ -1,3 +1,14 @@
-.color-title{
+.body {
+    width: 100%;
+    min-height: 90vh;
+    position: absolute;
+    z-index: -1;
+}
+
+.tool-bar-pf{
     background-Color: #0dd4ba ;
+}
+.titule-padd{
+    padding-top: 20px;
+    padding-bottom: 20px;
 }

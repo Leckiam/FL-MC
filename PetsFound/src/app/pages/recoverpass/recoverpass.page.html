@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <div class="tool-bar-pf">
+    <ion-title>Recuperar Contraseña</ion-title>
+  </div>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-text-center ion-align-items-center" id="content-recover-pf">
+  <div class="center-content body">
+    <ion-card>
+      <img alt="login_img" src="https://images.vexels.com/media/users/3/237008/isolated/preview/b09c042b0807bf1bfcde5d3737810b1d-llaveros-animales-21.png" style="height: 140px; width: 140px;" />
+      <ion-card-header>
+        <ion-card-title style="color: white;">Recuperar Contraseña</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input [(ngModel)]="userSearch.email" type="email"></ion-input>
+        </ion-item>
+        <ion-row>
+          <ion-col>
+            <a id="btn-irLogin" style="color: white;">¿La acaba de recordar?</a><br>
+            <ion-button id="btn-send" expand="block">Enviar</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

@@ -71,4 +71,7 @@ export class RegisterPage implements OnInit {
       return false
     }
   }
+  retroceder() {
+    this.appComponentt.retroceder();
+  }
 }
