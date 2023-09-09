@@ -4,8 +4,8 @@
   <br></div>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-text-center ion-align-items-center">
-  <div class="center-content">
+<ion-content [fullscreen]="true" class="ion-text-center ion-align-items-center" id="content-login-pf">
+  <div class="center-content body">
     <ion-card>
       <img alt="login_img" src="https://images.vexels.com/media/users/3/237008/isolated/preview/b09c042b0807bf1bfcde5d3737810b1d-llaveros-animales-21.png" style="height: 140px; width: 140px;" />
       <ion-card-header>
@@ -13,20 +13,25 @@
       </ion-card-header>
 
       <ion-card-content>
-        <ion-item>
-          <ion-label position="floating">Usuario</ion-label>
-          <ion-input [(ngModel)]="user.usuario" type="text" minlength="6"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Password</ion-label>
-          <ion-input [(ngModel)]="user.password" type="password" minlength="6"></ion-input>
-        </ion-item>
-        <ion-row>
-          <ion-col>
-            <a (click)="changePage('register')" style="color: white;">¿No posee una cuenta?</a>
-            <ion-button expand="block" (click)="changePageLog('home')">Ingresar</ion-button>
-          </ion-col>
-        </ion-row>
+          <ion-item>
+            <ion-label position="floating">Usuario</ion-label>
+            <ion-input [(ngModel)]="user.usuario" type="text" minlength="6"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Password</ion-label>
+            <ion-input [(ngModel)]="user.password" type="password" minlength="6"></ion-input>
+          </ion-item>
+          <div class="ion-justify-content-center" id="div-spinner" style="display: none;">
+            <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+              <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+            </svg>
+          </div>
+          <ion-row>
+            <ion-col>
+              <a id="btn-irRegister" style="color: white;">¿No posee una cuenta?</a>
+              <ion-button id="btn-login" expand="block">Ingresar</ion-button>
+            </ion-col>
+          </ion-row>
       </ion-card-content>
     </ion-card>
   </div>

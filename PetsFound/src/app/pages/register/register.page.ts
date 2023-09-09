@@ -18,8 +18,32 @@ export class RegisterPage implements OnInit {
   }
 
   ngOnInit() {
+    let RegisterObj = this
+    const content = document.getElementById('content-regist-pf');
+    const btn_irLogin = content?.querySelector('#btn-irLogin') as HTMLElement;
+    const btn_register = content?.querySelector('#btn-register') as HTMLElement;
+    const spinner = content?.querySelector('#div-spinner') as HTMLElement;
+    btn_register?.addEventListener('click',function(){
+      spinner.style.display = 'flex';
+      btn_register.style.pointerEvents = 'none'
+      btn_irLogin.style.pointerEvents = 'none'
+      setTimeout(function () {
+        let seg = 0;
+        if (seg=1) {
+          RegisterObj.changePageReg('login');
+          spinner.style.display = 'none';
+          btn_register.style.pointerEvents = 'auto'
+          btn_irLogin.style.pointerEvents = 'auto'
+        }
+        seg+=1;
+      }, 1000); 
+    });
+    btn_irLogin?.addEventListener('click',function(){
+      RegisterObj.changePage('login');
+    });
   }
-  changePage(namePage:any){
+
+  changePageReg(namePage:any){
     if (this.validarDatoUserTmp()) {
       let msg = 'Se ha registrado exitosamente'
       this.appComponentt.presentToast('bottom',msg)
@@ -29,7 +53,7 @@ export class RegisterPage implements OnInit {
       this.appComponentt.presentToast('bottom',msgErr)
     }
   }
-  changePageLog(namePage:any){
+  changePage(namePage:any){
     this.appComponentt.ingresar(namePage);
   }
   validarDatoUserTmp(){

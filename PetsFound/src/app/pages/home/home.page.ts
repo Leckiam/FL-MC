@@ -18,24 +18,23 @@ export class HomePage {
   animar1!: ElementRef;
 
   private animation!: Animation;
-  constructor(private appComponent:AppComponent,private animationController:AnimationController ) {
-    this.appComponent.transfer(this.data)
-    this.data = this.appComponent.returnData();
+  constructor(private appComponent:AppComponent,private animationController:AnimationController) {
+    this.appComponent.transfer()
+    this.data = this.appComponent.data;
   }
 
   changePage(namePage:any){
     this.appComponent.ingresar(namePage);
   }
-  
 
   ngAfterViewInit(){
     const cardA = this.animationController
-      .create()
-      .addElement(this.cardElements.get(1)!.nativeElement)
-      .duration(1250)
-      .iterations(Infinity)
-      .direction('alternate')
-      .fromTo('background', '#11a070', 'var(--background)');
+    .create()
+    .addElement(this.cardElements.get(1)!.nativeElement)
+    .duration(1250)
+    .iterations(Infinity)
+    .direction('alternate')
+    .fromTo('background', '#11a070', 'var(--background)');
     const cardB = this.animationController
     .create()
     .addElement(this.cardElements.get(2)!.nativeElement)

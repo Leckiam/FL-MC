@@ -10,9 +10,10 @@ export class AccountPage implements OnInit {
 
   data:any;
   constructor(private appComponentt:AppComponent) {
-    this.appComponentt.transfer(this.data)
-    this.data = this.appComponentt.returnData();
+    this.appComponentt.transfer()
+    this.data = this.appComponentt.data;
   }
+
   ngOnInit() {
   }
 
@@ -21,5 +22,11 @@ export class AccountPage implements OnInit {
       this.appComponentt.logOut();
     }
     this.appComponentt.ingresar(namePage);
+  }
+
+  ionViewWillEnter() {
+    if (!this.data) {
+      this.data = this.appComponentt.data;
+    }
   }
 }

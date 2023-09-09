@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 
@@ -14,13 +14,32 @@ export class LoginPage implements OnInit {
     usuario:"",
     password:""
   }
-  constructor(private appComponentt:AppComponent) {
-    if (!this.appComponentt.returnFirstTime()) {
-      window.location.reload();
-    }
-  }
+  constructor(private appComponentt:AppComponent) {}
   
   ngOnInit() {
+    let LoginObj = this
+    const content = document.getElementById('content-login-pf');
+    const btn_irRegister = content?.querySelector('#btn-irRegister') as HTMLElement;
+    const btn_login = content?.querySelector('#btn-login') as HTMLElement;
+    const spinner = content?.querySelector('#div-spinner') as HTMLElement;
+    btn_login?.addEventListener('click',function(){
+      spinner.style.display = 'block';
+      btn_login.style.pointerEvents = 'none'
+      btn_irRegister.style.pointerEvents = 'none'
+      setTimeout(function () {
+        let seg = 0;
+        if (seg=1) {
+          LoginObj.changePageLog('home');
+          spinner.style.display = 'none';
+          btn_login.style.pointerEvents = 'auto'
+          btn_irRegister.style.pointerEvents = 'auto'
+        }
+        seg+=1;
+      }, 1000); 
+    });
+    btn_irRegister?.addEventListener('click',function(){
+      LoginObj.changePage('register');
+    });
   }
 
   validarLogin(user:any){
@@ -45,14 +64,16 @@ export class LoginPage implements OnInit {
       }
     }
     
+    this.appComponentt.firstTime = false
     this.appComponentt.ingresar(namePage,navegationExtras);
   }} 
-    
+  
   ionViewWillEnter() {
-    if (!this.appComponentt.returnFirstTime()) {
-      window.location.reload();
+    if (this.appComponentt.firstTime == false) {
+      location.reload()
     }
   }
+  
 }
 
 

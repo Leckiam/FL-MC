@@ -10,8 +10,8 @@ export class MessagePage implements OnInit {
 
   data:any;
   constructor(private appComponentt:AppComponent) {
-    this.appComponentt.transfer(this.data)
-    this.data = this.appComponentt.returnData();
+    this.appComponentt.transfer()
+    this.data = this.appComponentt.data;
   }
 
   ngOnInit() {

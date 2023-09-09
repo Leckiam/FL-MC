@@ -10,6 +10,7 @@ import { NavController, ToastController } from '@ionic/angular';
 export class AppComponent {
   data:any
   firstTime:any
+
   constructor(private activateRoute: ActivatedRoute,private router: Router, private navCtrl:NavController, private toastController: ToastController) { 
     this.data = '';
     this.firstTime = true;
@@ -23,19 +24,16 @@ export class AppComponent {
     }
   }
 
-  returnData(){
-    return this.data;
-  }
   retroceder() {
     this.navCtrl.pop();
   }
 
-  transfer(datotmp:any){
+  transfer(){
+    this.firstTime = false
     if (this.estadoData()) {
       this.activateRoute.queryParams.subscribe(params =>{
         if (this.router.getCurrentNavigation()?.extras.state) {
           this.data = this.router.getCurrentNavigation()?.extras.state?.["user"];
-          datotmp = this.data;
           this.bienvenida(this.data.usuario)
         } else {
           this.ingresar('login');
@@ -61,24 +59,16 @@ export class AppComponent {
     await toast.present();
   }
 
+  logOut(){
+    this.data='';
+    this.ingresar('login')
+  }
+
   ingresar(nombrePage:any,navigationExt?:any){
     if (navigationExt) {
       this.router.navigate(['/'+nombrePage],navigationExt);
     } else {
       this.router.navigate(['/'+nombrePage]);
     }
-  }
-
-  returnFirstTime(){
-    return this.firstTime
-  }
-
-  logOut(){
-    this.data='';
-    this.firstTime=false;
-    this.ionViewWillEnter()
-  }
-  
-  ionViewWillEnter() {
   }
 }
