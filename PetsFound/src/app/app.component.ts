@@ -9,11 +9,12 @@ import { NavController, ToastController } from '@ionic/angular';
 })
 export class AppComponent {
   data:any
-  firstTime:any
-
+  firstTime!:boolean
+  isLogin!:boolean
   constructor(private activateRoute: ActivatedRoute,private router: Router, private navCtrl:NavController, private toastController: ToastController) { 
     this.data = '';
     this.firstTime = true;
+    this.isLogin = false
   }
 
   estadoData(){
@@ -29,7 +30,6 @@ export class AppComponent {
   }
 
   transfer(){
-    this.firstTime = false
     if (this.estadoData()) {
       this.activateRoute.queryParams.subscribe(params =>{
         if (this.router.getCurrentNavigation()?.extras.state) {
@@ -61,13 +61,26 @@ export class AppComponent {
 
   logOut(){
     this.data='';
-    this.ingresar('login')
+    this.ingresar('login','')
   }
 
-  ingresar(nombrePage:any,navigationExt?:any){
+  validarTabsBar(nombrePage:any){
+    let listaWhite=['home','account'];
+    if (listaWhite.includes(nombrePage)) {
+      return true
+    } else {
+      return false
+    }
+  }
+  
+  ingresar(nombrePage:string,nameComponent?:string,navigationExt?:any){
+    this.firstTime = false
     if (navigationExt) {
       this.router.navigate(['/'+nombrePage],navigationExt);
     } else {
+      if (nameComponent) {
+        nombrePage = nombrePage + '/' + nameComponent;
+      }
       this.router.navigate(['/'+nombrePage]);
     }
   }
