@@ -3,6 +3,7 @@ import { IonCard,AnimationController } from '@ionic/angular';
 import { AppComponent } from 'src/app/app.component';
 import type {QueryList} from '@angular/core';
 import type {Animation} from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -18,15 +19,14 @@ export class HomePage {
   animar1!: ElementRef;
 
   private animation!: Animation;
-  constructor(private appComponent:AppComponent,private animationController:AnimationController ) {
+  constructor(private appComponent:AppComponent,private animationController:AnimationController, private router: Router ) {
     this.appComponent.transfer(this.data)
     this.data = this.appComponent.returnData();
   }
 
-  changePage(namePage:any){
+  changePage(namePage: string) {
     this.appComponent.ingresar(namePage);
   }
-  
 
   ngAfterViewInit(){
     const cardA = this.animationController
@@ -50,5 +50,10 @@ export class HomePage {
     .addAnimation([cardA,cardB]);
 
     this.animation.play();
+  }
+
+  
+  irAgregarmascota() {
+    this.router.navigate(['agregar-mascota']);
   }
 }

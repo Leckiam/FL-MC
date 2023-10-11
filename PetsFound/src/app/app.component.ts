@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { NavController, ToastController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-root',
@@ -61,11 +62,11 @@ export class AppComponent {
     await toast.present();
   }
 
-  ingresar(nombrePage:any,navigationExt?:any){
-    if (navigationExt) {
-      this.router.navigate(['/'+nombrePage],navigationExt);
+  ingresar(nombrePage: string, navigationExtras?: NavigationExtras) {
+    if (navigationExtras) {
+      this.router.navigate(['/' + nombrePage], navigationExtras);
     } else {
-      this.router.navigate(['/'+nombrePage]);
+      this.router.navigate(['/' + nombrePage]);
     }
   }
 
