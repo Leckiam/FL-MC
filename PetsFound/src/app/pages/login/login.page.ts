@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationExtras } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 
 @Component({
@@ -8,33 +7,31 @@ import { AppComponent } from 'src/app/app.component';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  isLoggingIn = false;
   
-  user={
-    usuario:"",
-    password:""
-  }
+  
+
+  tituleName:any
   constructor(private appComponentt:AppComponent) {
-    if (!this.appComponentt.returnFirstTime()) {
-      window.location.reload();
-    }
+    this.appComponentt.firstTime = true;
   }
   
   ngOnInit() {
+    this.tituleName = document.getElementById('titule-name-login');
   }
 
-  changePageLog(namePage:any){
-    let navegationExtras: NavigationExtras = {
-      state:{
-        user: this.user
-      }
+  changePage(namePage:string,nameComponent?:string){
+    let listaLogin = ['','register','recoverpass']
+    let tituleLogin = ['Iniciar Sesión','Registrarse','Recuperar Contraseña']
+    if (nameComponent && listaLogin.includes(nameComponent)) {
+      const index = listaLogin.indexOf(nameComponent);
+      this.tituleName.innerHTML= tituleLogin[index];
     }
-    
-    this.appComponentt.ingresar(namePage,navegationExtras);
+    this.appComponentt.ingresar(namePage,nameComponent);
   }
   ionViewWillEnter() {
-    if (!this.appComponentt.returnFirstTime()) {
-      window.location.reload();
+    if (!this.appComponentt.firstTime) {
+      this.appComponentt.ingresar('login','')
+      window.location.reload()
     }
   }
 }

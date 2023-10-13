@@ -1,22 +1,33 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePage } from './home.page';
-import { AgregarMascotaComponent } from 'src/app/components/agregar-mascota/agregar-mascota.component';
-
+import { AccountComponent } from 'src/app/components/home/account/account.component';
+import { InicioComponent } from 'src/app/components/home/inicio/inicio.component';
+import { AgregarMascotaComponent } from 'src/app/components/home/agregar-mascota/agregar-mascota.component';
 
 const routes: Routes = [
   {
     path: '',
     component: HomePage,
     children:[
-    {
-      path: 'agregar-mascota',
-      component: AgregarMascotaComponent,
-    },
+      {
+        path: 'account',
+        component: AccountComponent,
+      },
+      {
+        path: '',
+        component: InicioComponent,
+      },
+
+      {
+        path: 'addPets',
+        component: AgregarMascotaComponent,
+      },
   
-   ]
- }
+    ]
+  }
 ];
+
 
 
 @NgModule({

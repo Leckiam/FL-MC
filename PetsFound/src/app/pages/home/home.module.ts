@@ -3,9 +3,11 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
-import { AgregarMascotaComponent } from 'src/app/components/agregar-mascota/agregar-mascota.component';
 
 import { HomePageRoutingModule } from './home-routing.module';
+import { AccountComponent } from 'src/app/components/home/account/account.component';
+import { InicioComponent } from 'src/app/components/home/inicio/inicio.component';
+import { AgregarMascotaComponent } from 'src/app/components/home/agregar-mascota/agregar-mascota.component';
 
 
 @NgModule({
@@ -15,6 +17,6 @@ import { HomePageRoutingModule } from './home-routing.module';
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage, AgregarMascotaComponent]
+  declarations: [HomePage,AccountComponent,InicioComponent, AgregarMascotaComponent]
 })
 export class HomePageModule {}

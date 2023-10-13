@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NavController, ToastController } from '@ionic/angular';
-
 
 @Component({
   selector: 'app-root',
@@ -10,10 +9,12 @@ import { NavController, ToastController } from '@ionic/angular';
 })
 export class AppComponent {
   data:any
-  firstTime:any
+  firstTime!:boolean
+  isLogin!:boolean
   constructor(private activateRoute: ActivatedRoute,private router: Router, private navCtrl:NavController, private toastController: ToastController) { 
     this.data = '';
     this.firstTime = true;
+    this.isLogin = false
   }
 
   estadoData(){
@@ -24,19 +25,15 @@ export class AppComponent {
     }
   }
 
-  returnData(){
-    return this.data;
-  }
   retroceder() {
     this.navCtrl.pop();
   }
 
-  transfer(datotmp:any){
+  transfer(){
     if (this.estadoData()) {
       this.activateRoute.queryParams.subscribe(params =>{
         if (this.router.getCurrentNavigation()?.extras.state) {
           this.data = this.router.getCurrentNavigation()?.extras.state?.["user"];
-          datotmp = this.data;
           this.bienvenida(this.data.usuario)
         } else {
           this.ingresar('login');
@@ -62,24 +59,29 @@ export class AppComponent {
     await toast.present();
   }
 
-  ingresar(nombrePage: string, navigationExtras?: NavigationExtras) {
-    if (navigationExtras) {
-      this.router.navigate(['/' + nombrePage], navigationExtras);
-    } else {
-      this.router.navigate(['/' + nombrePage]);
-    }
-  }
-
-  returnFirstTime(){
-    return this.firstTime
-  }
-
   logOut(){
     this.data='';
-    this.firstTime=false;
-    this.ionViewWillEnter()
+    this.ingresar('login','')
+  }
+
+  validarTabsBar(nombrePage:any){
+    let listaWhite=['home','account'];
+    if (listaWhite.includes(nombrePage)) {
+      return true
+    } else {
+      return false
+    }
   }
   
-  ionViewWillEnter() {
+  ingresar(nombrePage:string,nameComponent?:string,navigationExt?:any){
+    this.firstTime = false
+    if (navigationExt) {
+      this.router.navigate(['/'+nombrePage],navigationExt);
+    } else {
+      if (nameComponent) {
+        nombrePage = nombrePage + '/' + nameComponent;
+      }
+      this.router.navigate(['/'+nombrePage]);
+    }
   }
 }

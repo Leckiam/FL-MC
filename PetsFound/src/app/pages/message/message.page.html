@@ -1,26 +1,26 @@
 <ion-header [translucent]="true">
-  <div class="color-title"><br>
+  <div class="tool-bar-pf">
     <ion-buttons slot="start">
-      <ion-back-button (click)="retroceder()"></ion-back-button>
-    <ion-title>Mensajes</ion-title>
-  </ion-buttons>
-  <br></div>
+      <ion-back-button (click)="retroceder()" style="display: block;"></ion-back-button>
+      <ion-title class="titule-padd">Mensajes</ion-title>
+    </ion-buttons>
+  </div>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  
-  <ion-item>
-    <ion-label>Para: </ion-label>
-    <ion-input [readonly]="true" value="usuario@gmail.com"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-checkbox>Enviar con copia al correo</ion-checkbox>
-  </ion-item>
-  <ion-item>
-    <ion-textarea placeholder="Mensaje" style="height: 50vh;"></ion-textarea>
-  </ion-item>
-  <ion-row class="ion-justify-content-center">
-    <ion-button (click)="enviarMsj()">Env&iacute;ar</ion-button>
-  </ion-row>
-
+  <div class="body">
+    <ion-item>
+      <ion-label>Para: </ion-label>
+      <ion-input [readonly]="true" value="usuario@gmail.com"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-checkbox>Enviar con copia al correo</ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-textarea placeholder="Mensaje" style="height: 50vh;"></ion-textarea>
+    </ion-item>
+    <ion-row class="ion-justify-content-center">
+      <ion-button (click)="enviarMsj()">Env&iacute;ar</ion-button>
+    </ion-row>
+  </div>
 </ion-content>

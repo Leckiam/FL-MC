@@ -1,0 +1,31 @@
+.body {
+    background-image: url('../../../../assets/img/wallpaperDoubleR.jpg');
+    background-size: cover; // Ajusta el tamaño de la imagen para cubrir toda la página
+    background-position: center center; // Ajusta la posición de la imagen
+    background-repeat: no-repeat; // Evita que la imagen se repita
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  ion-card {
+    background-color: #acacac5d;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 9vh;
+    background-position: center center; // Ajusta la posición de la imagen
+    background-repeat: no-repeat; // Evita que la imagen se repita
+    background-size: cover; // Ajusta el tamaño de la imagen para cubrir toda la página
+    height: 85vh; /* Esto establecerá la altura al 100% de la ventana */
+  }
+    
+  .tool-bar-pf{
+    background-color: #0dd4ba ;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  // Animacion de spinner

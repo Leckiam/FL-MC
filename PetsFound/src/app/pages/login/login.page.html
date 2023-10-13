@@ -1,32 +1,9 @@
 <ion-header [translucent]="true">
-  <div class="color-title"> <br>
-    <ion-title>Inicio de Sesión</ion-title>
-  <br></div>
+  <div class="tool-bar-pf">
+    <ion-title id="titule-name-login">Iniciar Sesión</ion-title>
+  </div>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-text-center ion-align-items-center">
-  <div class="center-content">
-    <ion-card>
-      <img alt="login_img" src="https://cdn-icons-png.flaticon.com/512/1000/1000946.png" style="height: 100px; width: 100px;" />
-      <ion-card-header>
-        <ion-card-title>Inicio de Sesión</ion-card-title>
-      </ion-card-header>
-
-      <ion-card-content>
-        <ion-item>
-          <ion-label position="floating">Usuario</ion-label>
-          <ion-input [(ngModel)]="user.usuario" type="text"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Password</ion-label>
-          <ion-input [(ngModel)]="user.password" type="password"></ion-input>
-        </ion-item>
-        <ion-row>
-          <ion-col>
-            <ion-button expand="block" (click)="changePageLog('home')">Ingresar</ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
-    </ion-card>
-  </div>
+<ion-content class="ion-text-center ion-align-items-center">
+  <ion-router-outlet></ion-router-outlet>
 </ion-content>
