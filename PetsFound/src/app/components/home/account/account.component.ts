@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 import { HomePage } from 'src/app/pages/home/home.page';
+import { Router } from '@angular/router';
+import { EditarperfilComponent } from '../editarperfil/editarperfil.component';
+
 
 @Component({
   selector: 'app-account',
@@ -10,7 +13,7 @@ import { HomePage } from 'src/app/pages/home/home.page';
 export class AccountComponent  implements OnInit {
 
   data:any;
-  constructor(private appComponentt:AppComponent, public homepage:HomePage) {
+  constructor(private router: Router, private appComponentt:AppComponent, public homepage:HomePage) {
     this.data = this.appComponentt.data;
   }
 
@@ -21,4 +24,7 @@ export class AccountComponent  implements OnInit {
     this.appComponentt.logOut();
   }
 
+ IrEditarPerfil() {
+    this.appComponentt.ingresar('home', 'editarperfil');
+  }
 }

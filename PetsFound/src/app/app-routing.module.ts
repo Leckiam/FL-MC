@@ -19,6 +19,11 @@ const routes: Routes = [
     path: 'message',
     loadChildren: () => import('./pages/message/message.module').then( m => m.MessagePageModule)
   },
+
+  { path: 'editarperfil', 
+    loadChildren: () => import('./components/home/editarperfil/editarperfil.component').then(m => m.EditarperfilComponent)
+  
+  },
 ];
 
 @NgModule({
