@@ -9,7 +9,9 @@ import { MethodService } from 'src/app/services/method/method.service';
 })
 export class RegisterComponent  implements OnInit {
 
-  constructor(private method:MethodService, private loginpage:LoginPage) {}
+  constructor(private method:MethodService, private loginpage:LoginPage) {
+    this.loginpage.tituleName.innerHTML = "Registrarse";
+  }
 
   userTmp ={
     usuario:'',
@@ -31,7 +33,6 @@ export class RegisterComponent  implements OnInit {
       setTimeout(function () {
         let seg = 0;
         if (seg=1) {
-          RegisterObj.loginpage.tituleName.innerHTML = 'Iniciar Sesion'
           RegisterObj.changePageReg();
           spinner.style.display = 'none';
           btn_register.style.pointerEvents = 'auto'
@@ -41,7 +42,6 @@ export class RegisterComponent  implements OnInit {
       }, 1000); 
     });
     btn_irLogin?.addEventListener('click',function(){
-      RegisterObj.loginpage.tituleName.innerHTML = 'Iniciar Sesion'
       RegisterObj.loginpage.changePage('login');
     });
   }
@@ -74,5 +74,11 @@ export class RegisterComponent  implements OnInit {
   }
   retroceder() {
     this.method.retroceder();
+  }
+  ionViewWillEnter() {
+    this.userTmp.email = "";
+    this.userTmp.usuario = "";
+    this.userTmp.password = "";
+    this.userTmp.twoPassword = "";
   }
 }

@@ -8,9 +8,7 @@ import { AuthGuard } from 'src/app/guards/auth/auth.guard';
 })
 export class MethodService {
 
-  data:any
-  firstTime!:boolean
-  isLogin!:boolean
+  data:any;
   constructor(private router: Router,private activatedRoute:ActivatedRoute, private navCtrl:NavController, private toastController: ToastController) { }
 
   retroceder() {
@@ -35,18 +33,17 @@ export class MethodService {
   }
 
   transfer(){
-    const valor = localStorage.getItem('user')
-    console.log(valor);
-    if (!valor) {
+    const getUser = localStorage.getItem('user');
+    if (!getUser) {
       this.activatedRoute.queryParams.subscribe(params =>{
         if (this.router.getCurrentNavigation()?.extras.state) {
           this.data = this.router.getCurrentNavigation()?.extras.state?.["user"];
-          localStorage.setItem('user', this.data.usuario);
         } else {
           this.ingresar('login','')
         }
       })
     }
+    return getUser;
   }
 
   logOut(){
@@ -64,7 +61,6 @@ export class MethodService {
   }
   
   ingresar(nombrePage:string,nameComponent?:string,navigationExt?:any){
-    this.firstTime = false
     if (navigationExt) {
       this.router.navigate(['/'+nombrePage],navigationExt);
     } else {

@@ -14,23 +14,24 @@ export class RecoverpassComponent  implements OnInit {
     password:''
   }
 
-  constructor(private method:MethodService, private loginpage:LoginPage) {}
+  constructor(private method:MethodService, private loginpage:LoginPage) {
+    this.loginpage.tituleName.innerHTML = "Recuperar contraseña";
+  }
 
   ngOnInit() {
-    let RecoverObj = this
-    let tituleName = document.getElementById('titule-name');
-    if (tituleName) {
-      tituleName.innerHTML='Recuperar contraseña';
-    }
+    let RecoverObj = this;
     const content = document.getElementById('content-recoverpass-pf');
     const btn_irLogin = content?.querySelector('.btn-irLogin') as HTMLElement;
     btn_irLogin?.addEventListener('click',function(){
-      RecoverObj.loginpage.tituleName.innerHTML = 'Iniciar Sesion'
       RecoverObj.loginpage.changePage('login','');
     });
   }
 
   retroceder() {
     this.method.retroceder();
+  }
+  ionViewWillEnter() {
+    this.userSearch.email = "";
+    this.userSearch.password = "";
   }
 }

@@ -10,52 +10,60 @@ export class UserdefaultService {
     {
       "id": 1,
       "nombre": "FRANCISCA CARDEMIL",
-      "username": "fr.cardemil@duocuc.cl",
+      "correo": "fr.cardemil@duocuc.cl",
+      "username": "fr.cardemil",
       "password": "123456"     
     },
     {
       "id": 2,
       "nombre": "MARCELO CASTILLO",
-      "username": "mar.castillop@duocuc.cl",
+      "correo": "mar.castillop@duocuc.cl",
+      "username": "mar.castillop",
       "password": "123456"     
     },
     {
       "id": 3,
       "nombre": "MAIKEL CISTERNAS",
-      "username": "mai.cisternas@duocuc.cl",
+      "correo": "mai.cisternas@duocuc.cl",
+      "username": "mai.cisternas",
       "password": "123456"
     },
     {
       "id": 4,
       "nombre": "FRANCISCO LAZCANO",
-      "username": "fr.lazcanor@duocuc.cl",
+      "correo": "fr.lazcanor@duocuc.cl",
+      "username": "fr.lazcanor",
       "password": "123456"
     },
     {
       "id": 5,
       "nombre": "MARCELO PENA",
-      "username": "marc.penas@duocuc.cl",
+      "correo": "marc.penas@duocuc.cl",
+      "username": "marc.penas",
       "password": "123456"
     },
     {
       "id": 6,
       "nombre": "JOAQUIN ROCHA",
-      "username": "jo.rocha@duocuc.cl",
+      "correo": "jo.rocha@duocuc.cl",
+      "username": "jo.rocha",
       "password": "123456"
     },
     {
       "id": 7,
       "nombre": "DIEGO SALDIVAR",
-      "username": "die.saldivar@duocuc.cl",
+      "correo": "die.saldivar@duocuc.cl",
+      "username": "die.saldivar",
       "password": "123456"
     },
   ];
   constructor() { }
 
-  getUser(usuario:string){
+  getUser(userLogin:any){
+    console.log('entro')
     for (let i = 0; i < this.users.length; i++) {
       const user = this.users[i];
-      if (user.username==usuario) {
+      if (user.username==userLogin.usuario && user.password==userLogin.password) {
         return user;
       }
     } 
@@ -65,7 +73,7 @@ export class UserdefaultService {
     let listaApiUsers=[];
     for (let i = 0; i < this.users.length; i++) {
       const user = this.users[i];
-      const dataApi = [user.nombre,user.username, user.password];
+      const dataApi = [user.nombre,,user.correo,user.username, user.password];
       listaApiUsers.push(dataApi);
     }
     return listaApiUsers;

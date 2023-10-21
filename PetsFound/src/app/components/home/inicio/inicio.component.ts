@@ -12,7 +12,7 @@ import { MethodService } from 'src/app/services/method/method.service';
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.scss'],
 })
-export class InicioComponent  implements OnInit {
+export class InicioComponent {
 
   data:any;
   @ViewChildren(IonCard, {read:ElementRef})
@@ -24,9 +24,6 @@ export class InicioComponent  implements OnInit {
   private animation!: Animation;
   constructor(private method:MethodService,private animationController:AnimationController,public homepage:HomePage) {
     this.data = this.homepage.data;
-  }
-  ngOnInit() {
-    this.homepage.tituleName = document.getElementById('titule-name-home');
   }
 
   changePage(namePage:string,nameComponent?:string){
@@ -55,5 +52,8 @@ export class InicioComponent  implements OnInit {
     .addAnimation([cardA,cardB]);
 
     this.animation.play();
+  }
+  ionViewWillEnter() {
+    this.homepage.tituleName.innerHTML='Inicio';
   }
 }

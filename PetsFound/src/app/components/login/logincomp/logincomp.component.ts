@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
-import { AppComponent } from 'src/app/app.component';
 import { LoginPage } from 'src/app/pages/login/login.page';
+import { UserdefaultService } from 'src/app/services/api/userdefault.service';
 import { MethodService } from 'src/app/services/method/method.service';
 
 @Component({
@@ -16,9 +16,33 @@ export class LogincompComponent  implements OnInit {
     password:""
   }
   tituleName:any
-  constructor(private method:MethodService, private loginpage:LoginPage) {}
+  constructor(private method:MethodService, private loginpage:LoginPage, private apiUsers:UserdefaultService) {
+    this.loginpage.tituleName.innerHTML = "Iniciar Sesión";}
   
-  ngOnInit() {}
+  ngOnInit() {
+    let LoginObj = this;
+    const content = document.getElementById('content-login-pf');
+    const btn_irRegister = content?.querySelector('#btn-irRegister') as HTMLElement;
+    const btn_irRecover = content?.querySelector('#btn-irRecover') as HTMLElement;
+    const btn_login = content?.querySelector('#btn-login') as HTMLElement;
+    const spinner = content?.querySelector('#div-spinner') as HTMLElement;
+    btn_login?.addEventListener('click',function(){
+      LoginObj.estadoSpinner(true,spinner,btn_login,btn_irRegister,btn_irRecover);
+      setTimeout(function () {
+        let seg = 0;
+        if (seg=1) {
+          LoginObj.estadoSpinner(false,spinner,btn_login,btn_irRegister,btn_irRecover);
+        }
+        seg+=1;
+      }, 1000); 
+    });
+    btn_irRegister?.addEventListener('click',function(){
+      LoginObj.loginpage.changePage('login','register');
+    });
+    btn_irRecover?.addEventListener('click',function(){
+      LoginObj.loginpage.changePage('login','recoverpass');
+    });
+  }
 
   estadoBtns(estado:boolean,btn_login:any,btn_irRegister:any,btn_irRecover:any){
     if (estado) {
@@ -39,6 +63,7 @@ export class LogincompComponent  implements OnInit {
     } else {
       spinner.style.display = 'none';
       this.estadoBtns(true,btn_login,btn_irRegister,btn_irRecover)
+      this.changePageLog('home','');
     }
   }
 
@@ -51,21 +76,24 @@ export class LogincompComponent  implements OnInit {
   } 
 
   changePageLog(namePage:string,nameComponent?:string){
-  if (!this.validarLogin(this.user)){
-    let msg= 'Su usuario y/o contraseña no está dentro del rango de caracteres (6 caracteres)'
-    this.method.presentToast('bottom',msg)
-    
-  } else {
-    if (nameComponent) {
-      namePage = namePage + '/' + nameComponent;
+    if (!this.validarLogin(this.user)){
+      let msg= 'Su usuario y/o contraseña no está dentro del rango de caracteres (6 caracteres)'
+      this.method.presentToast('bottom',msg)
+    } else {
+      if (nameComponent) {
+        namePage = namePage + '/' + nameComponent;
+      }
+      if (this.validarApi()) {
+        this.aprobarIngreso(namePage);
+      } else {
+        this.method.presentToast('bottom','No sea encontrado a ningun usuario que cumpla con los parametros ingresados')
+      } 
     }
-    this.aprobarIngreso(namePage);
-  }} 
+  } 
   
   ionViewWillEnter() {
-    if (!this.method.firstTime) {
-      window.location.reload()
-    }
+    this.user.usuario = "";
+    this.user.password = "";
   }
   aprobarIngreso(namePage:string){
     let navegationExtras: NavigationExtras = {
@@ -74,6 +102,14 @@ export class LogincompComponent  implements OnInit {
       }
     }
     this.method.ingresar(namePage,'',navegationExtras);
+  }
+  validarApi(){
+    if (this.apiUsers.getUser(this.user)) {
+      localStorage.setItem('user', this.user.usuario);
+      return true;
+    } else {
+      return false;
+    }
   }
   
 }

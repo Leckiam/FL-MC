@@ -16,14 +16,8 @@ export class AuthGuard implements CanActivate {
       if (route.component?.name) {
         let routeName = route.component?.name;
         routeName = routeName.substring(0,routeName.length-4).toLowerCase()
-        console.log(routeName)
-        if (routeName =='login') {
-          console.log(this.validarData(routeName));
-          return true;
-        } else {
-          console.log(this.validarData(routeName));
-          return true;
-        }
+        this.validarData(routeName);
+        return true;
       }
     return false;
   }

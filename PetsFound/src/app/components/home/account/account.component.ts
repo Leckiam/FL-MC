@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppComponent } from 'src/app/app.component';
+import { ActivatedRoute } from '@angular/router';
 import { HomePage } from 'src/app/pages/home/home.page';
 import { MethodService } from 'src/app/services/method/method.service';
 
@@ -10,10 +10,10 @@ import { MethodService } from 'src/app/services/method/method.service';
 })
 export class AccountComponent  implements OnInit {
 
-  data:any;
+  data:any='Hola xd';
+  nameComponent:any;
   constructor(private method:MethodService, public homepage:HomePage) {
     this.data = this.homepage.data;
-    console.log(this.data)
   }
 
   ngOnInit() {
@@ -21,6 +21,9 @@ export class AccountComponent  implements OnInit {
 
   logOut(){
     this.method.logOut();
+  }
+  ionViewWillEnter() {
+    this.homepage.tituleName.innerHTML='Cuenta';
   }
 
 }

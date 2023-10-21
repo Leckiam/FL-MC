@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MethodService } from 'src/app/services/method/method.service';
-import { BbddService } from 'src/app/services/sqlite/bbdd.service';
 
 @Component({
   selector: 'app-login',
@@ -10,9 +9,8 @@ import { BbddService } from 'src/app/services/sqlite/bbdd.service';
 export class LoginPage implements OnInit {
   
   tituleName:any
-  constructor(private method:MethodService,private bbdd:BbddService) {
-    this.method.firstTime = true;
-    this.validarExiste('hola')
+  constructor(private method:MethodService) {
+    localStorage.setItem('firstTime','false');
   }
   
   ngOnInit() {
@@ -20,21 +18,12 @@ export class LoginPage implements OnInit {
   }
 
   changePage(namePage:string,nameComponent?:string){
-    let listaLogin = ['','register','recoverpass']
-    let tituleLogin = ['Iniciar Sesión','Registrarse','Recuperar Contraseña']
-    if (nameComponent && listaLogin.includes(nameComponent)) {
-      const index = listaLogin.indexOf(nameComponent);
-      this.tituleName.innerHTML= tituleLogin[index];
-    }
     this.method.ingresar(namePage,nameComponent);
   }
 
-  validarExiste(username:string){
-    console.log(this.bbdd.listaUsers)
-  }
 
   ionViewWillEnter() {
-    if (!this.method.firstTime) {
+    if (localStorage.getItem('firstTime')=='true') {
       this.method.ingresar('login','')
       window.location.reload()
     }
