@@ -1,5 +1,7 @@
 import { Component} from '@angular/core';
-import { AppComponent } from 'src/app/app.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthGuard } from 'src/app/guards/auth/auth.guard';
+import { MethodService } from 'src/app/services/method/method.service';
 
 
 @Component({
@@ -10,10 +12,10 @@ import { AppComponent } from 'src/app/app.component';
 export class HomePage {
   data:any;
   tituleName:any
-  constructor(private appComponent:AppComponent) {
-    this.appComponent.firstTime = false
-    this.appComponent.transfer();
-    this.data = this.appComponent.data;
+  constructor(private method:MethodService) {
+    this.method.firstTime = false;
+    this.method.transfer();
+    this.data = localStorage.getItem('user');
   }
 
   changePage(namePage:string,nameComponent?:string){
@@ -29,6 +31,6 @@ export class HomePage {
       } 
       namePage = namePage + '/' + nameComponent;
     }
-    this.appComponent.ingresar(namePage);
+    this.method.ingresar(namePage);
   }
 }

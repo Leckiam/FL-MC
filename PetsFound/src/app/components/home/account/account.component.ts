@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 import { HomePage } from 'src/app/pages/home/home.page';
+import { MethodService } from 'src/app/services/method/method.service';
 
 @Component({
   selector: 'app-account',
@@ -10,15 +11,16 @@ import { HomePage } from 'src/app/pages/home/home.page';
 export class AccountComponent  implements OnInit {
 
   data:any;
-  constructor(private appComponentt:AppComponent, public homepage:HomePage) {
-    this.data = this.appComponentt.data;
+  constructor(private method:MethodService, public homepage:HomePage) {
+    this.data = this.homepage.data;
+    console.log(this.data)
   }
 
   ngOnInit() {
   }
 
   logOut(){
-    this.appComponentt.logOut();
+    this.method.logOut();
   }
 
 }

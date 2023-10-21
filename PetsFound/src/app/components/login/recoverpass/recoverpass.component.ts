@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AppComponent } from 'src/app/app.component';
 import { LoginPage } from 'src/app/pages/login/login.page';
+import { MethodService } from 'src/app/services/method/method.service';
 
 @Component({
   selector: 'app-recoverpass',
@@ -14,7 +14,7 @@ export class RecoverpassComponent  implements OnInit {
     password:''
   }
 
-  constructor(private appComponent:AppComponent, private loginpage:LoginPage) {}
+  constructor(private method:MethodService, private loginpage:LoginPage) {}
 
   ngOnInit() {
     let RecoverObj = this
@@ -31,6 +31,6 @@ export class RecoverpassComponent  implements OnInit {
   }
 
   retroceder() {
-    this.appComponent.retroceder();
+    this.method.retroceder();
   }
 }

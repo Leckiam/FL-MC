@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 import { LoginPage } from 'src/app/pages/login/login.page';
+import { MethodService } from 'src/app/services/method/method.service';
 
 @Component({
   selector: 'app-logincomp',
@@ -15,33 +16,9 @@ export class LogincompComponent  implements OnInit {
     password:""
   }
   tituleName:any
-  constructor(private appComponentt:AppComponent, private loginpage:LoginPage) {}
+  constructor(private method:MethodService, private loginpage:LoginPage) {}
   
-  ngOnInit() {
-    let LoginObj = this;
-    const content = document.getElementById('content-login-pf');
-    const btn_irRegister = content?.querySelector('#btn-irRegister') as HTMLElement;
-    const btn_irRecover = content?.querySelector('#btn-irRecover') as HTMLElement;
-    const btn_login = content?.querySelector('#btn-login') as HTMLElement;
-    const spinner = content?.querySelector('#div-spinner') as HTMLElement;
-    btn_login?.addEventListener('click',function(){
-      LoginObj.estadoSpinner(true,spinner,btn_login,btn_irRegister,btn_irRecover);
-      setTimeout(function () {
-        let seg = 0;
-        if (seg=1) {
-          LoginObj.changePageLog('home','');
-          LoginObj.estadoSpinner(false,spinner,btn_login,btn_irRegister,btn_irRecover);
-        }
-        seg+=1;
-      }, 1000); 
-    });
-    btn_irRegister?.addEventListener('click',function(){
-      LoginObj.loginpage.changePage('login','register');
-    });
-    btn_irRecover?.addEventListener('click',function(){
-      LoginObj.loginpage.changePage('login','recoverpass');
-    });
-  }
+  ngOnInit() {}
 
   estadoBtns(estado:boolean,btn_login:any,btn_irRegister:any,btn_irRecover:any){
     if (estado) {
@@ -76,25 +53,27 @@ export class LogincompComponent  implements OnInit {
   changePageLog(namePage:string,nameComponent?:string){
   if (!this.validarLogin(this.user)){
     let msg= 'Su usuario y/o contraseña no está dentro del rango de caracteres (6 caracteres)'
-    this.appComponentt.presentToast('bottom',msg)
+    this.method.presentToast('bottom',msg)
     
   } else {
+    if (nameComponent) {
+      namePage = namePage + '/' + nameComponent;
+    }
+    this.aprobarIngreso(namePage);
+  }} 
+  
+  ionViewWillEnter() {
+    if (!this.method.firstTime) {
+      window.location.reload()
+    }
+  }
+  aprobarIngreso(namePage:string){
     let navegationExtras: NavigationExtras = {
       state:{
         user: this.user
       }
     }
-    if (nameComponent) {
-      namePage = namePage + '/' + nameComponent;
-    }
-    this.appComponentt.isLogin = true;
-    this.appComponentt.ingresar(namePage,'',navegationExtras);
-  }} 
-  
-  ionViewWillEnter() {
-    if (!this.appComponentt.firstTime) {
-      window.location.reload()
-    }
+    this.method.ingresar(namePage,'',navegationExtras);
   }
   
 }

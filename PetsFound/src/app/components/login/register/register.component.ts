@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AppComponent } from 'src/app/app.component';
 import { LoginPage } from 'src/app/pages/login/login.page';
+import { MethodService } from 'src/app/services/method/method.service';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +9,7 @@ import { LoginPage } from 'src/app/pages/login/login.page';
 })
 export class RegisterComponent  implements OnInit {
 
-  constructor(private appComponentt:AppComponent, private loginpage:LoginPage) {}
+  constructor(private method:MethodService, private loginpage:LoginPage) {}
 
   userTmp ={
     usuario:'',
@@ -49,11 +49,11 @@ export class RegisterComponent  implements OnInit {
   changePageReg(){
     if (this.validarDatoUserTmp()) {
       let msg = 'Se ha registrado exitosamente'
-      this.appComponentt.presentToast('bottom',msg)
+      this.method.presentToast('bottom',msg)
       this.loginpage.changePage('login','');
     } else {
       let msgErr = 'Su registro ha fallado'
-      this.appComponentt.presentToast('bottom',msgErr)
+      this.method.presentToast('bottom',msgErr)
     }
   }
 
@@ -73,6 +73,6 @@ export class RegisterComponent  implements OnInit {
     }
   }
   retroceder() {
-    this.appComponentt.retroceder();
+    this.method.retroceder();
   }
 }

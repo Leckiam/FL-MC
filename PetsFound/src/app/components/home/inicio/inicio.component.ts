@@ -4,6 +4,7 @@ import { AppComponent } from 'src/app/app.component';
 import type {QueryList} from '@angular/core';
 import type {Animation} from '@ionic/angular';
 import { HomePage } from 'src/app/pages/home/home.page';
+import { MethodService } from 'src/app/services/method/method.service';
 
 
 @Component({
@@ -21,15 +22,15 @@ export class InicioComponent  implements OnInit {
   animar1!: ElementRef;
 
   private animation!: Animation;
-  constructor(private appComponent:AppComponent,private animationController:AnimationController,public homepage:HomePage) {
-    this.data = this.appComponent.data;
+  constructor(private method:MethodService,private animationController:AnimationController,public homepage:HomePage) {
+    this.data = this.homepage.data;
   }
   ngOnInit() {
     this.homepage.tituleName = document.getElementById('titule-name-home');
   }
 
   changePage(namePage:string,nameComponent?:string){
-    this.appComponent.ingresar(namePage,nameComponent);
+    this.method.ingresar(namePage,nameComponent);
   }
 
   ngAfterViewInit(){

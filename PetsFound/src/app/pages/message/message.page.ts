@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppComponent } from 'src/app/app.component';
+import { MethodService } from 'src/app/services/method/method.service';
 
 @Component({
   selector: 'app-message',
@@ -9,23 +9,23 @@ import { AppComponent } from 'src/app/app.component';
 export class MessagePage implements OnInit {
 
   data:any;
-  constructor(private appComponentt:AppComponent) {
-    this.data = this.appComponentt.data;
+  constructor(private method:MethodService) {
+    this.data = this.method.data;
   }
 
   ngOnInit() {
   }
 
   changePage(namePage:any){
-    this.appComponentt.ingresar(namePage);
+    this.method.ingresar(namePage);
   }
 
   enviarMsj(){
     this.changePage('home')
     let msg = 'Su mensaje se ha enviado correctamente'
-    this.appComponentt.presentToast('top',msg)
+    this.method.presentToast('top',msg)
   }
   retroceder() {
-    this.appComponentt.retroceder();
+    this.method.retroceder();
   }
 }

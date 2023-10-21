@@ -1,0 +1,116 @@
+[
+  {
+    "id": 1,
+    "nombre": "ALLISON ARACENA",
+    "username": "al.aracena@duocuc.cl",
+    "password": "123456"      
+  },
+  {
+    "id": 2,
+    "nombre": "CLAUDIO BENAVIDES",
+    "username": "clau.benavides@duocuc.cl",
+    "password": "123456"     
+  },
+  {
+    "id": 3,
+    "nombre": "FRANCISCA CARDEMIL",
+    "username": "fr.cardemil@duocuc.cl",
+    "password": "123456"     
+  },
+  {
+    "id": 4,
+    "nombre": "MARCELO CASTILLO",
+    "username": "mar.castillop@duocuc.cl",
+    "password": "123456"     
+  },
+  {
+    "id": 5,
+    "nombre": "MAIKEL CISTERNAS",
+    "username": "mai.cisternas@duocuc.cl",
+    "password": "123456"
+  },
+  {
+    "id": 6,
+    "nombre": "IVAN DUARTE",
+    "username": "iva.duarte@duocuc.cl",
+    "password": "123456"
+  },
+  {
+    "id": 7,
+    "nombre": "IGNACIO FALK",
+    "username": "ig.falk@duocuc.cl",
+    "password": "123456"
+  },
+  {
+    "id": 8,
+    "nombre": "FRANCISCO LAZCANO",
+    "username": "fr.lazcanor@duocuc.cl",
+    "password": "123456"
+  },
+  {
+    "id": 9,
+    "nombre": "ALONSO MELGAREJO",
+    "username": "al.melgarejo@duocuc.cl",
+    "password": "123456"
+  },
+  {
+    "id": 10,
+    "nombre": "MARCELO PENA",
+    "username": "marc.penas@duocuc.cl",
+    "password": "123456"
+  },
+  {
+    "id": 11,
+    "nombre": "RODRIGO RIOS",
+    "username": "ro.riosb@duocuc.cl",
+    "password": "123456"
+  },
+  {
+    "id": 12,
+    "nombre": "JOAQUIN ROCHA",
+    "username": "jo.rocha@duocuc.cl",
+    "password": "123456"
+  },
+  {
+    "id": 13,
+    "nombre": "MARIA JOSE ROJAS",
+    "username": "mj.rojasc@duocuc.cl",
+    "password": "123456"
+  },
+  {
+    "id": 14,
+    "nombre": "GIORDY ROZAS",
+    "username": "gio.rozas@duocuc.cl",
+    "password": "123456"
+  },
+  {
+    "id": 15,
+    "nombre": "DIEGO SALDIVAR",
+    "username": "die.saldivar@duocuc.cl",
+    "password": "123456"
+  },
+  {
+    "id": 16,
+    "nombre": "MAYKOL SALGADO",
+    "username": "may.salgado@duocuc.cl",
+    "password": "123456"
+  },
+  {
+    "id": 17,
+    "nombre": "MATIAS SANDOVAL",
+    "username": "mat.sandoval@duocuc.cl",
+    "password": "123456"
+  },
+  {
+    "id": 18,
+    "nombre": "MATIAS TAPIA",
+    "username": "mat.tapias@duocuc.cl",
+    "password": "123456"
+  },
+  {
+    "id": 19,
+    "nombre": "PAOLO VALENCIA",
+    "username": "paol.valenciap@duocuc.cl",
+    "password": "123456"
+  }
+]
