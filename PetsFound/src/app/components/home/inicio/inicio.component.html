@@ -1,13 +1,4 @@
 <div class="body">
-  <ion-card style="background-color: aquamarine;">
-    <ion-card-header>
-      <ion-card-title>Presentamos</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-    PetsFound una aplicación donde podras escanear los codigos qr de los collares de tus mascotas para cuidarlas y poder ver la infromación del dueño por si se pierde.
-    </ion-card-content>
-  </ion-card>
-  
   <ion-card>
     <ion-card-header>
     </ion-card-header>
@@ -28,6 +19,12 @@
         Agregar mascota +
       </ion-button>
     </ion-card>
+
+    <ion-button (click)="scannerQr()">
+      Escanear QR
+    </ion-button>
+    {{code}}
+    
   </div>
   <br><br>
 </div>

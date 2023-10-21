@@ -4,6 +4,7 @@ import { AppComponent } from 'src/app/app.component';
 import type {QueryList} from '@angular/core';
 import type {Animation} from '@ionic/angular';
 import { HomePage } from 'src/app/pages/home/home.page';
+import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 
 
 @Component({
@@ -13,6 +14,8 @@ import { HomePage } from 'src/app/pages/home/home.page';
 })
 export class InicioComponent  implements OnInit {
 
+  code: any;
+
   data:any;
   @ViewChildren(IonCard, {read:ElementRef})
   cardElements!: QueryList<ElementRef<HTMLIonCardElement>>;
@@ -21,7 +24,7 @@ export class InicioComponent  implements OnInit {
   animar1!: ElementRef;
 
   private animation!: Animation;
-  constructor(private appComponent:AppComponent,private animationController:AnimationController,public homepage:HomePage) {
+  constructor(private appComponent:AppComponent,private animationController:AnimationController,private barcodeScanner: BarcodeScanner, public homepage:HomePage) {
     this.data = this.appComponent.data;
   }
   ngOnInit() {
@@ -54,5 +57,15 @@ export class InicioComponent  implements OnInit {
     .addAnimation([cardA,cardB]);
 
     this.animation.play();
+  }
+
+  scannerQr(){
+    this.barcodeScanner.scan().then(barcodeData => {
+      this.code = barcodeData.text
+      console.log('Barcode data', this.code);
+
+    }).catch(err => {
+      console.log(Error, err);
+    })
   }
 }
