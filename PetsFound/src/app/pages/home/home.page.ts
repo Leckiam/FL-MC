@@ -1,5 +1,6 @@
 import { Component} from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
+import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 
 
 @Component({
@@ -8,9 +9,11 @@ import { AppComponent } from 'src/app/app.component';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  code: any;
+
   data:any;
   tituleName:any
-  constructor(private appComponent:AppComponent) {
+  constructor(private appComponent:AppComponent, private barcodeScanner: BarcodeScanner) {
     this.appComponent.firstTime = false
     this.appComponent.transfer();
     this.data = this.appComponent.data;
@@ -30,5 +33,17 @@ export class HomePage {
       namePage = namePage + '/' + nameComponent;
     }
     this.appComponent.ingresar(namePage);
+  }
+
+  
+  scannerQr(){
+    this.barcodeScanner.scan().then(barcodeData => {
+      this.code = barcodeData.text
+      this.changePage('home','messages')
+      console.log('Barcode data', this.code);
+
+    }).catch(err => {
+      console.log(Error, err);
+    })
   }
 }

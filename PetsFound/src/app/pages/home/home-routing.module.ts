@@ -5,6 +5,7 @@ import { AccountComponent } from 'src/app/components/home/account/account.compon
 import { InicioComponent } from 'src/app/components/home/inicio/inicio.component';
 import { AgregarMascotaComponent } from 'src/app/components/home/agregar-mascota/agregar-mascota.component';
 import { EditarperfilComponent } from 'src/app/components/home/editarperfil/editarperfil.component';
+import { MessagesComponent } from 'src/app/components/home/messages/messages.component';
 
 
 const routes: Routes = [
@@ -30,6 +31,11 @@ const routes: Routes = [
         path: 'editarperfil',
         component: EditarperfilComponent,
       },
+
+      {
+        path: 'messages',
+        component: MessagesComponent
+      }
     ]
   }
 ];

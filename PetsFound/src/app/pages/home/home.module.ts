@@ -8,6 +8,7 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { AccountComponent } from 'src/app/components/home/account/account.component';
 import { InicioComponent } from 'src/app/components/home/inicio/inicio.component';
 import { AgregarMascotaComponent } from 'src/app/components/home/agregar-mascota/agregar-mascota.component';
+import { MessagesComponent } from 'src/app/components/home/messages/messages.component';
 
 
 @NgModule({
@@ -17,6 +18,6 @@ import { AgregarMascotaComponent } from 'src/app/components/home/agregar-mascota
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage,AccountComponent,InicioComponent, AgregarMascotaComponent]
+  declarations: [HomePage,AccountComponent,InicioComponent, AgregarMascotaComponent, MessagesComponent]
 })
 export class HomePageModule {}
