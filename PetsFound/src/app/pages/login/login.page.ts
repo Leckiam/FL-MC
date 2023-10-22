@@ -22,7 +22,10 @@ export class LoginPage implements OnInit {
     this.method.ingresar(namePage,nameComponent);
   }
 
-
+  convertirAMinusculas(event: any) {
+    const input = event.target as HTMLInputElement;
+    input.value = input.value.toLowerCase();
+  }
   ionViewWillEnter() {
     if (this.appComponent.cantLoadPages>=2) {
       this.method.ingresar('login','')

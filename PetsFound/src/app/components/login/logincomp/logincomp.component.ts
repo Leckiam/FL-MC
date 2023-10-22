@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
+import { User } from 'src/app/class/user/user';
 import { LoginPage } from 'src/app/pages/login/login.page';
 import { UserdefaultService } from 'src/app/services/api/users/userdefault.service';
 import { MethodService } from 'src/app/services/method/method.service';
+import { BbddService } from 'src/app/services/sqlite/bbdd.service';
 
 @Component({
   selector: 'app-logincomp',
@@ -11,15 +13,22 @@ import { MethodService } from 'src/app/services/method/method.service';
 })
 export class LogincompComponent  implements OnInit {
 
-  user={
-    usuario:"",
-    password:""
+  user:User = new User();
+  users: [User] = [new User()];
+  constructor(private method:MethodService, private loginpage:LoginPage,private bbdd:BbddService) {
+    this.user.username = '';
+    this.user.password = '';
   }
-  loadLogin:boolean=false;
-  constructor(private method:MethodService, private loginpage:LoginPage, private apiUsers:UserdefaultService) {}
   
   ngOnInit() {
     let LoginObj = this;
+    this.bbdd.dbState().subscribe((res: any) =>{
+      if(res){
+        this.bbdd.fetchUsers().subscribe((item: any) =>{
+          this.users = item;
+        })
+      }
+    });
     const content = document.getElementById('content-login-pf');
     const btn_irRegister = content?.querySelector('#btn-irRegister') as HTMLElement;
     const btn_irRecover = content?.querySelector('#btn-irRecover') as HTMLElement;
@@ -54,7 +63,9 @@ export class LogincompComponent  implements OnInit {
       btn_irRecover.style.pointerEvents = 'none';
     }
   }
-
+  convertirAMinusculas(event: any) {
+    this.loginpage.convertirAMinusculas(event);
+  }
   estadoSpinner(estado:boolean,spinner:any,btn_login:any,btn_irRegister:any,btn_irRecover:any){
     if (estado) {
       spinner.style.display = 'block';
@@ -67,15 +78,15 @@ export class LogincompComponent  implements OnInit {
   }
 
   validarLogin(user:any){
-    if (user.usuario.length >=6 && user.password.length >=6) {
+    console.log(user)
+    if (user.username.length >=6 && user.password.length >=6) {
       return true
     } else {
       return false
     } 
   } 
 
-  changePageLog(namePage:string,nameComponent?:string){
-    this.user.usuario = this.user.usuario.toLowerCase();
+  async changePageLog(namePage:string,nameComponent?:string){
     if (!this.validarLogin(this.user)){
       let msg= 'Su usuario y/o contraseña no está dentro del rango de caracteres (6 caracteres)'
       this.method.presentToast('bottom',msg)
@@ -83,14 +94,14 @@ export class LogincompComponent  implements OnInit {
       if (nameComponent) {
         namePage = namePage + '/' + nameComponent;
       }
-      if (this.validarApi()) {
+      
+      if (this.existeUser()) {
         this.aprobarIngreso(namePage);
       } else {
         this.method.presentToast('bottom','No sea encontrado a ningun usuario que cumpla con los parametros ingresados')
       } 
     }
-  } 
-  
+  }
   ionViewWillEnter() {
     this.loginpage.tituleName.innerHTML = "Iniciar Sesión";
   }
@@ -102,18 +113,19 @@ export class LogincompComponent  implements OnInit {
       }
     }
     */
-    this.user.usuario = "";
+    localStorage.setItem('user',this.user.username);
+    this.user.username = "";
     this.user.password = "";
     //this.method.ingresar(namePage,'',navegationExtras);
     this.method.ingresar(namePage,'');
   }
-  validarApi(){
-    if (this.apiUsers.getUser(this.user)) {
-      localStorage.setItem('user', this.user.usuario);
-      return true;
-    } else {
-      return false;
+  existeUser(){
+    for (let i = 0; i < this.users.length; i++) {
+      const userTmp = this.users[i];
+      if (userTmp.username==this.user.username && userTmp.password==this.user.password) {
+        return true;
+      }
     }
+    return false;
   }
-  
 }

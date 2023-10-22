@@ -1,82 +1,60 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError, tap } from 'rxjs/operators';
+import { Observable,of } from 'rxjs';
+import { User } from 'src/app/class/user/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserdefaultService {
 
-  users:any=
-  [
-    {
-      "id": 1,
-      "nombre": "FRANCISCA CARDEMIL",
-      "correo": "fr.cardemil@duocuc.cl",
-      "username": "fr.cardemil",
-      "password": "123456"     
-    },
-    {
-      "id": 2,
-      "nombre": "MARCELO CASTILLO",
-      "correo": "mar.castillop@duocuc.cl",
-      "username": "mar.castillop",
-      "password": "123456"     
-    },
-    {
-      "id": 3,
-      "nombre": "MAIKEL CISTERNAS",
-      "correo": "mai.cisternas@duocuc.cl",
-      "username": "mai.cisternas",
-      "password": "123456"
-    },
-    {
-      "id": 4,
-      "nombre": "FRANCISCO LAZCANO",
-      "correo": "fr.lazcanor@duocuc.cl",
-      "username": "fr.lazcanor",
-      "password": "123456"
-    },
-    {
-      "id": 5,
-      "nombre": "MARCELO PENA",
-      "correo": "marc.penas@duocuc.cl",
-      "username": "marc.penas",
-      "password": "123456"
-    },
-    {
-      "id": 6,
-      "nombre": "JOAQUIN ROCHA",
-      "correo": "jo.rocha@duocuc.cl",
-      "username": "jo.rocha",
-      "password": "123456"
-    },
-    {
-      "id": 7,
-      "nombre": "DIEGO SALDIVAR",
-      "correo": "die.saldivar@duocuc.cl",
-      "username": "die.saldivar",
-      "password": "123456"
-    },
-  ];
-  constructor() { }
+  //URL:string='https://jsonplaceholder.typicode.com';
+  url:string='http://192.168.1.13:3000';
+  httpHeader = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin' :'*'
+    }),
+  };
+  constructor(private http:HttpClient) { }
 
-  getUser(userLogin:any){
-    console.log('entro')
-    for (let i = 0; i < this.users.length; i++) {
-      const user = this.users[i];
-      if (user.username==userLogin.usuario && user.password==userLogin.password) {
-        return user;
-      }
-    } 
-    return null;
+  getUserForParam(param: any,type:string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.url}/users?${type}=` + param).pipe(
+    tap((_) => console.log(`User fetched: ${param}`)),
+    catchError(this.handleError<User[]>(`Get user ${type}=${param}`))
+    );
   }
-  addUsersApiBD(){
-    let listaApiUsers=[];
-    for (let i = 0; i < this.users.length; i++) {
-      const user = this.users[i];
-      const dataApi = [user.nombre,,user.correo,user.username, user.password];
-      listaApiUsers.push(dataApi);
-    }
-    return listaApiUsers;
-    
+  getUserList(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.url}/users/`).pipe(
+    tap((user) => console.log('User fetched!')),
+    catchError(this.handleError<User[]>('Get User', []))
+    );
+  }
+  addUser(user: User): Observable<any> {
+    return this.http
+    .post<User>(`${this.url}/users`, user, this.httpHeader)
+    .pipe(catchError(this.handleError<User>('Add User')));
+  }
+  updateUser(id: any, user: User): Observable<any> {
+    return this.http.put(`${this.url}/users/` + id, user,
+    this.httpHeader).pipe(
+    tap((_) => console.log(`User updated: ${id}`)),
+    catchError(this.handleError<User[]>('Update user'))
+    );
+  }
+  deleteUser(id: any): Observable<User[]> {
+    return this.http.delete<User[]>(`${this.url}/users/` + id,
+    this.httpHeader).pipe(
+    tap((_) => console.log(`User deleted: ${id}`)),
+    catchError(this.handleError<User[]>('Delete user'))
+    );
+  }
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+    console.error(error);
+    console.log(`${operation} failed: ${error.message}`);
+    return of(result as T);
+    };
   }
 }

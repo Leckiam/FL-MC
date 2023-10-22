@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/class/user/user';
 import { LoginPage } from 'src/app/pages/login/login.page';
 import { MethodService } from 'src/app/services/method/method.service';
+import { BbddService } from 'src/app/services/sqlite/bbdd.service';
 
 @Component({
   selector: 'app-register',
@@ -9,14 +11,10 @@ import { MethodService } from 'src/app/services/method/method.service';
 })
 export class RegisterComponent  implements OnInit {
 
-  constructor(private method:MethodService, private loginpage:LoginPage) {}
+  constructor(private method:MethodService, private loginpage:LoginPage,private bbdd:BbddService) {}
 
-  userTmp ={
-    usuario:'',
-    email:'',
-    password:'',
-    twoPassword:''
-  }
+  userTmp:User = new User();
+  passwordTmp:string='';
 
   ngOnInit() {
     let RegisterObj = this;
@@ -45,9 +43,9 @@ export class RegisterComponent  implements OnInit {
   }
 
   changePageReg(){
-    if (this.validarDatoUserTmp()) {
-      let msg = 'Se ha registrado exitosamente'
-      this.method.presentToast('bottom',msg)
+    if (this.registrar()) {
+      let msg = 'Se ha registrado exitosamente';
+      this.method.presentToast('bottom',msg);
       this.changePage('login','');
     } else {
       let msgErr = 'Su registro ha fallado'
@@ -58,13 +56,25 @@ export class RegisterComponent  implements OnInit {
   changePage(namePage:string,nameComponent?:string){
     this.loginpage.changePage(namePage,nameComponent);
   }
-
+  convertirAMinusculas(event: any) {
+    this.loginpage.convertirAMinusculas(event);
+  }
+  registrar(){
+    if (this.validarDatoUserTmp()) {
+      let data = ['',this.userTmp.correo,this.userTmp.username,this.userTmp.password]
+      this.bbdd.addUsers(data);
+      return true;
+    } else {
+      return false;
+    }
+    
+  }
   validarDatoUserTmp(){
-    if (this.userTmp.password == this.userTmp.twoPassword && 
-      this.userTmp.password.length >= 6 && this.userTmp.usuario.length >= 6
-      && this.userTmp.email.length >= 8){
-      for (let i = 0; i < this.userTmp.email.length; i++) {
-        const element = this.userTmp.email[i];
+    if (this.userTmp.password == this.passwordTmp && 
+      this.userTmp.password.length >= 6 && this.userTmp.username.length >= 6
+      && this.userTmp.correo.length >= 8){
+      for (let i = 0; i < this.userTmp.correo.length; i++) {
+        const element = this.userTmp.correo[i];
         if (element=='@') {
           return true
         }
@@ -79,9 +89,6 @@ export class RegisterComponent  implements OnInit {
   }
   ionViewWillEnter() {
     this.loginpage.tituleName.innerHTML = "Registrarse";
-    this.userTmp.email = "";
-    this.userTmp.usuario = "";
-    this.userTmp.password = "";
-    this.userTmp.twoPassword = "";
+    this.userTmp = new User();
   }
 }

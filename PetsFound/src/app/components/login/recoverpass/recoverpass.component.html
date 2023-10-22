@@ -8,7 +8,7 @@
     <ion-card-content>
       <ion-item>
         <ion-label position="floating">Email</ion-label>
-        <ion-input [(ngModel)]="userSearch.email" type="email"></ion-input>
+        <ion-input [(ngModel)]="userSearch.email" (ionInput)="convertirAMinusculas($event)" type="email"></ion-input>
       </ion-item>
       <ion-row>
         <ion-col>

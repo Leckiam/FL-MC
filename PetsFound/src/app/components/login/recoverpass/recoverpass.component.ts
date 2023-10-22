@@ -31,6 +31,9 @@ export class RecoverpassComponent  implements OnInit {
   retroceder() {
     this.method.retroceder();
   }
+  convertirAMinusculas(event: any) {
+    this.loginpage.convertirAMinusculas(event);
+  }
   ionViewWillEnter() {
     this.loginpage.tituleName.innerHTML = "Recuperar contraseña";
     this.userSearch.email = "";
