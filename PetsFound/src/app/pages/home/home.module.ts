@@ -11,12 +11,14 @@ import { AgregarMascotaComponent } from 'src/app/components/home/agregar-mascota
 import { MessagesComponent } from 'src/app/components/home/messages/messages.component';
 
 
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+
   ],
   declarations: [HomePage,AccountComponent,InicioComponent, AgregarMascotaComponent, MessagesComponent]
 })

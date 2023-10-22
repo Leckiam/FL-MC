@@ -27,4 +27,8 @@ export class AccountComponent  implements OnInit {
  IrEditarPerfil() {
     this.appComponentt.ingresar('home', 'editarperfil');
   }
+
+  generateQR() {
+    this.appComponentt.ingresar('generate-qr')
+  }
 }

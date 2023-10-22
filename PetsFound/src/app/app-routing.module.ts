@@ -24,6 +24,10 @@ const routes: Routes = [
     loadChildren: () => import('./components/home/editarperfil/editarperfil.component').then(m => m.EditarperfilComponent)
   
   },
+  {
+    path: 'generate-qr',
+    loadChildren: () => import('./pages/generate-qr/generate-qr.module').then( m => m.GenerateQrPageModule)
+  },
 ];
 
 @NgModule({

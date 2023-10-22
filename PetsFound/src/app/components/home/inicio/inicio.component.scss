@@ -19,7 +19,7 @@
   border-radius: 10px;
   text-align: center;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 12px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 
@@ -31,19 +31,20 @@
     background-color: #ccc;
   }
 
-  ion-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  ion-button:hover {
-    background-color: #0056b3;
+  .buttonCustom {
+    ion-button {
+      background-color: white; 
+      color: black; 
+      border: 1px solid black; 
+      border-radius: 5px; 
+      text-transform: uppercase; 
+      font-weight: bold; 
+      padding: 10px 20px; 
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 }
   
