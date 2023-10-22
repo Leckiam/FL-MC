@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Agregar Mascota</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-header>
+      Detalles de la Mascota
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list lines="full">
+        <ion-item>
+          <ion-label position="stacked">Nombre</ion-label>
+          <ion-input [(ngModel)]="mascota.nombre" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Tipo</ion-label>
+          <ion-input [(ngModel)]="mascota.tipo" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Edad</ion-label>
+          <ion-input [(ngModel)]="mascota.edad" type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Descripción</ion-label>
+          <ion-textarea [(ngModel)]="mascota.descripcion"></ion-textarea>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="full" (click)="agregarMascota()">Agregar Mascota</ion-button>
+</ion-content>
+

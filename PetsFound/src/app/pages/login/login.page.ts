@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationExtras } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
+import { MethodService } from 'src/app/services/method/method.service';
 
 @Component({
   selector: 'app-login',
@@ -8,48 +8,24 @@ import { AppComponent } from 'src/app/app.component';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  isLoggingIn = false;
   
-  user={
-    usuario:"",
-    password:""
-  }
-  constructor(private appComponentt:AppComponent) {
-    if (!this.appComponentt.returnFirstTime()) {
-      window.location.reload();
-    }
+  tituleName:any
+  constructor(private method:MethodService,private appComponent:AppComponent) {
+    this.appComponent.cantLoadPages += 1;
   }
   
   ngOnInit() {
+    this.tituleName = document.getElementById('titule-name-login');
   }
 
-  validarLogin(user:any){
-    if (user.usuario.length >=6 && user.password.length >=6) {
-      return true
-    } else {
-      return false
-    } 
-  } 
-  changePage(namePage:any){
-    this.appComponentt.ingresar(namePage);
+  changePage(namePage:string,nameComponent?:string){
+    this.method.ingresar(namePage,nameComponent);
   }
-  changePageLog(namePage:any){
-  if (!this.validarLogin(this.user)){
-    let msg= 'Su usuario y/o contraseña no está dentro del rango de caracteres (6 caracteres)'
-    this.appComponentt.presentToast('bottom',msg)
-    
-  } else {
-    let navegationExtras: NavigationExtras = {
-      state:{
-        user: this.user
-      }
-    }
-    
-    this.appComponentt.ingresar(namePage,navegationExtras);
-  }} 
-    
+
+
   ionViewWillEnter() {
-    if (!this.appComponentt.returnFirstTime()) {
+    if (this.appComponent.cantLoadPages>=2) {
+      this.method.ingresar('login','')
       window.location.reload();
     }
   }

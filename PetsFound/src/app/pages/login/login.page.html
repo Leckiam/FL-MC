@@ -1,33 +1,9 @@
 <ion-header [translucent]="true">
-  <div class="color-title"> <br>
-    <ion-title>Inicio de Sesión</ion-title>
-  <br></div>
+  <div class="tool-bar-pf">
+    <ion-title id="titule-name-login">Iniciar Sesión</ion-title>
+  </div>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-text-center ion-align-items-center">
-  <div class="center-content">
-    <ion-card>
-      <img alt="login_img" src="https://images.vexels.com/media/users/3/237008/isolated/preview/b09c042b0807bf1bfcde5d3737810b1d-llaveros-animales-21.png" style="height: 140px; width: 140px;" />
-      <ion-card-header>
-        <ion-card-title>Inicio de Sesión</ion-card-title>
-      </ion-card-header>
-
-      <ion-card-content>
-        <ion-item>
-          <ion-label position="floating">Usuario</ion-label>
-          <ion-input [(ngModel)]="user.usuario" type="text" minlength="6"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Password</ion-label>
-          <ion-input [(ngModel)]="user.password" type="password" minlength="6"></ion-input>
-        </ion-item>
-        <ion-row>
-          <ion-col>
-            <a (click)="changePage('register')" style="color: white;">¿No posee una cuenta?</a>
-            <ion-button expand="block" (click)="changePageLog('home')">Ingresar</ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
-    </ion-card>
-  </div>
+<ion-content class="ion-text-center ion-align-items-center">
+  <ion-router-outlet></ion-router-outlet>
 </ion-content>

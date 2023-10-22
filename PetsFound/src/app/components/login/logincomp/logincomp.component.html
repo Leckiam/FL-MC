@@ -1,0 +1,31 @@
+<div class="center-content body" id="content-login-pf">
+  <ion-card>
+    <img alt="login_img" src="../../../../assets/img/logoPetsFound.png" style="height: 140px; width: 140px;" />
+    <ion-card-header>
+      <ion-card-title>Inicio de Sesión</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Usuario</ion-label>
+          <ion-input [(ngModel)]="user.usuario" type="text" minlength="6" ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input [(ngModel)]="user.password" type="password" minlength="6"></ion-input>
+        </ion-item>
+        <div class="ion-justify-content-center" id="div-spinner" style="display: none;">
+          <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+          </svg>
+        </div>
+        <ion-row>
+          <ion-col>
+            <a id="btn-irRegister" style="color: white;">¿No posee una cuenta?</a><br>
+            <a id="btn-irRecover" style="color: white;">¿Ha olvidado su contraseña?</a>
+            <ion-button id="btn-login" expand="block">Ingresar</ion-button>
+          </ion-col>
+        </ion-row>
+    </ion-card-content>
+  </ion-card>
+</div>

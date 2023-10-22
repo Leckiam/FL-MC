@@ -1,8 +1,10 @@
-import { Component,ViewChildren,ElementRef, ViewChild } from '@angular/core';
-import { IonCard,AnimationController } from '@ionic/angular';
+import { Component} from '@angular/core';
+import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
+import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 import { AppComponent } from 'src/app/app.component';
-import type {QueryList} from '@angular/core';
-import type {Animation} from '@ionic/angular';
+import { User } from 'src/app/class/user/user';
+import { MethodService } from 'src/app/services/method/method.service';
+
 
 @Component({
   selector: 'app-home',
@@ -10,45 +12,63 @@ import type {Animation} from '@ionic/angular';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+
+  code: any;
   data:any;
-  @ViewChildren(IonCard, {read:ElementRef})
-  cardElements!: QueryList<ElementRef<HTMLIonCardElement>>;
+  headerName:any;
+  tituleName:any;
+  headerBack:any;
 
-  @ViewChild('animar1', { read: ElementRef, static: true })
-  animar1!: ElementRef;
+  user:User = new User();
 
-  private animation!: Animation;
-  constructor(private appComponent:AppComponent,private animationController:AnimationController ) {
-    this.appComponent.transfer(this.data)
-    this.data = this.appComponent.returnData();
+  constructor(private method:MethodService, private barcodeScanner: BarcodeScanner, private bbdd:SQLite,private appComponent:AppComponent) {
+    this.appComponent.cantLoadPages += 1;
+    this.data = this.method.transfer();
   }
-
-  changePage(namePage:any){
-    this.appComponent.ingresar(namePage);
+  ngOnInit() {
+    this.headerName = document.getElementById('header-home');
+    this.headerBack = this.headerName.innerHTML + '';
+    this.tituleName = document.getElementById('titule-name-home');
   }
-  
-
-  ngAfterViewInit(){
-    const cardA = this.animationController
-      .create()
-      .addElement(this.cardElements.get(1)!.nativeElement)
-      .duration(1250)
-      .iterations(Infinity)
-      .direction('alternate')
-      .fromTo('background', '#11a070', 'var(--background)');
-    const cardB = this.animationController
-    .create()
-    .addElement(this.cardElements.get(2)!.nativeElement)
-    .duration(1000)
-    .iterations(Infinity)
-    .direction('alternate')
-    .fromTo('background', '#11a070', 'var(--background)');
-    this.animation=this.animationController
-    .create()
-    .duration(3000)
-    .iterations(Infinity)
-    .addAnimation([cardA,cardB]);
-
-    this.animation.play();
+  changePage(namePage:string,nameComponent?:string){
+    this.method.ingresar(namePage,nameComponent);
+  }
+  scannerQr(){
+    this.barcodeScanner.scan().then(barcodeData => {
+      this.code = barcodeData.text;
+      if (this.code) {
+        this.changePage('home','message');
+        console.log('Barcode data', this.code);
+      }
+    }).catch(err => {
+      console.log(Error, err);
+    })
+  }
+  changeHeader(canBack:boolean,nameTitle:string){
+    const divTitle = `<ion-title id="titule-name-home">${nameTitle}</ion-title>`;
+    const divTitleBack = `
+    <ion-buttons slot="start">
+      <ion-back-button id="button-home-back" style="display: block;"></ion-back-button>
+      <ion-title class="titule-padd" id="titule-name-home">${nameTitle}</ion-title>
+    </ion-buttons>`;
+    if (canBack) {
+      this.headerName.innerHTML=divTitleBack;
+      let buttonTmp = document.querySelector('#button-home-back') as HTMLElement;
+      if (buttonTmp) {
+        let homePageThis = this;
+        buttonTmp.addEventListener('click',function(){
+          homePageThis.retroceder();
+        });
+      }
+    } else {
+      this.headerName.innerHTML=divTitle;
+    }
+  }
+  retroceder(){
+    try{
+      this.method.retroceder();
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

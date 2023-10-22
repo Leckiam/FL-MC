@@ -1,0 +1,43 @@
+.body {
+  width: 100%;
+  min-height: 90vh;
+  position: absolute;
+}
+
+.tool-bar-pf{
+  background-color: #0dd4ba ;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.fixed-tabs {
+  position: fixed;
+  top: 90vh; /* Distancia desde la parte inferior de la pantalla */
+  height: 10vh;
+  width: 100%;
+}
+
+.botonCR {
+  display: inline-block;
+  padding: 10px 20px;
+  z-index: 999;
+  background-color: red;
+  color: white; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    background-color: darkred; 
+  }
+
+  &:active {
+    background-color: maroon;
+  }
+  
+  .cf-account {
+    background-color: #f2f2f2; /* Color de fondo gris */
+    border-bottom: 1px solid #ccc; /* Línea separadora */
+  }
+}
