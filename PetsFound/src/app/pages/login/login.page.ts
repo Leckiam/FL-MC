@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppComponent } from 'src/app/app.component';
 import { MethodService } from 'src/app/services/method/method.service';
 
 @Component({
@@ -9,8 +10,8 @@ import { MethodService } from 'src/app/services/method/method.service';
 export class LoginPage implements OnInit {
   
   tituleName:any
-  constructor(private method:MethodService) {
-    localStorage.setItem('firstTime','false');
+  constructor(private method:MethodService,private appComponent:AppComponent) {
+    this.appComponent.cantLoadPages += 1;
   }
   
   ngOnInit() {
@@ -23,9 +24,9 @@ export class LoginPage implements OnInit {
 
 
   ionViewWillEnter() {
-    if (localStorage.getItem('firstTime')=='true') {
+    if (this.appComponent.cantLoadPages>=2) {
       this.method.ingresar('login','')
-      window.location.reload()
+      window.location.reload();
     }
   }
 }

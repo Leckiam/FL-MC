@@ -12,3 +12,10 @@ Para instalar Angular colocar en la terminar:
 - npm install -g @angular/cli
   
 - ng add @angular/material
+
+Cambios en el node_modules
+"node_modules/phonegap-plugin-barcodescanner/src/android/barcodescanner.gradle"
+
+dependencies {
+    implementation(name:'barcodescanner-release-2.1.5', ext:'aar')
+}

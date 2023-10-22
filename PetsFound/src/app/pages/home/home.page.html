@@ -1,7 +1,5 @@
 <ion-header [translucent]="true">
-  <div class="tool-bar-pf">
-    <ion-title id="titule-name-home">Inicio</ion-title>
-  </div>
+  <div class="tool-bar-pf" id="header-home"></div>
 </ion-header>
 
 <ion-content id="content-home-pf">
@@ -12,7 +10,7 @@
         <ion-icon name="home"></ion-icon>
         Home
       </ion-tab-button>
-      <ion-tab-button (click)="changePage('message')">
+      <ion-tab-button (click)="scannerQr()">
         <ion-img src="../../../assets/img/codigoQR.png" style="width: 30px; height: 30px;"></ion-img>
         QR
       </ion-tab-button>

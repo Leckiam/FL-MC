@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { NavController, ToastController } from '@ionic/angular';
-import { AuthGuard } from 'src/app/guards/auth/auth.guard';
+import {Location} from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +9,10 @@ import { AuthGuard } from 'src/app/guards/auth/auth.guard';
 export class MethodService {
 
   data:any;
-  constructor(private router: Router,private activatedRoute:ActivatedRoute, private navCtrl:NavController, private toastController: ToastController) { }
+  constructor(private router: Router,private _location: Location, private navCtrl:NavController, private toastController: ToastController) { }
 
   retroceder() {
-    this.navCtrl.pop();
+    this.navCtrl.back();
   }
 
   bienvenida(data:any){
@@ -34,6 +34,8 @@ export class MethodService {
 
   transfer(){
     const getUser = localStorage.getItem('user');
+    this.bienvenida(getUser);
+    /*
     if (!getUser) {
       this.activatedRoute.queryParams.subscribe(params =>{
         if (this.router.getCurrentNavigation()?.extras.state) {
@@ -43,6 +45,7 @@ export class MethodService {
         }
       })
     }
+    */
     return getUser;
   }
 

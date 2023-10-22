@@ -54,6 +54,6 @@ export class InicioComponent {
     this.animation.play();
   }
   ionViewWillEnter() {
-    this.homepage.tituleName.innerHTML='Inicio';
+    this.homepage.changeHeader(false,'Inicio');
   }
 }

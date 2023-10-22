@@ -7,6 +7,9 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { AccountComponent } from 'src/app/components/home/account/account.component';
 import { InicioComponent } from 'src/app/components/home/inicio/inicio.component';
+import { AgregarMascotaComponent } from 'src/app/components/home/agregar-mascota/agregar-mascota.component';
+import { EditarperfilComponent } from 'src/app/components/home/editarperfil/editarperfil.component';
+import { MessageComponent } from 'src/app/components/home/message/message.component';
 
 
 @NgModule({
@@ -16,6 +19,6 @@ import { InicioComponent } from 'src/app/components/home/inicio/inicio.component
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage,AccountComponent,InicioComponent]
+  declarations: [HomePage,AccountComponent,InicioComponent,AgregarMascotaComponent,EditarperfilComponent,MessageComponent]
 })
 export class HomePageModule {}

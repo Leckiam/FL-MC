@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras } from '@angular/router';
 import { LoginPage } from 'src/app/pages/login/login.page';
-import { UserdefaultService } from 'src/app/services/api/userdefault.service';
+import { UserdefaultService } from 'src/app/services/api/users/userdefault.service';
 import { MethodService } from 'src/app/services/method/method.service';
 
 @Component({
@@ -15,9 +15,8 @@ export class LogincompComponent  implements OnInit {
     usuario:"",
     password:""
   }
-  tituleName:any
-  constructor(private method:MethodService, private loginpage:LoginPage, private apiUsers:UserdefaultService) {
-    this.loginpage.tituleName.innerHTML = "Iniciar Sesión";}
+  loadLogin:boolean=false;
+  constructor(private method:MethodService, private loginpage:LoginPage, private apiUsers:UserdefaultService) {}
   
   ngOnInit() {
     let LoginObj = this;
@@ -76,6 +75,7 @@ export class LogincompComponent  implements OnInit {
   } 
 
   changePageLog(namePage:string,nameComponent?:string){
+    this.user.usuario = this.user.usuario.toLowerCase();
     if (!this.validarLogin(this.user)){
       let msg= 'Su usuario y/o contraseña no está dentro del rango de caracteres (6 caracteres)'
       this.method.presentToast('bottom',msg)
@@ -92,16 +92,20 @@ export class LogincompComponent  implements OnInit {
   } 
   
   ionViewWillEnter() {
-    this.user.usuario = "";
-    this.user.password = "";
+    this.loginpage.tituleName.innerHTML = "Iniciar Sesión";
   }
   aprobarIngreso(namePage:string){
+    /*
     let navegationExtras: NavigationExtras = {
       state:{
         user: this.user
       }
     }
-    this.method.ingresar(namePage,'',navegationExtras);
+    */
+    this.user.usuario = "";
+    this.user.password = "";
+    //this.method.ingresar(namePage,'',navegationExtras);
+    this.method.ingresar(namePage,'');
   }
   validarApi(){
     if (this.apiUsers.getUser(this.user)) {

@@ -10,7 +10,7 @@ import { MethodService } from 'src/app/services/method/method.service';
 })
 export class AccountComponent  implements OnInit {
 
-  data:any='Hola xd';
+  data:any;
   nameComponent:any;
   constructor(private method:MethodService, public homepage:HomePage) {
     this.data = this.homepage.data;
@@ -22,8 +22,11 @@ export class AccountComponent  implements OnInit {
   logOut(){
     this.method.logOut();
   }
-  ionViewWillEnter() {
-    this.homepage.tituleName.innerHTML='Cuenta';
+  IrEditarPerfil() {
+    this.method.ingresar('home', 'editarperfil');
   }
 
+  ionViewWillEnter() {
+    this.homepage.changeHeader(false,'Cuenta');
+  }
 }

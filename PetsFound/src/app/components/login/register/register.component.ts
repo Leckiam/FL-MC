@@ -9,9 +9,7 @@ import { MethodService } from 'src/app/services/method/method.service';
 })
 export class RegisterComponent  implements OnInit {
 
-  constructor(private method:MethodService, private loginpage:LoginPage) {
-    this.loginpage.tituleName.innerHTML = "Registrarse";
-  }
+  constructor(private method:MethodService, private loginpage:LoginPage) {}
 
   userTmp ={
     usuario:'',
@@ -42,7 +40,7 @@ export class RegisterComponent  implements OnInit {
       }, 1000); 
     });
     btn_irLogin?.addEventListener('click',function(){
-      RegisterObj.loginpage.changePage('login');
+      RegisterObj.changePage('login');
     });
   }
 
@@ -50,11 +48,15 @@ export class RegisterComponent  implements OnInit {
     if (this.validarDatoUserTmp()) {
       let msg = 'Se ha registrado exitosamente'
       this.method.presentToast('bottom',msg)
-      this.loginpage.changePage('login','');
+      this.changePage('login','');
     } else {
       let msgErr = 'Su registro ha fallado'
       this.method.presentToast('bottom',msgErr)
     }
+  }
+
+  changePage(namePage:string,nameComponent?:string){
+    this.loginpage.changePage(namePage,nameComponent);
   }
 
   validarDatoUserTmp(){
@@ -76,6 +78,7 @@ export class RegisterComponent  implements OnInit {
     this.method.retroceder();
   }
   ionViewWillEnter() {
+    this.loginpage.tituleName.innerHTML = "Registrarse";
     this.userTmp.email = "";
     this.userTmp.usuario = "";
     this.userTmp.password = "";
