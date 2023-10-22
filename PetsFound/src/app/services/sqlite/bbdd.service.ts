@@ -4,7 +4,6 @@ import { Platform } from '@ionic/angular';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { MethodService } from '../method/method.service';
 import { User } from 'src/app/class/user/user';
-import { UserdefaultService } from '../api/users/userdefault.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +15,10 @@ export class BbddService {
     CREATE TABLE IF NOT EXISTS user(
       id INTEGER PRIMARY KEY autoincrement,
       nombre VARCHAR(25) NOT NULL,
-      correo VARCHAR(20) NOT NULL,
-      username VARCHAR(20) NOT NULL,
+      correo VARCHAR(20) NOT NULL UNIQUE,
+      username VARCHAR(20) NOT NULL UNIQUE,
       password VARCHAR(20) NOT NULL);
+      isStaff INTEGER NOT NULL);
   `;
   listaUsers = new BehaviorSubject<User[]>([]);
   private isDbReady:BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -50,10 +50,13 @@ export class BbddService {
     }
   }
   async addUsers(data:any) {
-    await this.database.executeSql('INSERT INTO user(nombre,correo,username,password)VALUES(?,?,?,?)', data);
+    await this.database.executeSql('INSERT INTO user(nombre,correo,username,password,isStaff)VALUES(?,?,?,?,?)', data);
   }
-  async deleteUsers(username: string) {
-    await this.database.executeSql('DELETE FROM user WHERE username=?', [username]);
+  async deleteUsers(correo: string) {
+    await this.database.executeSql('DELETE FROM user WHERE correo=?', [correo]);
+  }
+  async deleteAllUsers() {
+    await this.database.executeSql('DELETE FROM user', []);
   }
   cargarUsersBD() {
     let items: User[] = [];
@@ -67,29 +70,12 @@ export class BbddService {
               correo: res.rows.item(i).correo,
               username: res.rows.item(i).username,
               password: res.rows.item(i).password,
+              isStaff: res.rows.item(i).isStaff,
             });
           }
         }
       });
     this.listaUsers.next(items);
-  }
-  getUsersBD(param:string,dato:string) {
-    let items: User[] = [];
-    this.database.executeSql(`SELECT * FROM user WHERE ${param}=${dato}`, [])
-      .then(res => {
-        if (res.rows.length > 0) {
-          for (let i = 0; i < res.rows.length; i++) {
-            items.push({
-              id: res.rows.item(i).id,
-              nombre: res.rows.item(i).nombre,
-              correo: res.rows.item(i).correo,
-              username: res.rows.item(i).username,
-              password: res.rows.item(i).password,
-            });
-          }
-        }
-      });
-    return items[0];
   }
   dbState() {
     return this.isDbReady.asObservable();

@@ -86,7 +86,7 @@ export class LogincompComponent  implements OnInit {
     } 
   } 
 
-  async changePageLog(namePage:string,nameComponent?:string){
+  changePageLog(namePage:string,nameComponent?:string){
     if (!this.validarLogin(this.user)){
       let msg= 'Su usuario y/o contraseña no está dentro del rango de caracteres (6 caracteres)'
       this.method.presentToast('bottom',msg)

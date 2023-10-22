@@ -4,4 +4,5 @@ export class User {
     correo!: string;
     username!: string;
     password!: string;
+    isStaff!: boolean;
 }
