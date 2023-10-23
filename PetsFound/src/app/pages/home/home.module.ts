@@ -10,6 +10,7 @@ import { InicioComponent } from 'src/app/components/home/inicio/inicio.component
 import { AgregarMascotaComponent } from 'src/app/components/home/agregar-mascota/agregar-mascota.component';
 import { EditarperfilComponent } from 'src/app/components/home/editarperfil/editarperfil.component';
 import { MessageComponent } from 'src/app/components/home/message/message.component';
+import { UsersComponent } from 'src/app/components/administrador/crud/users/users/users.component';
 
 
 @NgModule({
@@ -19,6 +20,9 @@ import { MessageComponent } from 'src/app/components/home/message/message.compon
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage,AccountComponent,InicioComponent,AgregarMascotaComponent,EditarperfilComponent,MessageComponent]
+  declarations: [HomePage,AccountComponent,InicioComponent,
+    AgregarMascotaComponent,EditarperfilComponent,MessageComponent,
+    UsersComponent
+  ]
 })
 export class HomePageModule {}

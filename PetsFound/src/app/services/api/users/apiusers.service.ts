@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, tap } from 'rxjs/operators';
-import { Observable,of } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { User } from 'src/app/class/user/user';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserdefaultService {
+export class ApiusersService {
 
   //URL:string='https://jsonplaceholder.typicode.com';
   //url:string='http://192.168.1.13:3000';
@@ -19,17 +18,18 @@ export class UserdefaultService {
     }),
   };
   usersApi:[User]= [new User()];
-  constructor(private http:HttpClient) { }
-
-  getData(): Observable<any> {
-    const apiUrl = 'https://raw.githubusercontent.com/Leckiam/FL-MC/Maikel-C/PetsFound/usuarios_PGY4121_04.json';
-    return this.http.get(apiUrl);
+  constructor(private http:HttpClient) {
+    this.setApiToUsers()
   }
 
-  apiUsers(usersApi:any){
+  getData(): Observable<any> {
+    return this.http.get(this.apiUrl);
+  }
+
+  setApiToUsers(){
     this.getData().subscribe(async (data) => {
       const dataUsers = await data.users;
-      usersApi = dataUsers;
+      this.usersApi = dataUsers;
     })
   }
 }

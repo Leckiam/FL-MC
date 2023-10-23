@@ -7,7 +7,7 @@
       "correo": "al.aracena@duocuc.cl",
       "username": "al.aracena",
       "password": "123456",
-      "isStaff": 1
+      "isStaff": 0
     },
     {
       "id": 2,
@@ -15,7 +15,7 @@
       "correo": "clau.benavides@duocuc.cl",
       "username": "clau.benavides",
       "password": "123456",
-      "isStaff": 1
+      "isStaff": 0
     },
     {
       "id": 3,
@@ -23,7 +23,7 @@
       "correo": "fr.cardemil@duocuc.cl",
       "username": "fr.cardemil",
       "password": "123456",
-      "isStaff": 1
+      "isStaff": 0
     },
     {
       "id": 4,
@@ -31,7 +31,7 @@
       "correo": "mar.castillop@duocuc.cl",
       "username": "mar.castillop",
       "password": "123456",
-      "isStaff": 1
+      "isStaff": 0
     },
     {
       "id": 5,
@@ -47,7 +47,7 @@
       "correo": "iva.duarte@duocuc.cl",
       "username": "iva.duarte",
       "password": "123456",
-      "isStaff": 1
+      "isStaff": 0
     },
     {
       "id": 7,
@@ -55,7 +55,7 @@
       "correo": "ig.falk@duocuc.cl",
       "username": "ig.falk",
       "password": "123456",
-      "isStaff": 1
+      "isStaff": 0
     },
     {
       "id": 8,
@@ -71,7 +71,7 @@
       "correo": "al.melgarejo@duocuc.cl",
       "username": "al.melgarejo",
       "password": "123456",
-      "isStaff": 1
+      "isStaff": 0
     },
     {
       "id": 10,
@@ -79,7 +79,7 @@
       "correo": "marc.penas@duocuc.cl",
       "username": "marc.penas",
       "password": "123456",
-      "isStaff": 1
+      "isStaff": 0
     },
     {
       "id": 11,
@@ -87,7 +87,7 @@
       "correo": "ro.riosb@duocuc.cl",
       "username": "ro.riosb",
       "password": "123456",
-      "isStaff": 1
+      "isStaff": 0
     },
     {
       "id": 12,
@@ -95,7 +95,7 @@
       "correo": "jo.rocha@duocuc.cl",
       "username": "jo.rocha",
       "password": "123456",
-      "isStaff": 1
+      "isStaff": 0
     },
     {
       "id": 13,
@@ -103,7 +103,7 @@
       "correo": "mj.rojasc@duocuc.cl",
       "username": "mj.rojasc",
       "password": "123456",
-      "isStaff": 1
+      "isStaff": 0
     },
     {
       "id": 14,
@@ -111,7 +111,7 @@
       "correo": "gio.rozas@duocuc.cl",
       "username": "gio.rozas",
       "password": "123456",
-      "isStaff": 1
+      "isStaff": 0
     },
     {
       "id": 15,
@@ -119,7 +119,7 @@
       "correo": "die.saldivar@duocuc.cl",
       "username": "die.saldivar",
       "password": "123456",
-      "isStaff": 1
+      "isStaff": 0
     },
     {
       "id": 16,
@@ -127,7 +127,7 @@
       "correo": "may.salgado@duocuc.cl",
       "username": "may.salgado",
       "password": "123456",
-      "isStaff": 1
+      "isStaff": 0
     },
     {
       "id": 17,
@@ -135,7 +135,7 @@
       "correo": "mat.sandoval@duocuc.cl",
       "username": "mat.sandoval",
       "password": "123456",
-      "isStaff": 1
+      "isStaff": 0
     },
     {
       "id": 18,
@@ -143,7 +143,7 @@
       "correo": "mat.tapias@duocuc.cl",
       "username": "mat.tapias",
       "password": "123456",
-      "isStaff": 1
+      "isStaff": 0
     },
     {
       "id": 19,
@@ -151,7 +151,7 @@
       "correo": "paol.valenciap@duocuc.cl",
       "username": "paol.valenciap",
       "password": "123456",
-      "isStaff": 1
+      "isStaff": 0
     }
   ]  
 }

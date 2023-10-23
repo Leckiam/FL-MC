@@ -61,7 +61,7 @@ export class RegisterComponent  implements OnInit {
   }
   registrar(){
     if (this.validarDatoUserTmp()) {
-      let data = ['',this.userTmp.correo,this.userTmp.username,this.userTmp.password]
+      let data = [this.userTmp.username,this.userTmp.correo,this.userTmp.username,this.userTmp.password,0];
       this.bbdd.addUsers(data);
       return true;
     } else {

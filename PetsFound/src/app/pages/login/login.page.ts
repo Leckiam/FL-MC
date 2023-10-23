@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
+import { User } from 'src/app/class/user/user';
 import { MethodService } from 'src/app/services/method/method.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { MethodService } from 'src/app/services/method/method.service';
 export class LoginPage implements OnInit {
   
   tituleName:any
+  usersDB: [User] = [new User()];
   constructor(private method:MethodService,private appComponent:AppComponent) {
     this.appComponent.cantLoadPages += 1;
   }

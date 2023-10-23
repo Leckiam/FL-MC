@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationExtras } from '@angular/router';
 import { User } from 'src/app/class/user/user';
 import { LoginPage } from 'src/app/pages/login/login.page';
-import { UserdefaultService } from 'src/app/services/api/users/userdefault.service';
+import { ApiusersService } from 'src/app/services/api/users/apiusers.service';
 import { MethodService } from 'src/app/services/method/method.service';
 import { BbddService } from 'src/app/services/sqlite/bbdd.service';
 
@@ -14,7 +13,6 @@ import { BbddService } from 'src/app/services/sqlite/bbdd.service';
 export class LogincompComponent  implements OnInit {
 
   user:User = new User();
-  users: [User] = [new User()];
   constructor(private method:MethodService, private loginpage:LoginPage,private bbdd:BbddService) {
     this.user.username = '';
     this.user.password = '';
@@ -22,13 +20,6 @@ export class LogincompComponent  implements OnInit {
   
   ngOnInit() {
     let LoginObj = this;
-    this.bbdd.dbState().subscribe((res: any) =>{
-      if(res){
-        this.bbdd.fetchUsers().subscribe((item: any) =>{
-          this.users = item;
-        })
-      }
-    });
     const content = document.getElementById('content-login-pf');
     const btn_irRegister = content?.querySelector('#btn-irRegister') as HTMLElement;
     const btn_irRecover = content?.querySelector('#btn-irRecover') as HTMLElement;
@@ -78,7 +69,6 @@ export class LogincompComponent  implements OnInit {
   }
 
   validarLogin(user:any){
-    console.log(user)
     if (user.username.length >=6 && user.password.length >=6) {
       return true
     } else {
@@ -103,6 +93,15 @@ export class LogincompComponent  implements OnInit {
     }
   }
   ionViewWillEnter() {
+    this.bbdd.dbState().subscribe((res: any) =>{
+      if(res){
+        this.bbdd.fetchUsers().subscribe(async (item: any) =>{
+          this.loginpage.usersDB = await item;
+          this.bbdd.usersBD = this.loginpage.usersDB;
+          await this.bbdd.existeUsersInBD();
+        })
+      }
+    });
     this.loginpage.tituleName.innerHTML = "Iniciar Sesión";
   }
   aprobarIngreso(namePage:string){
@@ -120,9 +119,10 @@ export class LogincompComponent  implements OnInit {
     this.method.ingresar(namePage,'');
   }
   existeUser(){
-    for (let i = 0; i < this.users.length; i++) {
-      const userTmp = this.users[i];
-      if (userTmp.username==this.user.username && userTmp.password==this.user.password) {
+    for (let i = 0; i < this.loginpage.usersDB.length; i++) {
+      const userTmp = this.loginpage.usersDB[i];
+      if (userTmp.username==this.user.username && 
+        userTmp.password==this.user.password) {
         return true;
       }
     }
