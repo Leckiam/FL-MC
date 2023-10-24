@@ -9,6 +9,7 @@ import { AccountComponent } from 'src/app/components/home/account/account.compon
 import { InicioComponent } from 'src/app/components/home/inicio/inicio.component';
 import { AgregarMascotaComponent } from 'src/app/components/home/agregar-mascota/agregar-mascota.component';
 import { MessagesComponent } from 'src/app/components/home/messages/messages.component';
+import { EditarperfilComponent } from 'src/app/components/home/editarperfil/editarperfil.component';
 
 
 
@@ -20,6 +21,6 @@ import { MessagesComponent } from 'src/app/components/home/messages/messages.com
     HomePageRoutingModule,
 
   ],
-  declarations: [HomePage,AccountComponent,InicioComponent, AgregarMascotaComponent, MessagesComponent]
+  declarations: [HomePage,AccountComponent,InicioComponent, AgregarMascotaComponent, MessagesComponent, EditarperfilComponent]
 })
 export class HomePageModule {}

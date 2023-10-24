@@ -8,7 +8,7 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./generate-qr.page.scss'],
 })
 export class GenerateQrPage implements OnInit {
-  qrdata : any;
+  qrdata: string = 'Colorin'; 
   createCode : any;
 
   constructor(public navCtrl: NavController, public angularqrCode: QRCodeModule) {
@@ -26,5 +26,14 @@ export class GenerateQrPage implements OnInit {
   ngOnInit() {
   }
 
+  obtnUser(){
+      const user = localStorage.getItem('user');
+
+      if (user) {
+        this.qrdata = user;
+      } else {
+        console.error('No se encontró un nombre de usuario en el localStorage');
+      }
+  }
 
 }

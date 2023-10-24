@@ -33,6 +33,8 @@
     "@ionic/angular": "^7.0.0",
     "angularx-qrcode": "^16.0.2",
     "ionicons": "^7.0.0",
+    "lottie-web": "^5.12.2",
+    "ngx-lottie": "^10.0.0",
     "phonegap-plugin-barcodescanner": "^8.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

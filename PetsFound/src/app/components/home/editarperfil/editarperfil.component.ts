@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./editarperfil.component.scss'],
 })
 export class EditarperfilComponent  implements OnInit {
+  userData: any = {};
 
   constructor() { }
 

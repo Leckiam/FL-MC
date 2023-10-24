@@ -15,9 +15,19 @@
           <ion-label position="stacked">Nombre</ion-label>
           <ion-input [(ngModel)]="mascota.nombre" type="text"></ion-input>
         </ion-item>
+       
         <ion-item>
           <ion-label position="stacked">Tipo</ion-label>
-          <ion-input [(ngModel)]="mascota.tipo" type="text"></ion-input>
+          <ion-select [(ngModel)]="mascota.tipo">
+            <ion-select-option value="Perro">Perro</ion-select-option>
+            <ion-select-option value="Gato">Gato</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item *ngIf="mascota.tipo === 'Perro'">
+          <ion-label position="stacked">Raza</ion-label>
+          <ion-select [(ngModel)]="mascota.raza">
+            <ion-select-option *ngFor="let raza of razasPerro">{{ raza }}</ion-select-option>
+          </ion-select>
         </ion-item>
         <ion-item>
           <ion-label position="stacked">Edad</ion-label>
@@ -27,10 +37,11 @@
           <ion-label position="stacked">Descripción</ion-label>
           <ion-textarea [(ngModel)]="mascota.descripcion"></ion-textarea>
         </ion-item>
+
+        
       </ion-list>
     </ion-card-content>
   </ion-card>
 
   <ion-button expand="full" (click)="agregarMascota()">Agregar Mascota</ion-button>
 </ion-content>
-

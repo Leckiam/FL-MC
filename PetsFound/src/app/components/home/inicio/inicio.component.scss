@@ -31,21 +31,35 @@
     background-color: #ccc;
   }
 
-  .buttonCustom {
-    ion-button {
-      background-color: white; 
-      color: black; 
-      border: 1px solid black; 
-      border-radius: 5px; 
-      text-transform: uppercase; 
-      font-weight: bold; 
-      padding: 10px 20px; 
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-}
+  .botoncustom {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #000;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
   
+    &:hover {
+      background-color: #f0f0f0;
+    }
+  
+    &:active {
+      background-color: #ccc;
+    }
+ }
+
+ .mascotas-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+  gap: 20px; 
+  
+}
+}
   

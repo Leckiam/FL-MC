@@ -28,6 +28,11 @@ const routes: Routes = [
     path: 'generate-qr',
     loadChildren: () => import('./pages/generate-qr/generate-qr.module').then( m => m.GenerateQrPageModule)
   },
+
+  {
+    path: '**',
+    redirectTo: './pages/notsfound/notsfound.module' 
+  }
 ];
 
 @NgModule({

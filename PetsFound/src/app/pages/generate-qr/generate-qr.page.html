@@ -5,17 +5,12 @@
 </ion-header>
 
 <ion-content>
-  <ion-input type="text" placeholder="ingrese su correo electronico para generarlo como QR" [(ngModel)] = "qrdata"></ion-input>
-
-  <ion-button full color="secondary" (click)="create()">generar</ion-button>
-  
-
-  <ion-card *ngIf="createCode">
-    <qrcode [qrdata] ="createCode"></qrcode>
-    
+  <ion-card class="ion-text-center">
     <ion-card-content>
-      tu codigo qr es : {{createCode}}
+      <qrcode 
+        [qrdata]="qrdata" 
+        [width]="256" 
+        [errorCorrectionLevel]="'M'"></qrcode>
     </ion-card-content>
   </ion-card>
-  
 </ion-content>

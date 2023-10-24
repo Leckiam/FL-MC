@@ -5,15 +5,16 @@ import { Router } from '@angular/router';
 import { EditarperfilComponent } from '../editarperfil/editarperfil.component';
 
 
+
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss'],
 })
 export class AccountComponent  implements OnInit {
-
+  qrData: any;
   data:any;
-  constructor(private router: Router, private appComponentt:AppComponent, public homepage:HomePage) {
+  constructor(private router: Router, private appComponentt:AppComponent,  public homepage:HomePage) {
     this.data = this.appComponentt.data;
   }
 
@@ -31,4 +32,6 @@ export class AccountComponent  implements OnInit {
   generateQR() {
     this.appComponentt.ingresar('generate-qr')
   }
+
+  
 }

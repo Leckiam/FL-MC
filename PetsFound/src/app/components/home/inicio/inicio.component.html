@@ -14,11 +14,22 @@
         <img src="../../../../assets/img/pet01-gato01.jpg" />
       </ion-card-content>
     </ion-card>
+    
+    <ion-list>
+      <ion-item *ngFor="let mascota of mascotas">
+        <ion-label>{{ mascota.nombre }}</ion-label>
+      </ion-item>
+    </ion-list>
+  
+
+
     <ion-card class="buttonCustom">
       <ion-button (click)="changePage('home','addPets')">
        +
       </ion-button>
     </ion-card>
   </div>
+
+  
   <br><br>
 </div>
