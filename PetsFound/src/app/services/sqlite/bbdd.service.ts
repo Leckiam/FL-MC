@@ -28,7 +28,7 @@ export class BbddService {
       id INTEGER PRIMARY KEY autoincrement,
       nombre VARCHAR(25) NOT NULL,
       tipo VARCHAR(20) NOT NULL,
-      raza VARCHAR(20) NOT NULL,
+      raza VARCHAR(20) NULL,
       edad VARCHAR(20) NOT NULL,
       descripcion TEXT NOT NULL,
       id_dueno INTEGER NOT NULL,
@@ -58,25 +58,34 @@ export class BbddService {
   constructor(private sqlite: SQLite,private platform: Platform,private method:MethodService,private apiUsers:ApiusersService) {}
   
   crearBD() {
+    localStorage.removeItem('createTable');
+    localStorage.removeItem('createBD');
     this.platform.ready().then(() => {
       this.sqlite.create({
         name: 'users.db',
         location: 'default'
       }).then((db:SQLiteObject)=> {
         this.database = db;
-        this.method.presentToast("bottom",'BD Creada');
-        this.crearTablaUser();
-        this.crearTablaDueno();
-        this.crearTablaPets();
+        this.crearAllTablas();
       }).catch((e) => {
         this.method.presentToast("top",e)
       })
     });
   };
+  async crearAllTablas(){
+    localStorage.setItem('createTable','start')
+    await this.crearTablaUser();
+    await this.crearTablaDueno();
+    await this.crearTablaPets();
+    console.log('Cargaron todas las tablas')
+    localStorage.setItem('createTable','end')
+    localStorage.setItem('createBD','true');
+  }
   async crearTablaUser() {
     try {
       await this.database.executeSql(this.tblUsers, []);
       this.cargarUsersBD();
+      console.log('Tabla User creada');
       this.isDbReady.next(true);
     } catch (error) {
       this.method.presentToast("top","Error en Crear Tabla: " + error);
@@ -99,12 +108,14 @@ export class BbddService {
           }
         }
       });
+    console.log('Lista User cargada');
     this.listaUsers.next(items);
   }
   async crearTablaPets() {
     try {
       await this.database.executeSql(this.tblPets, []);
       this.cargarPetsBD();
+      console.log('Tabla Mascota creada');
       this.isDbReady.next(true);
     } catch (error) {
       this.method.presentToast("top","Error en Crear Tabla: " + error);
@@ -112,7 +123,7 @@ export class BbddService {
   }
   cargarPetsBD() {
     let items: Mascota[] = [];
-    this.database.executeSql('SELECT * FROM user', [])
+    this.database.executeSql('SELECT * FROM mascota', [])
       .then(res => {
         if (res.rows.length > 0) {
           for (let i = 0; i < res.rows.length; i++) {
@@ -128,6 +139,7 @@ export class BbddService {
           }
         }
       });
+    console.log('Lista Mascota cargada');
     this.listaPets.next(items);
   }
   
@@ -135,6 +147,7 @@ export class BbddService {
     try {
       await this.database.executeSql(this.tblDuenos, []);
       this.cargarDuenosBD();
+      console.log('Tabla Dueno creada');
       this.isDbReady.next(true);
     } catch (error) {
       this.method.presentToast("top","Error en Crear Tabla: " + error);
@@ -142,7 +155,7 @@ export class BbddService {
   }
   cargarDuenosBD() {
     let items: Dueno[] = [];
-    this.database.executeSql('SELECT * FROM user', [])
+    this.database.executeSql('SELECT * FROM dueno', [])
       .then(res => {
         if (res.rows.length > 0) {
           for (let i = 0; i < res.rows.length; i++) {
@@ -159,6 +172,7 @@ export class BbddService {
           }
         }
       });
+    console.log('Lista Dueno cargada');
     this.listaDuenos.next(items);
   }
   
@@ -208,6 +222,7 @@ export class BbddService {
 
   async existeUsersInBD(){
     await this.validarStaff();
+    console.log('validacion hecha (fuera)');
     console.log(this.usersBD.length)
     if (this.usersBD.length<1) {
       if (this.apiUsers.usersApi.length<19) {
@@ -223,17 +238,7 @@ export class BbddService {
   }
   async validarStaff(){
     this.apiUsers.setApiToUsers();
-    let istaff = false;
-    let rango = 19;
-    if (this.usersBD.length < rango) {
-      rango = this.usersBD.length;
-    }
-    for (let i = 0; i < rango; i++) {
-      const user = this.usersBD[i];
-      if (user.isStaff==1) {
-        istaff=true;
-      }
-    }
+    console.log('validacion hecha (dentro)');
   }
   
 }

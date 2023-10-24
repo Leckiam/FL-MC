@@ -11,7 +11,7 @@ import { BbddService } from 'src/app/services/sqlite/bbdd.service';
 })
 export class RegisterComponent  implements OnInit {
 
-  constructor(private method:MethodService, private loginpage:LoginPage,private bbdd:BbddService) {}
+  constructor(private method:MethodService, private loginpage:LoginPage) {}
 
   userTmp:User = new User();
   passwordTmp:string='';
@@ -60,9 +60,18 @@ export class RegisterComponent  implements OnInit {
     this.loginpage.convertirAMinusculas(event);
   }
   registrar(){
+    const correo = this.userTmp.correo;
+    for (let i = 0; i < correo.length; i++) {
+      const letra = correo[i];
+      if (letra == '@') {
+        break;
+      } else {
+        this.userTmp.username+=letra;
+      }
+    }
     if (this.validarDatoUserTmp()) {
       let data = [this.userTmp.username,this.userTmp.correo,this.userTmp.username,this.userTmp.password,0];
-      this.bbdd.addValuesInTable(data,['nombre','correo','username','password','isStaff'],'user');
+      this.loginpage.bbdd.addValuesInTable(data,['nombre','correo','username','password','isStaff'],'user');
       return true;
     } else {
       return false;

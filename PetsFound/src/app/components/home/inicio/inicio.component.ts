@@ -5,6 +5,7 @@ import type {QueryList} from '@angular/core';
 import type {Animation} from '@ionic/angular';
 import { HomePage } from 'src/app/pages/home/home.page';
 import { MethodService } from 'src/app/services/method/method.service';
+import { User } from 'src/app/class/user/user';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { MethodService } from 'src/app/services/method/method.service';
 })
 export class InicioComponent {
 
-  data:any;
+  data:User;
   @ViewChildren(IonCard, {read:ElementRef})
   cardElements!: QueryList<ElementRef<HTMLIonCardElement>>;
 
@@ -22,8 +23,8 @@ export class InicioComponent {
   animar1!: ElementRef;
 
   private animation!: Animation;
-  constructor(private method:MethodService,private animationController:AnimationController,public homepage:HomePage) {
-    this.data = this.homepage.data;
+  constructor(private method:MethodService,private animationController:AnimationController,private homepage:HomePage) {
+    this.data = this.homepage.user;
   }
 
   changePage(namePage:string,nameComponent?:string){
@@ -54,6 +55,11 @@ export class InicioComponent {
     this.animation.play();
   }
   ionViewWillEnter() {
+    console.log('Esto es ionViewWillEnter [/Home]');
     this.homepage.changeHeader(false,'Inicio');
+    this.homepage.bbdd.crearBD();
+    this.homepage.seg  = 0;
+    this.homepage.cargarUsersDelay();
+    console.log(this.data);
   }
 }
