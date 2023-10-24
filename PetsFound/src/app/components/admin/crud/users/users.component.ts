@@ -8,7 +8,7 @@ import { User } from 'src/app/class/user/user';
 })
 export class UsersComponent  implements OnInit {
 
-  usersDB:[User]=[new User()]
+  usersDB:User[];
   constructor() { }
 
   ngOnInit() {}

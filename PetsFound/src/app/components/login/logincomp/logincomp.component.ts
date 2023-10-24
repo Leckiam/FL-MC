@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { User } from 'src/app/class/user/user';
 import { LoginPage } from 'src/app/pages/login/login.page';
-import { ApiusersService } from 'src/app/services/api/users/apiusers.service';
 import { MethodService } from 'src/app/services/method/method.service';
 import { BbddService } from 'src/app/services/sqlite/bbdd.service';
 
@@ -45,6 +44,7 @@ export class LogincompComponent  implements OnInit {
 
   estadoBtns(estado:boolean,btn_login:any,btn_irRegister:any,btn_irRecover:any){
     if (estado) {
+      this.cargarUsers();
       btn_login.style.pointerEvents = 'auto';
       btn_irRegister.style.pointerEvents = 'auto';
       btn_irRecover.style.pointerEvents = 'auto';
@@ -77,6 +77,7 @@ export class LogincompComponent  implements OnInit {
   } 
 
   changePageLog(namePage:string,nameComponent?:string){
+    this.bbdd.existeUsersInBD();
     if (!this.validarLogin(this.user)){
       let msg= 'Su usuario y/o contraseña no está dentro del rango de caracteres (6 caracteres)'
       this.method.presentToast('bottom',msg)
@@ -93,17 +94,10 @@ export class LogincompComponent  implements OnInit {
     }
   }
   ionViewWillEnter() {
-    this.bbdd.dbState().subscribe((res: any) =>{
-      if(res){
-        this.bbdd.fetchUsers().subscribe(async (item: any) =>{
-          this.loginpage.usersDB = await item;
-          this.bbdd.usersBD = this.loginpage.usersDB;
-          await this.bbdd.existeUsersInBD();
-        })
-      }
-    });
+    this.bbdd.crearBD()
     this.loginpage.tituleName.innerHTML = "Iniciar Sesión";
   }
+
   aprobarIngreso(namePage:string){
     /*
     let navegationExtras: NavigationExtras = {
@@ -118,6 +112,17 @@ export class LogincompComponent  implements OnInit {
     //this.method.ingresar(namePage,'',navegationExtras);
     this.method.ingresar(namePage,'');
   }
+  cargarUsers(){
+    this.bbdd.dbState().subscribe((res: any) =>{
+      if(res){
+        this.bbdd.fetchUsers().subscribe(async (item: any) =>{
+          this.loginpage.usersDB = item;
+          this.bbdd.usersBD = this.loginpage.usersDB;
+        })
+      }
+    });
+  }
+
   existeUser(){
     for (let i = 0; i < this.loginpage.usersDB.length; i++) {
       const userTmp = this.loginpage.usersDB[i];

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 import { User } from 'src/app/class/user/user';
 import { MethodService } from 'src/app/services/method/method.service';
+import { BbddService } from 'src/app/services/sqlite/bbdd.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { MethodService } from 'src/app/services/method/method.service';
 export class LoginPage implements OnInit {
   
   tituleName:any
-  usersDB: [User] = [new User()];
+  usersDB: User[];
   constructor(private method:MethodService,private appComponent:AppComponent) {
     this.appComponent.cantLoadPages += 1;
   }

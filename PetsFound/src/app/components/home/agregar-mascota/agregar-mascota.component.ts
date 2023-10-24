@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Dueno } from 'src/app/class/dueno/dueno';
 import { Mascota } from 'src/app/class/mascota/mascota';
-import { Raza } from 'src/app/class/raza/raza';
 import { HomePage } from 'src/app/pages/home/home.page';
 
 @Component({
@@ -11,12 +10,11 @@ import { HomePage } from 'src/app/pages/home/home.page';
 })
 export class AgregarMascotaComponent {
   mascota: Mascota = new Mascota();  // Crea una instancia de Mascota para el formulario
-  raza: Raza = new Raza();  // Crea una instancia de Mascota para el formulario
-  dueno: Dueno = new Dueno();  // Crea una instancia de Mascota para el formulario
+  dueno: Dueno = new Dueno();  // Crea una instancia de Dueno para el formulario
 
   constructor(private homepage:HomePage) {
     this.mascota.nombre = '';
-    this.mascota.raza = this.raza;
+    this.mascota.raza = '';
     this.mascota.tipo = '';
     this.mascota.dueno = this.dueno;
     this.mascota.edad = 0;
