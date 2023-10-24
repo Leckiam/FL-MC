@@ -22,7 +22,7 @@ export class BbddService {
       isStaff INTEGER NOT NULL);
   `;
   listaUsers = new BehaviorSubject<User[]>([]);
-  usersBD:[User];
+  usersBD:User[];
   private isDbReady:BehaviorSubject<boolean> = new BehaviorSubject(false);
   constructor(private sqlite: SQLite,private platform: Platform,private method:MethodService,private apiUsers:ApiusersService) {
     this.crearBD();

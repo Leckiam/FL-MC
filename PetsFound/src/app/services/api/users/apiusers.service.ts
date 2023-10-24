@@ -17,7 +17,7 @@ export class ApiusersService {
       'Access-Control-Allow-Origin' :'*'
     }),
   };
-  usersApi:[User]= [new User()];
+  usersApi:User[]= [new User()];
   constructor(private http:HttpClient) {
     this.setApiToUsers()
   }
