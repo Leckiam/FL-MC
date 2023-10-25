@@ -26,7 +26,6 @@ export class HomePage {
   petsDB:Mascota[];
 
   seg:number;
-  public bbdd = inject(BbddService);
 
   constructor(private method:MethodService, private barcodeScanner: BarcodeScanner,private appComponent:AppComponent) {
     this.appComponent.cantLoadPages += 1;
@@ -91,30 +90,5 @@ export class HomePage {
     } catch (error) {
       console.log(error)
     }
-  }
-  cargarTablaDelay(nro:number){
-    console.log(localStorage.getItem('createTable'))
-    const estadoTbls = localStorage.getItem('createTable');
-    if (estadoTbls=='end') {
-      console.log('entra return xd');
-      this.cargarUsers();
-      return;
-    } else if(this.seg==7){
-      this.method.presentToast('top','No se ha cargado la BBDD, favor de cerrar y abrir la app');
-      return;
-    }
-    this.seg +=1;
-    setTimeout(() => this.cargarTablaDelay(nro), 1000);
-  }
-  cargarUsers(){
-    this.bbdd.dbState().subscribe((res: any) =>{
-      if(res){
-        this.bbdd.fetchUsers().subscribe((item: any) =>{
-          this.usersDB = item;
-          this.bbdd.usersBD = this.usersDB;
-          console.log(this.usersDB[0].username)
-        })
-      }
-    });
   }
 }

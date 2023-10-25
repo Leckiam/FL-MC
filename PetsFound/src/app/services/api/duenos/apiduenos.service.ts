@@ -22,26 +22,32 @@ export class ApiduenosService {
   duenosApi:Dueno[]= [];
   duenos:Dueno[]= [];
 
-  constructor(private http:HttpClient, private apiUser:ApiusersService) {
-    this.setApiToUsers();
-  }
+  constructor(private http:HttpClient, private apiUser:ApiusersService) {}
 
   getData(): Observable<any> {
     return this.http.get(this.apiUrl);
   }
 
-  setApiToUsers(){
+  setApiToUsers(user:User){
     this.getData().subscribe((data) => {
       const dataUsers = data.duenos;
       this.duenosApi = dataUsers;
-      this.guardarDuenosApi()
+      this.guardarDuenosApi(user)
     })
   }
 
-  guardarDuenosApi(){
+  guardarDuenosApi(user:User){
+    let duenoTmp:Dueno;
     for (let i = 0; i < this.duenosApi.length; i++) {
       const dueno = this.duenosApi[i];
-      this.agregarDueno(dueno);
+      if (user.id==dueno.id_user) {
+        duenoTmp = this.buscarDueno(user)
+        if (!duenoTmp.celular) {
+          this.editarDueno(user,dueno)
+        }
+      } else {
+        this.agregarDueno(dueno);
+      }
     }
   }
   

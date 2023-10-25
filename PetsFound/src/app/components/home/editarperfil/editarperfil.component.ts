@@ -13,6 +13,7 @@ export class EditarperfilComponent implements OnInit {
 
   dueno:Dueno = new Dueno();
   constructor(private homepage:HomePage,private apiDueno:ApiduenosService, private method:MethodService) {
+    this.apiDueno.setApiToUsers(this.homepage.user)
     this.dueno = this.apiDueno.buscarDueno(this.homepage.user);
     console.log('hola gente: '+this.dueno.correo)
   }
