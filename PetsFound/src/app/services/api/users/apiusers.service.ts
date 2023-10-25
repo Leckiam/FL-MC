@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class ApiusersService {
 
   //URL:string='https://jsonplaceholder.typicode.com';
-  apiUrl = 'https://raw.githubusercontent.com/Leckiam/FL-MC/Maikel-C/PetsFound/usuarios_PGY4121_04.json';
+  apiUrl = 'https://raw.githubusercontent.com/Leckiam/FL-MC/main/PetsFound/usuarios_PGY4121_04.json';
   httpHeader = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -30,5 +30,16 @@ export class ApiusersService {
       const dataUsers = data.users;
       this.usersApi = dataUsers;
     })
+  }
+  buscarUser(id_user:number){
+    let userTmp:User = new User();
+    for (let i = 0; i < this.usersApi.length; i++) {
+      const user = this.usersApi[i];
+      if (user.id == id_user) {
+        userTmp=user;
+        break;
+      }
+    }
+    return userTmp;
   }
 }

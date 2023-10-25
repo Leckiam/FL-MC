@@ -119,9 +119,10 @@ export class LogincompComponent  implements OnInit {
     console.log(this.loginpage.usersDB.length)
     for (let i = 0; i < this.loginpage.usersDB.length; i++) {
       const userTmp = this.loginpage.usersDB[i];
+      console.log(userTmp.username)
       if (userTmp.username==this.user.username && 
         userTmp.password==this.user.password) {
-          const userJson = JSON.stringify(userTmp)
+        const userJson = JSON.stringify(userTmp)
         localStorage.setItem('user',userJson);
         return true;
       }

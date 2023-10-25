@@ -8,26 +8,32 @@
     </ion-card-content>
   </ion-card>
 
-  <div style="display: flex; align-items: center;">
-    <ion-card class="Agregarmas">
-      <ion-card-content>
-        <img src="../../../../assets/img/pet01-gato01.jpg" />
-      </ion-card-content>
-    </ion-card>
 
-    <div class="mascotas-container">
-      <ion-card *ngFor="let mascota of mascotas" class="mascota-card">
-        <ion-card-content>
-          <ion-label>{{ mascota.nombre }}</ion-label>
-        </ion-card-content>
+    <div style="display: flex; align-items: center;">>
+      <ion-card class="buttonCustom1">
+          <ion-button class="buttonCustom1" (click)="toggleMostrarMascotas()">
+            {{ MostrarMascotas ? 'Ocultar' : 'Mostrar' }} Mas +
+          </ion-button>
       </ion-card>
-    </div>
 
-    <ion-card class="Agregarmas">
+    <ion-card class="botonCustom">
       <ion-button (click)="changePage('home','addPets')">
-        Agregar mascota +
+         +
       </ion-button>
     </ion-card>
+  </div>
+
+  <div class="mascotas-container" *ngIf="MostrarMascotas">
+    <ion-list>
+      <ion-item-sliding *ngFor="let mascota of mascotas">
+        <ion-item>
+          {{ mascota.nombre }}
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option (click)="eliminarMascota(mascota)">Eliminar</ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
   </div>
   <br><br>
 </div>

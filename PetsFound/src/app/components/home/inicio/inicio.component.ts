@@ -1,8 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, ViewChild, ViewChildren } from '@angular/core';
 import { AnimationController, IonCard } from '@ionic/angular';
-import { AppComponent } from 'src/app/app.component';
 import type {QueryList} from '@angular/core';
-import type {Animation, IonInfiniteScroll} from '@ionic/angular';
+import type {Animation} from '@ionic/angular';
 import { HomePage } from 'src/app/pages/home/home.page';
 import { MethodService } from 'src/app/services/method/method.service';
 import { User } from 'src/app/class/user/user';
@@ -18,8 +17,9 @@ import { ApipetsService } from 'src/app/services/api/pets/apipets.service';
 export class InicioComponent {
 
   mascotas:Mascota[] = [];
-  pagina = 1;
-  mascotasPorPagina = 10;
+  items:string[] = [];
+  MostrarMascotas = false;
+  noMascotas=false;
 
   data:User;
   @ViewChildren(IonCard, {read:ElementRef})
@@ -60,14 +60,26 @@ export class InicioComponent {
 
     this.animation.play();
   }
+
+  ngOnInit() {}
+
   ionViewWillEnter() {
     console.log('Esto es ionViewWillEnter [/Home]');
-    this.mascotas = this.petsService.obtenerMascotas();
+    this.mascotas = this.petsService.obtenerMascotas(this.homepage.user.id);
     this.homepage.changeHeader(false,'Inicio');
     this.homepage.bbdd.crearBD();
     this.homepage.seg  = 0;
-    this.homepage.cargarUsersDelay();
+    this.homepage.cargarTablaDelay(1);
     console.log(this.data);
+  }
+
+  eliminarMascota(mascota:Mascota){
+    this.petsService.eliminarMascota(mascota);
+    this.mascotas = this.petsService.obtenerMascotas(this.homepage.user.id);
+  }
+
+  toggleMostrarMascotas() {
+    this.MostrarMascotas = !this.MostrarMascotas;
   }
 
 }

@@ -49,8 +49,6 @@ export class BbddService {
 
 
   listaUsers = new BehaviorSubject<User[]>([]);
-  listaDuenos = new BehaviorSubject<Dueno[]>([]);
-  listaPets = new BehaviorSubject<Mascota[]>([]);
   
   usersBD:User[];
 
@@ -75,8 +73,6 @@ export class BbddService {
   async crearAllTablas(){
     localStorage.setItem('createTable','start')
     await this.crearTablaUser();
-    await this.crearTablaDueno();
-    await this.crearTablaPets();
     console.log('Cargaron todas las tablas')
     localStorage.setItem('createTable','end')
     localStorage.setItem('createBD','true');
@@ -110,70 +106,6 @@ export class BbddService {
       });
     console.log('Lista User cargada');
     this.listaUsers.next(items);
-  }
-  async crearTablaPets() {
-    try {
-      await this.database.executeSql(this.tblPets, []);
-      this.cargarPetsBD();
-      console.log('Tabla Mascota creada');
-      this.isDbReady.next(true);
-    } catch (error) {
-      this.method.presentToast("top","Error en Crear Tabla: " + error);
-    }
-  }
-  cargarPetsBD() {
-    let items: Mascota[] = [];
-    this.database.executeSql('SELECT * FROM mascota', [])
-      .then(res => {
-        if (res.rows.length > 0) {
-          for (let i = 0; i < res.rows.length; i++) {
-            items.push({
-              id: res.rows.item(i).id,
-              nombre: res.rows.item(i).nombre,
-              tipo: res.rows.item(i).tipo,
-              raza: res.rows.item(i).raza,
-              edad: res.rows.item(i).edad,
-              descripcion: res.rows.item(i).descripcion,
-              dueno: res.rows.item(i).dueno,
-            });
-          }
-        }
-      });
-    console.log('Lista Mascota cargada');
-    this.listaPets.next(items);
-  }
-  
-  async crearTablaDueno() {
-    try {
-      await this.database.executeSql(this.tblDuenos, []);
-      this.cargarDuenosBD();
-      console.log('Tabla Dueno creada');
-      this.isDbReady.next(true);
-    } catch (error) {
-      this.method.presentToast("top","Error en Crear Tabla: " + error);
-    }
-  }
-  cargarDuenosBD() {
-    let items: Dueno[] = [];
-    this.database.executeSql('SELECT * FROM dueno', [])
-      .then(res => {
-        if (res.rows.length > 0) {
-          for (let i = 0; i < res.rows.length; i++) {
-            items.push({
-              id: res.rows.item(i).id,
-              correo: res.rows.item(i).correo,
-              nombre: res.rows.item(i).nombre,
-              ap_paterno: res.rows.item(i).ap_paterno,
-              ap_materno: res.rows.item(i).ap_materno,
-              edad: res.rows.item(i).edad,
-              celular: res.rows.item(i).celular,
-              user: res.rows.item(i).user,
-            });
-          }
-        }
-      });
-    console.log('Lista Dueno cargada');
-    this.listaDuenos.next(items);
   }
   
   async addValuesInTable(data:any,columns:string[],table:string) {
@@ -213,18 +145,12 @@ export class BbddService {
   fetchUsers(): Observable<User[]> {
     return this.listaUsers.asObservable();
   }
-  fetchPets(): Observable<Mascota[]> {
-    return this.listaPets.asObservable();
-  }
-  fetchDuenos(): Observable<Dueno[]> {
-    return this.listaDuenos.asObservable();
-  }
 
   async existeUsersInBD(){
     await this.validarStaff();
     console.log('validacion hecha (fuera)');
     console.log(this.usersBD.length)
-    if (this.usersBD.length<1) {
+    if (this.usersBD.length<=1) {
       if (this.apiUsers.usersApi.length<19) {
         window.location.reload();
       }

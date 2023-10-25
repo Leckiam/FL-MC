@@ -1,4 +1,3 @@
-import { User } from "../user/user";
 
 export class Dueno {
     id!: number;
@@ -8,5 +7,5 @@ export class Dueno {
     ap_materno!: string;
     edad!: number;
     celular!: number;
-    user!:User;
+    id_user!:number;
 }

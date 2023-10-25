@@ -1,28 +1,32 @@
 import { Injectable } from '@angular/core';
+import { Mascota } from 'src/app/class/mascota/mascota';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApipetsService {
 
-  pagina = 1;
-  mascotasPorPagina = 10;
-  private mascotas: any[] = [];
+  private mascotas: Mascota[] = [];
 
   constructor() { }
   
-  agregarMascota(mascota: any) {
+  agregarMascota(mascota: Mascota) {
     this.mascotas.push(mascota);
     this.guardarMascotasEnLocalStorage();
   }
 
-
-  obtenerMascotas() {
+  obtenerMascotas(id_user:number) {
+    let mascotasTmp:Mascota[]=[]
     this.cargarMascotasDesdeLocalStorage();
-    return this.mascotas;
+    for (let i = 0; i < this.mascotas.length; i++) {
+      const mascota = this.mascotas[i];
+      if (mascota.dueno.id_user == id_user) {
+        mascotasTmp.push(mascota);
+      }
+    }
+    return mascotasTmp;
   }
 
-  
   private guardarMascotasEnLocalStorage() {
     localStorage.setItem('mascotas', JSON.stringify(this.mascotas));
   }
@@ -42,9 +46,11 @@ export class ApipetsService {
     }
   }
 
-  eliminarMascota(id: number) {
-    const index = this.mascotas.findIndex((mascota) => mascota.id === id);
-    if (index !== -1) {
+  eliminarMascota(mascota: Mascota) {
+    console.log(mascota.nombre)
+    const index = this.mascotas.indexOf(mascota);
+    console.log(index)
+    if (index != -1) {
       this.mascotas.splice(index, 1);
       this.guardarMascotasEnLocalStorage();
     }
