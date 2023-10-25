@@ -1,6 +1,8 @@
 import { Component, inject} from '@angular/core';
 import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 import { AppComponent } from 'src/app/app.component';
+import { Dueno } from 'src/app/class/dueno/dueno';
+import { Mascota } from 'src/app/class/mascota/mascota';
 import { User } from 'src/app/class/user/user';
 import { MethodService } from 'src/app/services/method/method.service';
 import { BbddService } from 'src/app/services/sqlite/bbdd.service';
@@ -20,6 +22,9 @@ export class HomePage {
 
   user:User = new User();
   usersDB:User[];
+  duenosDB:Dueno[];
+  petsDB:Mascota[];
+
   seg:number;
   public bbdd = inject(BbddService);
 
@@ -87,17 +92,19 @@ export class HomePage {
       console.log(error)
     }
   }
-  cargarUsersDelay(){
+  cargarTablaDelay(nro:number){
+    console.log(localStorage.getItem('createTable'))
     const estadoTbls = localStorage.getItem('createTable');
     if (estadoTbls=='end') {
-      console.log('entra return xd')
+      console.log('entra return xd');
       this.cargarUsers();
       return;
     } else if(this.seg==7){
-      location.reload();
+      this.method.presentToast('top','No se ha cargado la BBDD, favor de cerrar y abrir la app');
+      return;
     }
     this.seg +=1;
-    setTimeout(() => this.cargarUsersDelay(), 1000);
+    setTimeout(() => this.cargarTablaDelay(nro), 1000);
   }
   cargarUsers(){
     this.bbdd.dbState().subscribe((res: any) =>{

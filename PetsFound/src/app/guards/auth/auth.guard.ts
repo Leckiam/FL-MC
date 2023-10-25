@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       this.data = localStorage.getItem('user');
-      let  routeName=localStorage.getItem('namePage')
+      let routeName=localStorage.getItem('namePage')
       if (!routeName) {
         routeName='default';
       }

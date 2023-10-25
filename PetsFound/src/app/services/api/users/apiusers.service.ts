@@ -31,4 +31,15 @@ export class ApiusersService {
       this.usersApi = dataUsers;
     })
   }
+  buscarUser(id_user:number){
+    let userTmp:User = new User();
+    for (let i = 0; i < this.usersApi.length; i++) {
+      const user = this.usersApi[i];
+      if (user.id == id_user) {
+        userTmp=user;
+        break;
+      }
+    }
+    return userTmp;
+  }
 }

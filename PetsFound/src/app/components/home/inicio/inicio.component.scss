@@ -1,5 +1,5 @@
 .body {
-  background-image: url('../../../../assets/img/wallpaperInicio.jpg');
+  background-image: url('../../../../assets/img/diseno_estrella.jpg');
   background-size: cover;
   background-position: center center; 
   background-repeat: no-repeat;
@@ -8,11 +8,9 @@
   position: absolute;
 }
 .mascotas-container {
-  max-height: 400px; 
+  max-height: 200px; 
   overflow-y: scroll; 
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  display: block;
   justify-content: center;
   padding: 20px; 
   margin-bottom: 20px; 
@@ -22,7 +20,7 @@
   width: 100%;
 }
 
-.Agregarmas {
+.botoncustom {
   width: 150px; 
   height: 150px; 
   display: flex;

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/class/user/user';
 import { LoginPage } from 'src/app/pages/login/login.page';
 import { MethodService } from 'src/app/services/method/method.service';
-import { BbddService } from 'src/app/services/sqlite/bbdd.service';
 
 @Component({
   selector: 'app-register',
@@ -61,6 +60,7 @@ export class RegisterComponent  implements OnInit {
   }
   registrar(){
     const correo = this.userTmp.correo;
+    this.userTmp.username='';
     for (let i = 0; i < correo.length; i++) {
       const letra = correo[i];
       if (letra == '@') {
@@ -70,13 +70,12 @@ export class RegisterComponent  implements OnInit {
       }
     }
     if (this.validarDatoUserTmp()) {
-      let data = [this.userTmp.username,this.userTmp.correo,this.userTmp.username,this.userTmp.password,0];
+      let data = [this.userTmp.nombre,this.userTmp.correo,this.userTmp.username,this.userTmp.password,0];
       this.loginpage.bbdd.addValuesInTable(data,['nombre','correo','username','password','isStaff'],'user');
       return true;
     } else {
       return false;
     }
-    
   }
   validarDatoUserTmp(){
     if (this.userTmp.password == this.passwordTmp && 

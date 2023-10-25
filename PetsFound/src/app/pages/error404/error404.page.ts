@@ -8,7 +8,9 @@ import { MethodService } from 'src/app/services/method/method.service';
 })
 export class Error404Page implements OnInit {
 
-  constructor(private method:MethodService) {}
+  constructor(private method:MethodService) {
+    localStorage.setItem('namePage','error404')
+  }
 
   ngOnInit() {}
   

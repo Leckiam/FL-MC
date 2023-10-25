@@ -6,7 +6,7 @@
     <ion-list lines="full">
       <ion-item>
         <ion-label position="stacked">Nombre</ion-label>
-        <ion-input [(ngModel)]="mascota.nombre" type="text"></ion-input>
+        <ion-input [(ngModel)]="mascota.nombre" type="text" minlength="4" maxlength="25"></ion-input>
       </ion-item>
      
       <ion-item>
@@ -24,11 +24,11 @@
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Edad</ion-label>
-        <ion-input [(ngModel)]="mascota.edad" type="number"></ion-input>
+        <ion-input [(ngModel)]="mascota.edad" type="number" min="1" max="20"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Descripción</ion-label>
-        <ion-textarea [(ngModel)]="mascota.descripcion"></ion-textarea>
+        <ion-textarea [(ngModel)]="mascota.descripcion" maxlength="240"></ion-textarea>
       </ion-item>
 
       

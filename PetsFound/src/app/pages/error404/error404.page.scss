@@ -1,0 +1,29 @@
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh; /* Establece la altura del contenedor para ocupar toda la altura de la pantalla */
+}
+
+@keyframes swing {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateY(-15px);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  75% { 
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+img {
+  animation: swing 2s ease-in-out infinite;
+}

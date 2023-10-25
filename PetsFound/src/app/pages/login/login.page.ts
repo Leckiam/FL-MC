@@ -44,7 +44,8 @@ export class LoginPage implements OnInit {
       this.cargarUsers();
       return;
     } else if(this.seg==7){
-      location.reload();
+      this.method.presentToast('top','No se ha cargado la BBDD, favor de cerrar y abrir la app');
+      return;
     }
     this.seg +=1;
     setTimeout(() => this.cargarUsersDelay(), 1000);
