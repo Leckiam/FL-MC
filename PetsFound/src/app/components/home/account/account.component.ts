@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AppComponent } from 'src/app/app.component';
+import { User } from 'src/app/class/user/user';
 import { HomePage } from 'src/app/pages/home/home.page';
-import { Router } from '@angular/router';
-import { EditarperfilComponent } from '../editarperfil/editarperfil.component';
-
-
+import { MethodService } from 'src/app/services/method/method.service';
 
 @Component({
   selector: 'app-account',
@@ -12,26 +9,28 @@ import { EditarperfilComponent } from '../editarperfil/editarperfil.component';
   styleUrls: ['./account.component.scss'],
 })
 export class AccountComponent  implements OnInit {
-  qrData: any;
-  data:any;
-  constructor(private router: Router, private appComponentt:AppComponent,  public homepage:HomePage) {
-    this.data = this.appComponentt.data;
+
+  data:User = new User();
+  nameComponent:any;
+
+  constructor(private method:MethodService, private homepage:HomePage) {
+    this.data = this.homepage.user;
   }
 
   ngOnInit() {
   }
 
   logOut(){
-    this.appComponentt.logOut();
+    this.method.logOut();
   }
-
- IrEditarPerfil() {
-    this.appComponentt.ingresar('home', 'editarperfil');
+  IrEditarPerfil() {
+    this.method.ingresar('home','editarperfil');
   }
-
   generateQR() {
-    this.appComponentt.ingresar('generate-qr')
+    this.method.ingresar('home','generate-qr');
   }
 
-  
+  ionViewWillEnter() {
+    this.homepage.changeHeader(false,'Cuenta');
+  }
 }

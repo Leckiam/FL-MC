@@ -16,23 +16,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   },
   {
-    path: 'message',
-    loadChildren: () => import('./pages/message/message.module').then( m => m.MessagePageModule)
-  },
-
-  { path: 'editarperfil', 
-    loadChildren: () => import('./components/home/editarperfil/editarperfil.component').then(m => m.EditarperfilComponent)
-  
-  },
-  {
-    path: 'generate-qr',
-    loadChildren: () => import('./pages/generate-qr/generate-qr.module').then( m => m.GenerateQrPageModule)
-  },
-
-  {
     path: '**',
-    redirectTo: './pages/notsfound/notsfound.module' 
-  }
+    loadChildren: () => import('./pages/error404/error404.module').then( m => m.Error404PageModule)
+  },
+
+
 ];
 
 @NgModule({

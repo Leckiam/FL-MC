@@ -3,10 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomePage } from './home.page';
 import { AccountComponent } from 'src/app/components/home/account/account.component';
 import { InicioComponent } from 'src/app/components/home/inicio/inicio.component';
+import { AuthGuard } from 'src/app/guards/auth/auth.guard';
 import { AgregarMascotaComponent } from 'src/app/components/home/agregar-mascota/agregar-mascota.component';
 import { EditarperfilComponent } from 'src/app/components/home/editarperfil/editarperfil.component';
-import { MessagesComponent } from 'src/app/components/home/messages/messages.component';
-
+import { MessageComponent } from 'src/app/components/home/message/message.component';
+import { QrgenerateComponent } from 'src/app/components/home/qrgenerate/qrgenerate.component';
 
 const routes: Routes = [
   {
@@ -14,29 +15,31 @@ const routes: Routes = [
     component: HomePage,
     children:[
       {
+        path: '',
+        component: InicioComponent,
+      },
+      {
         path: 'account',
         component: AccountComponent,
       },
       {
-        path: '',
-        component: InicioComponent,
-      },
-
-      {
         path: 'addPets',
         component: AgregarMascotaComponent,
       },
-      
       {
         path: 'editarperfil',
         component: EditarperfilComponent,
       },
-
       {
-        path: 'messages',
-        component: MessagesComponent
-      }
-    ]
+        path: 'message',
+        component: MessageComponent,
+      },
+      {
+        path: 'generate-qr',
+        component: QrgenerateComponent,
+      },
+    ],
+    canActivate:[AuthGuard],
   }
 ];
 

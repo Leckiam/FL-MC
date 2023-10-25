@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AppComponent } from 'src/app/app.component';
+import { User } from 'src/app/class/user/user';
 import { LoginPage } from 'src/app/pages/login/login.page';
+import { MethodService } from 'src/app/services/method/method.service';
+import { BbddService } from 'src/app/services/sqlite/bbdd.service';
+
+
 
 @Component({
   selector: 'app-register',
@@ -9,14 +13,10 @@ import { LoginPage } from 'src/app/pages/login/login.page';
 })
 export class RegisterComponent  implements OnInit {
 
-  constructor(private appComponentt:AppComponent, private loginpage:LoginPage) {}
+  constructor(private method:MethodService, private loginpage:LoginPage) {}
 
-  userTmp ={
-    usuario:'',
-    email:'',
-    password:'',
-    twoPassword:''
-  }
+  userTmp:User = new User();
+  passwordTmp:string='';
 
   ngOnInit() {
     let RegisterObj = this;
@@ -31,7 +31,6 @@ export class RegisterComponent  implements OnInit {
       setTimeout(function () {
         let seg = 0;
         if (seg=1) {
-          RegisterObj.loginpage.tituleName.innerHTML = 'Iniciar Sesion'
           RegisterObj.changePageReg();
           spinner.style.display = 'none';
           btn_register.style.pointerEvents = 'auto'
@@ -41,28 +40,52 @@ export class RegisterComponent  implements OnInit {
       }, 1000); 
     });
     btn_irLogin?.addEventListener('click',function(){
-      RegisterObj.loginpage.tituleName.innerHTML = 'Iniciar Sesion'
-      RegisterObj.loginpage.changePage('login');
+      RegisterObj.changePage('login');
     });
   }
 
   changePageReg(){
-    if (this.validarDatoUserTmp()) {
-      let msg = 'Se ha registrado exitosamente'
-      this.appComponentt.presentToast('bottom',msg)
-      this.loginpage.changePage('login','');
+    if (this.registrar()) {
+      let msg = 'Se ha registrado exitosamente';
+      this.method.presentToast('bottom',msg);
+      this.changePage('login','');
     } else {
       let msgErr = 'Su registro ha fallado'
-      this.appComponentt.presentToast('bottom',msgErr)
+      this.method.presentToast('bottom',msgErr)
     }
   }
 
+  changePage(namePage:string,nameComponent?:string){
+    this.loginpage.changePage(namePage,nameComponent);
+  }
+  convertirAMinusculas(event: any) {
+    this.loginpage.convertirAMinusculas(event);
+  }
+  registrar(){
+    const correo = this.userTmp.correo;
+    for (let i = 0; i < correo.length; i++) {
+      const letra = correo[i];
+      if (letra == '@') {
+        break;
+      } else {
+        this.userTmp.username+=letra;
+      }
+    }
+    if (this.validarDatoUserTmp()) {
+      let data = [this.userTmp.username,this.userTmp.correo,this.userTmp.username,this.userTmp.password,0];
+      this.loginpage.bbdd.addValuesInTable(data,['nombre','correo','username','password','isStaff'],'user');
+      return true;
+    } else {
+      return false;
+    }
+    
+  }
   validarDatoUserTmp(){
-    if (this.userTmp.password == this.userTmp.twoPassword && 
-      this.userTmp.password.length >= 6 && this.userTmp.usuario.length >= 6
-      && this.userTmp.email.length >= 8){
-      for (let i = 0; i < this.userTmp.email.length; i++) {
-        const element = this.userTmp.email[i];
+    if (this.userTmp.password == this.passwordTmp && 
+      this.userTmp.password.length >= 6 && this.userTmp.username.length >= 6
+      && this.userTmp.correo.length >= 8){
+      for (let i = 0; i < this.userTmp.correo.length; i++) {
+        const element = this.userTmp.correo[i];
         if (element=='@') {
           return true
         }
@@ -73,6 +96,10 @@ export class RegisterComponent  implements OnInit {
     }
   }
   retroceder() {
-    this.appComponentt.retroceder();
+    this.method.retroceder();
+  }
+  ionViewWillEnter() {
+    this.loginpage.tituleName.innerHTML = "Registrarse";
+    this.userTmp = new User();
   }
 }

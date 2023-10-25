@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
+import { User } from 'src/app/class/user/user';
+import { MethodService } from 'src/app/services/method/method.service';
+import { BbddService } from 'src/app/services/sqlite/bbdd.service';
 
 @Component({
   selector: 'app-login',
@@ -8,11 +11,12 @@ import { AppComponent } from 'src/app/app.component';
 })
 export class LoginPage implements OnInit {
   
-  
-
   tituleName:any
-  constructor(private appComponentt:AppComponent) {
-    this.appComponentt.firstTime = true;
+  usersDB: User[]=[];
+  seg:number=0;
+  public bbdd = inject(BbddService);
+  constructor(private method:MethodService,private appComponent:AppComponent) {
+    this.appComponent.cantLoadPages += 1;
   }
   
   ngOnInit() {
@@ -20,19 +24,40 @@ export class LoginPage implements OnInit {
   }
 
   changePage(namePage:string,nameComponent?:string){
-    let listaLogin = ['','register','recoverpass']
-    let tituleLogin = ['Iniciar Sesión','Registrarse','Recuperar Contraseña']
-    if (nameComponent && listaLogin.includes(nameComponent)) {
-      const index = listaLogin.indexOf(nameComponent);
-      this.tituleName.innerHTML= tituleLogin[index];
-    }
-    this.appComponentt.ingresar(namePage,nameComponent);
+    this.method.ingresar(namePage,nameComponent);
+  }
+
+  convertirAMinusculas(event: any) {
+    const input = event.target as HTMLInputElement;
+    input.value = input.value.toLowerCase();
   }
   ionViewWillEnter() {
-    if (!this.appComponentt.firstTime) {
-      this.appComponentt.ingresar('login','')
-      window.location.reload()
+    if (this.appComponent.cantLoadPages>=2) {
+      this.method.ingresar('login','')
+      window.location.reload();
     }
+  }
+  cargarUsersDelay(){
+    const estadoTbls = localStorage.getItem('createTable');
+    if (estadoTbls=='end') {
+      console.log('entra return xd')
+      this.cargarUsers();
+      return;
+    } else if(this.seg==7){
+      location.reload();
+    }
+    this.seg +=1;
+    setTimeout(() => this.cargarUsersDelay(), 1000);
+  }
+  cargarUsers(){
+    this.bbdd.dbState().subscribe((res: any) =>{
+      if(res){
+        this.bbdd.fetchUsers().subscribe((item: any) =>{
+          this.usersDB = item;
+          this.bbdd.usersBD = this.usersDB;
+        })
+      }
+    });
   }
 }
 

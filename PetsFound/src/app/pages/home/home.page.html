@@ -1,14 +1,12 @@
 <ion-header [translucent]="true">
-  <div class="tool-bar-pf">
-    <ion-title id="titule-name-home">Inicio</ion-title>
-  </div>
+  <div class="tool-bar-pf" id="header-home"></div>
 </ion-header>
 
 <ion-content id="content-home-pf">
   <ion-router-outlet></ion-router-outlet>
-  <ion-tabs class="custom-tabs">
+  <ion-tabs>
     <ion-tab-bar slot="bottom">
-      <ion-tab-button (click)="changePage('home','inicio')">
+      <ion-tab-button (click)="changePage('home','')">
         <ion-icon name="home"></ion-icon>
         Home
       </ion-tab-button>
