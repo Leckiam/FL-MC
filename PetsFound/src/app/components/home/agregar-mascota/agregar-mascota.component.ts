@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Dueno } from 'src/app/class/dueno/dueno';
 import { Mascota } from 'src/app/class/mascota/mascota';
-import { Raza } from 'src/app/class/raza/raza';
 import { HomePage } from 'src/app/pages/home/home.page';
+import { ApidogsService } from 'src/app/services/api/dogs/apidogs.service';
+import { ApipetsService } from 'src/app/services/api/pets/apipets.service';
 
 @Component({
   selector: 'app-agregar-mascota',
@@ -10,13 +11,20 @@ import { HomePage } from 'src/app/pages/home/home.page';
   styleUrls: ['./agregar-mascota.component.scss'],
 })
 export class AgregarMascotaComponent {
-  mascota: Mascota = new Mascota();  // Crea una instancia de Mascota para el formulario
-  raza: Raza = new Raza();  // Crea una instancia de Mascota para el formulario
-  dueno: Dueno = new Dueno();  // Crea una instancia de Mascota para el formulario
 
-  constructor(private homepage:HomePage) {
+  mascota: Mascota = new Mascota();  // Crea una instancia de Mascota para el formulario
+  razasDogs:string[]= [];
+  dueno: Dueno = new Dueno();  // Crea una instancia de Dueno para el formulario
+
+  constructor(public dogApiService: ApidogsService, private petsService: ApipetsService, private homepage:HomePage) {
+    this.dogApiService.razaDog().subscribe((response: any) => {
+      if (response && response.message) {
+        // Las razas de perro están en response.message
+        this.razasDogs = Object.keys(response.message);
+      }
+    });
     this.mascota.nombre = '';
-    this.mascota.raza = this.raza;
+    this.mascota.raza = '';
     this.mascota.tipo = '';
     this.mascota.dueno = this.dueno;
     this.mascota.edad = 0;
@@ -26,10 +34,12 @@ export class AgregarMascotaComponent {
   agregarMascota() {
     if (this.validarMascota(this.mascota)) {
       //  datos de la mascota son válidos, aqui creo que se agrega a la base de datos que vamos elegir eso creo (segun vi al video repaso xd)
+      this.petsService.agregarMascota(this.mascota);
       console.log('Nueva mascota:', this.mascota);
 
       // Limpia el formulario
-      this.mascota = new Mascota(); 
+      this.mascota = new Mascota();
+      this.mascota.dueno = this.dueno;
 
      
     } else {
@@ -41,7 +51,7 @@ export class AgregarMascotaComponent {
   validarMascota(mascota: Mascota): boolean {
     if (
       mascota.nombre && mascota.nombre.length >= 1 &&
-      mascota.raza && mascota.dueno &&
+      mascota.dueno &&
       mascota.edad && mascota.edad > 0 &&
       mascota.descripcion
     ) {
@@ -51,6 +61,6 @@ export class AgregarMascotaComponent {
     }
   }
   ionViewWillEnter() {
-    this.homepage.changeHeader(false,'Agregar Mascota');
+    this.homepage.changeHeader(true,'Agregar Mascota');
   }
 }

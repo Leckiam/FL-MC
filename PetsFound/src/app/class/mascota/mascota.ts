@@ -1,11 +1,10 @@
-import { Dueno } from '../dueno/dueno'
-import { Raza } from '../raza/raza';
+import { Dueno } from '../dueno/dueno';
 
 export class Mascota {
     id!: number;
     nombre!: string;
     tipo!: string;
-    raza!: Raza;
+    raza!: string;
     edad!: number;
     descripcion!: string;
     dueno!: Dueno;

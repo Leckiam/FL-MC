@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UserdefaultService } from './userdefault.service';
+import { ApidogsService } from './apidogs.service';
 
-describe('UserdefaultService', () => {
-  let service: UserdefaultService;
+describe('ApidogsService', () => {
+  let service: ApidogsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(UserdefaultService);
+    service = TestBed.inject(ApidogsService);
   });
 
   it('should be created', () => {

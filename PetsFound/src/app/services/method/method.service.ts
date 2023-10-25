@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController, ToastController } from '@ionic/angular';
 import {Location} from '@angular/common';
+import { User } from 'src/app/class/user/user';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import {Location} from '@angular/common';
 export class MethodService {
 
   data:any;
-  constructor(private router: Router,private _location: Location, private navCtrl:NavController, private toastController: ToastController) { }
+  constructor(private router: Router, private navCtrl:NavController, private toastController: ToastController) { }
 
   retroceder() {
     this.navCtrl.back();
@@ -72,6 +73,7 @@ export class MethodService {
       }
       this.router.navigate(['/'+nombrePage]);
     }
+    
   }
 
 }

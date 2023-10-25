@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { User } from 'src/app/class/user/user';
 import { HomePage } from 'src/app/pages/home/home.page';
 import { MethodService } from 'src/app/services/method/method.service';
 
@@ -10,10 +10,11 @@ import { MethodService } from 'src/app/services/method/method.service';
 })
 export class AccountComponent  implements OnInit {
 
-  data:any;
+  data:User = new User();
   nameComponent:any;
-  constructor(private method:MethodService, public homepage:HomePage) {
-    this.data = this.homepage.data;
+
+  constructor(private method:MethodService, private homepage:HomePage) {
+    this.data = this.homepage.user;
   }
 
   ngOnInit() {
@@ -23,7 +24,10 @@ export class AccountComponent  implements OnInit {
     this.method.logOut();
   }
   IrEditarPerfil() {
-    this.method.ingresar('home', 'editarperfil');
+    this.method.ingresar('home','editarperfil');
+  }
+  generateQR() {
+    this.method.ingresar('home','generate-qr');
   }
 
   ionViewWillEnter() {

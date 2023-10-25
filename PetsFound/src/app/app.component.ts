@@ -11,4 +11,8 @@ export class AppComponent {
   constructor() { 
     this.cantLoadPages = 0;
   }
+
+  ngOnInit() {}
+
+  
 }

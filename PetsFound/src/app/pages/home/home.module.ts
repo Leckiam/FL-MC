@@ -10,6 +10,8 @@ import { InicioComponent } from 'src/app/components/home/inicio/inicio.component
 import { AgregarMascotaComponent } from 'src/app/components/home/agregar-mascota/agregar-mascota.component';
 import { EditarperfilComponent } from 'src/app/components/home/editarperfil/editarperfil.component';
 import { MessageComponent } from 'src/app/components/home/message/message.component';
+import { QrgenerateComponent } from 'src/app/components/home/qrgenerate/qrgenerate.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 
 @NgModule({
@@ -17,8 +19,12 @@ import { MessageComponent } from 'src/app/components/home/message/message.compon
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    QRCodeModule
   ],
-  declarations: [HomePage,AccountComponent,InicioComponent,AgregarMascotaComponent,EditarperfilComponent,MessageComponent]
+  declarations: [HomePage,AccountComponent,InicioComponent,
+    AgregarMascotaComponent,EditarperfilComponent,MessageComponent,
+    QrgenerateComponent,
+  ]
 })
 export class HomePageModule {}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MethodService } from 'src/app/services/method/method.service';
 
 @Component({
   selector: 'app-error404',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Error404Page implements OnInit {
 
-  constructor() { }
+  constructor(private method:MethodService) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+  
+  retroceder(){
+    this.method.retroceder();
   }
 
 }

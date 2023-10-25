@@ -7,46 +7,44 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  data!:any;
+  data:any;
   navCtl=inject(NavController);
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       this.data = localStorage.getItem('user');
-      if (route.component?.name) {
-        let routeName = route.component?.name;
-        routeName = routeName.substring(0,routeName.length-4).toLowerCase()
-        this.validarData(routeName);
-        return true;
+      let  routeName=localStorage.getItem('namePage')
+      if (!routeName) {
+        routeName='default';
       }
-    return false;
+      return this.validarData(routeName);
   }
   validarData(namePage:string){
-    if (this.data) {
-      return this.switchNamePage(namePage,true);
-    } else{
-      return this.switchNamePage(namePage);
-    }
-  }
-  falseAuth(namePage:string){
-    this.navCtl.navigateRoot('/'+namePage);
-    return false;
-  }
-
-  switchNamePage(namePage:string,dato?:boolean){
-    switch (namePage){
-      case 'home':
-        if (!dato) {
-          return this.falseAuth('login');
-        }
-        break;
+    switch(namePage){
       case 'login':
-        if (dato) {
+        if (this.data != null) {
           return this.falseAuth('home');
         }
         break;
+      case 'home':
+        if (this.data == null) {
+          return this.falseAuth('login');
+        }
+        break;
+      default:
+        if (this.data != null) {
+          return this.falseAuth('home');
+        } else {
+          return this.falseAuth('login');
+        }
     }
+    localStorage.removeItem('namePage');
     return true;
   }
-  
+
+  falseAuth(namePage:string){
+    localStorage.setItem('namePage',namePage);
+    this.navCtl.navigateRoot('/'+namePage);
+    return false;
+  }
 }

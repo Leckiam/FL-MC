@@ -1,135 +1,350 @@
-[
-  {
-    "id": 1,
-    "nombre": "ALLISON ARACENA",
-    "correo": "al.aracena@duocuc.cl",
-    "username": "al.aracena",
-    "password": "123456"      
-  },
-  {
-    "id": 2,
-    "nombre": "CLAUDIO BENAVIDES",
-    "correo": "clau.benavides@duocuc.cl",
-    "username": "clau.benavides",
-    "password": "123456"     
-  },
-  {
-    "id": 3,
-    "nombre": "FRANCISCA CARDEMIL",
-    "correo": "fr.cardemil@duocuc.cl",
-    "username": "fr.cardemil",
-    "password": "123456"     
-  },
-  {
-    "id": 4,
-    "nombre": "MARCELO CASTILLO",
-    "correo": "mar.castillop@duocuc.cl",
-    "username": "mar.castillop",
-    "password": "123456"     
-  },
-  {
-    "id": 5,
-    "nombre": "MAIKEL CISTERNAS",
-    "correo": "mai.cisternas@duocuc.cl",
-    "username": "mai.cisternas",
-    "password": "123456"
-  },
-  {
-    "id": 6,
-    "nombre": "IVAN DUARTE",
-    "correo": "iva.duarte@duocuc.cl",
-    "username": "iva.duarte",
-    "password": "123456"
-  },
-  {
-    "id": 7,
-    "nombre": "IGNACIO FALK",
-    "correo": "ig.falk@duocuc.cl",
-    "username": "ig.falk",
-    "password": "123456"
-  },
-  {
-    "id": 8,
-    "nombre": "FRANCISCO LAZCANO",
-    "correo": "fr.lazcanor@duocuc.cl",
-    "username": "fr.lazcanor",
-    "password": "123456"
-  },
-  {
-    "id": 9,
-    "nombre": "ALONSO MELGAREJO",
-    "correo": "al.melgarejo@duocuc.cl",
-    "username": "al.melgarejo",
-    "password": "123456"
-  },
-  {
-    "id": 10,
-    "nombre": "MARCELO PENA",
-    "correo": "marc.penas@duocuc.cl",
-    "username": "marc.penas",
-    "password": "123456"
-  },
-  {
-    "id": 11,
-    "nombre": "RODRIGO RIOS",
-    "correo": "ro.riosb@duocuc.cl",
-    "username": "ro.riosb",
-    "password": "123456"
-  },
-  {
-    "id": 12,
-    "nombre": "JOAQUIN ROCHA",
-    "correo": "jo.rocha@duocuc.cl",
-    "username": "jo.rocha",
-    "password": "123456"
-  },
-  {
-    "id": 13,
-    "nombre": "MARIA JOSE ROJAS",
-    "correo": "mj.rojasc@duocuc.cl",
-    "username": "mj.rojasc",
-    "password": "123456"
-  },
-  {
-    "id": 14,
-    "nombre": "GIORDY ROZAS",
-    "correo": "gio.rozas@duocuc.cl",
-    "username": "gio.rozas",
-    "password": "123456"
-  },
-  {
-    "id": 15,
-    "nombre": "DIEGO SALDIVAR",
-    "correo": "die.saldivar@duocuc.cl",
-    "username": "die.saldivar",
-    "password": "123456"
-  },
-  {
-    "id": 16,
-    "nombre": "MAYKOL SALGADO",
-    "correo": "may.salgado@duocuc.cl",
-    "username": "may.salgado",
-    "password": "123456"
-  },
-  {
-    "id": 17,
-    "nombre": "MATIAS SANDOVAL",
-    "correo": "mat.sandoval@duocuc.cl",
-    "username": "mat.sandoval",
-    "password": "123456"
-  },
-  {
-    "id": 18,
-    "nombre": "MATIAS TAPIA",
-    "correo": "mat.tapias@duocuc.cl",
-    "username": "mat.tapias",
-    "password": "123456"
-  },
-  {
-    "id": 19,
-    "nombre": "PAOLO VALENCIA",
-    "correo": "paol.valenciap@duocuc.cl",
-    "username": "paol.valenciap",
-    "password": "123456"
-  }
-]
+{
+  "users":
+  [
+    {
+      "id": 1,
+      "nombre": "ALLISON ARACENA",
+      "correo": "al.aracena@duocuc.cl",
+      "username": "al.aracena",
+      "password": "123456",
+      "isStaff": 0
+    },
+    {
+      "id": 2,
+      "nombre": "CLAUDIO BENAVIDES",
+      "correo": "clau.benavides@duocuc.cl",
+      "username": "clau.benavides",
+      "password": "123456",
+      "isStaff": 0
+    },
+    {
+      "id": 3,
+      "nombre": "FRANCISCA CARDEMIL",
+      "correo": "fr.cardemil@duocuc.cl",
+      "username": "fr.cardemil",
+      "password": "123456",
+      "isStaff": 0
+    },
+    {
+      "id": 4,
+      "nombre": "MARCELO CASTILLO",
+      "correo": "mar.castillop@duocuc.cl",
+      "username": "mar.castillop",
+      "password": "123456",
+      "isStaff": 0
+    },
+    {
+      "id": 5,
+      "nombre": "MAIKEL CISTERNAS",
+      "correo": "mai.cisternas@duocuc.cl",
+      "username": "mai.cisternas",
+      "password": "123456",
+      "isStaff": 1
+    },
+    {
+      "id": 6,
+      "nombre": "IVAN DUARTE",
+      "correo": "iva.duarte@duocuc.cl",
+      "username": "iva.duarte",
+      "password": "123456",
+      "isStaff": 0
+    },
+    {
+      "id": 7,
+      "nombre": "IGNACIO FALK",
+      "correo": "ig.falk@duocuc.cl",
+      "username": "ig.falk",
+      "password": "123456",
+      "isStaff": 0
+    },
+    {
+      "id": 8,
+      "nombre": "FRANCISCO LAZCANO",
+      "correo": "fr.lazcanor@duocuc.cl",
+      "username": "fr.lazcanor",
+      "password": "123456",
+      "isStaff": 1
+    },
+    {
+      "id": 9,
+      "nombre": "ALONSO MELGAREJO",
+      "correo": "al.melgarejo@duocuc.cl",
+      "username": "al.melgarejo",
+      "password": "123456",
+      "isStaff": 0
+    },
+    {
+      "id": 10,
+      "nombre": "MARCELO PENA",
+      "correo": "marc.penas@duocuc.cl",
+      "username": "marc.penas",
+      "password": "123456",
+      "isStaff": 0
+    },
+    {
+      "id": 11,
+      "nombre": "RODRIGO RIOS",
+      "correo": "ro.riosb@duocuc.cl",
+      "username": "ro.riosb",
+      "password": "123456",
+      "isStaff": 0
+    },
+    {
+      "id": 12,
+      "nombre": "JOAQUIN ROCHA",
+      "correo": "jo.rocha@duocuc.cl",
+      "username": "jo.rocha",
+      "password": "123456",
+      "isStaff": 0
+    },
+    {
+      "id": 13,
+      "nombre": "MARIA JOSE ROJAS",
+      "correo": "mj.rojasc@duocuc.cl",
+      "username": "mj.rojasc",
+      "password": "123456",
+      "isStaff": 0
+    },
+    {
+      "id": 14,
+      "nombre": "GIORDY ROZAS",
+      "correo": "gio.rozas@duocuc.cl",
+      "username": "gio.rozas",
+      "password": "123456",
+      "isStaff": 0
+    },
+    {
+      "id": 15,
+      "nombre": "DIEGO SALDIVAR",
+      "correo": "die.saldivar@duocuc.cl",
+      "username": "die.saldivar",
+      "password": "123456",
+      "isStaff": 0
+    },
+    {
+      "id": 16,
+      "nombre": "MAYKOL SALGADO",
+      "correo": "may.salgado@duocuc.cl",
+      "username": "may.salgado",
+      "password": "123456",
+      "isStaff": 0
+    },
+    {
+      "id": 17,
+      "nombre": "MATIAS SANDOVAL",
+      "correo": "mat.sandoval@duocuc.cl",
+      "username": "mat.sandoval",
+      "password": "123456",
+      "isStaff": 0
+    },
+    {
+      "id": 18,
+      "nombre": "MATIAS TAPIA",
+      "correo": "mat.tapias@duocuc.cl",
+      "username": "mat.tapias",
+      "password": "123456",
+      "isStaff": 0
+    },
+    {
+      "id": 19,
+      "nombre": "PAOLO VALENCIA",
+      "correo": "paol.valenciap@duocuc.cl",
+      "username": "paol.valenciap",
+      "password": "123456",
+      "isStaff": 0
+    }
+  ],
+  "duenos":
+  [
+    {
+      "id": 1,
+      "nombre": "ALLISON",
+      "correo": "al.aracena@duocuc.cl",
+      "ap_paterno": "ARACENA",
+      "ap_materno": "",
+      "edad": 18,
+      "celular": 911111111,
+      "user_id": 1
+    },
+    {
+      "id": 2,
+      "nombre": "CLAUDIO",
+      "correo": "clau.benavides@duocuc.cl",
+      "ap_paterno": "BENAVIDES",
+      "ap_materno": "",
+      "edad": 18,
+      "celular": 911111112,
+      "user_id": 2
+    },
+    {
+      "id": 3,
+      "nombre": "FRANCISCA",
+      "correo": "fr.cardemil@duocuc.cl",
+      "ap_paterno": "CARDEMIL",
+      "ap_materno": "",
+      "edad": 18,
+      "celular": 911111113,
+      "user_id": 3
+    },
+    {
+      "id": 4,
+      "nombre": "MARCELO",
+      "correo": "mar.castillop@duocuc.cl",
+      "ap_paterno": "CASTILLO",
+      "ap_materno": "",
+      "edad": 18,
+      "celular": 911111114,
+      "user_id": 4
+    },
+    {
+      "id": 5,
+      "nombre": "MAIKEL",
+      "correo": "mai.cisternas@duocuc.cl",
+      "ap_paterno": "CISTERNAS",
+      "ap_materno": "",
+      "edad": 18,
+      "celular": 911111115,
+      "user_id": 5
+    },
+    {
+      "id": 6,
+      "nombre": "IVAN",
+      "correo": "iva.duarte@duocuc.cl",
+      "ap_paterno": "DUARTE",
+      "ap_materno": "",
+      "edad": 18,
+      "celular": 911111116,
+      "user_id": 6
+    },
+    {
+      "id": 7,
+      "nombre": "IGNACIO",
+      "correo": "ig.falk@duocuc.cl",
+      "ap_paterno": "FALK",
+      "ap_materno": "",
+      "edad": 18,
+      "celular": 911111117,
+      "user_id": 7
+    },
+    {
+      "id": 8,
+      "nombre": "FRANCISCO",
+      "correo": "fr.lazcanor@duocuc.cl",
+      "ap_paterno": "LAZCANO",
+      "ap_materno": "",
+      "edad": 18,
+      "celular": 911111118,
+      "user_id": 8
+    },
+    {
+      "id": 9,
+      "nombre": "ALONSO",
+      "correo": "al.melgarejo@duocuc.cl",
+      "ap_paterno": "MELGAREJO",
+      "ap_materno": "",
+      "edad": 18,
+      "celular": 911111119,
+      "user_id": 9
+    },
+    {
+      "id": 10,
+      "nombre": "MARCELO",
+      "correo": "marc.penas@duocuc.cl",
+      "ap_paterno": "PENA",
+      "ap_materno": "",
+      "edad": 18,
+      "celular": 911111120,
+      "user_id": 10
+    },
+    {
+      "id": 11,
+      "nombre": "RODRIGO",
+      "correo": "ro.riosb@duocuc.cl",
+      "ap_paterno": "RIOS",
+      "ap_materno": "",
+      "edad": 18,
+      "celular": 911111121,
+      "user_id": 11
+    },
+    {
+      "id": 12,
+      "nombre": "JOAQUIN",
+      "correo": "jo.rocha@duocuc.cl",
+      "ap_paterno": "ROCHA",
+      "ap_materno": "",
+      "edad": 18,
+      "celular": 911111122,
+      "user_id": 12
+    },
+    {
+      "id": 13,
+      "nombre": "MARIA JOSE",
+      "correo": "mj.rojasc@duocuc.cl",
+      "ap_paterno": "ROJAS",
+      "ap_materno": "",
+      "edad": 18,
+      "celular": 911111123,
+      "user_id": 13
+    },
+    {
+      "id": 14,
+      "nombre": "GIORDY",
+      "correo": "gio.rozas@duocuc.cl",
+      "ap_paterno": "ROZAS",
+      "ap_materno": "",
+      "edad": 18,
+      "celular": 911111124,
+      "user_id": 14
+    },
+    {
+      "id": 15,
+      "nombre": "DIEGO",
+      "correo": "die.saldivar@duocuc.cl",
+      "ap_paterno": "SALDIVAR",
+      "ap_materno": "",
+      "edad": 18,
+      "celular": 911111125,
+      "user_id": 15
+    },
+    {
+      "id": 16,
+      "nombre": "MAYKOL",
+      "correo": "may.salgado@duocuc.cl",
+      "ap_paterno": "SALGADO",
+      "ap_materno": "",
+      "edad": 18,
+      "celular": 911111126,
+      "user_id": 16
+    },
+    {
+      "id": 17,
+      "nombre": "MATIAS",
+      "correo": "mat.sandoval@duocuc.cl",
+      "ap_paterno": "SANDOVAL",
+      "ap_materno": "",
+      "edad": 18,
+      "celular": 911111127,
+      "user_id": 17
+    },
+    {
+      "id": 18,
+      "nombre": "MATIAS",
+      "correo": "mat.tapias@duocuc.cl",
+      "ap_paterno": "TAPIA",
+      "ap_materno": "",
+      "edad": 18,
+      "celular": 911111128,
+      "user_id": 18
+    },
+    {
+      "id": 19,
+      "nombre": "PAOLO",
+      "correo": "paol.valenciap@duocuc.cl",
+      "ap_paterno": "VALENCIA",
+      "ap_materno": "",
+      "edad": 18,
+      "celular": 911111129,
+      "user_id": 19
+    }
+  ]  
+}

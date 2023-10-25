@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { NavigationExtras } from '@angular/router';
+import { Component, OnInit, inject } from '@angular/core';
+import { User } from 'src/app/class/user/user';
 import { LoginPage } from 'src/app/pages/login/login.page';
-import { UserdefaultService } from 'src/app/services/api/users/userdefault.service';
 import { MethodService } from 'src/app/services/method/method.service';
 
 @Component({
@@ -11,14 +10,15 @@ import { MethodService } from 'src/app/services/method/method.service';
 })
 export class LogincompComponent  implements OnInit {
 
-  user={
-    usuario:"",
-    password:""
+  user:User = new User();
+  constructor(private method:MethodService, private loginpage:LoginPage) {
+    console.log('Esto es constructor [/Login]');
+    this.user.username = '';
+    this.user.password = '';
   }
-  loadLogin:boolean=false;
-  constructor(private method:MethodService, private loginpage:LoginPage, private apiUsers:UserdefaultService) {}
   
   ngOnInit() {
+    console.log('Esto es ngOnInit [/Login]');
     let LoginObj = this;
     const content = document.getElementById('content-login-pf');
     const btn_irRegister = content?.querySelector('#btn-irRegister') as HTMLElement;
@@ -36,6 +36,7 @@ export class LogincompComponent  implements OnInit {
       }, 1000); 
     });
     btn_irRegister?.addEventListener('click',function(){
+      LoginObj.loginpage.bbdd.existeUsersInBD();
       LoginObj.loginpage.changePage('login','register');
     });
     btn_irRecover?.addEventListener('click',function(){
@@ -54,7 +55,9 @@ export class LogincompComponent  implements OnInit {
       btn_irRecover.style.pointerEvents = 'none';
     }
   }
-
+  convertirAMinusculas(event: any) {
+    this.loginpage.convertirAMinusculas(event);
+  }
   estadoSpinner(estado:boolean,spinner:any,btn_login:any,btn_irRegister:any,btn_irRecover:any){
     if (estado) {
       spinner.style.display = 'block';
@@ -67,7 +70,7 @@ export class LogincompComponent  implements OnInit {
   }
 
   validarLogin(user:any){
-    if (user.usuario.length >=6 && user.password.length >=6) {
+    if (user.username.length >=6 && user.password.length >=6) {
       return true
     } else {
       return false
@@ -75,7 +78,6 @@ export class LogincompComponent  implements OnInit {
   } 
 
   changePageLog(namePage:string,nameComponent?:string){
-    this.user.usuario = this.user.usuario.toLowerCase();
     if (!this.validarLogin(this.user)){
       let msg= 'Su usuario y/o contraseña no está dentro del rango de caracteres (6 caracteres)'
       this.method.presentToast('bottom',msg)
@@ -83,17 +85,22 @@ export class LogincompComponent  implements OnInit {
       if (nameComponent) {
         namePage = namePage + '/' + nameComponent;
       }
-      if (this.validarApi()) {
+      
+      if (this.existeUser()) {
         this.aprobarIngreso(namePage);
       } else {
         this.method.presentToast('bottom','No sea encontrado a ningun usuario que cumpla con los parametros ingresados')
       } 
     }
-  } 
-  
-  ionViewWillEnter() {
-    this.loginpage.tituleName.innerHTML = "Iniciar Sesión";
   }
+  ionViewWillEnter() {
+    console.log('Esto es ionViewWillEnter [/Login]');
+    this.loginpage.bbdd.crearBD();
+    this.loginpage.seg  = 0;
+    this.loginpage.tituleName.innerHTML = "Iniciar Sesión";
+    this.loginpage.cargarUsersDelay();
+  }
+
   aprobarIngreso(namePage:string){
     /*
     let navegationExtras: NavigationExtras = {
@@ -102,18 +109,23 @@ export class LogincompComponent  implements OnInit {
       }
     }
     */
-    this.user.usuario = "";
+    this.user.username = "";
     this.user.password = "";
     //this.method.ingresar(namePage,'',navegationExtras);
     this.method.ingresar(namePage,'');
   }
-  validarApi(){
-    if (this.apiUsers.getUser(this.user)) {
-      localStorage.setItem('user', this.user.usuario);
-      return true;
-    } else {
-      return false;
+
+  existeUser(){
+    console.log(this.loginpage.usersDB.length)
+    for (let i = 0; i < this.loginpage.usersDB.length; i++) {
+      const userTmp = this.loginpage.usersDB[i];
+      if (userTmp.username==this.user.username && 
+        userTmp.password==this.user.password) {
+          const userJson = JSON.stringify(userTmp)
+        localStorage.setItem('user',userJson);
+        return true;
+      }
     }
+    return false;
   }
-  
 }
