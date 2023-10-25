@@ -7,6 +7,20 @@
   min-height: 90vh;
   position: absolute;
 }
+.mascotas-container {
+  max-height: 400px; 
+  overflow-y: scroll; 
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  justify-content: center;
+  padding: 20px; 
+  margin-bottom: 20px; 
+}
+
+.mascota-card {
+  width: 100%;
+}
 
 .Agregarmas {
   width: 150px; 

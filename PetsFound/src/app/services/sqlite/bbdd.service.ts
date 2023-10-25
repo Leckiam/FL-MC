@@ -40,7 +40,7 @@ export class BbddService {
       correo VARCHAR(25) NOT NULL UNIQUE,
       nombre VARCHAR(20) NOT NULL,
       ap_paterno VARCHAR(20) NOT NULL,
-      ap_materno VARCHAR(20) NOT NULL,
+      ap_materno VARCHAR(20) NULL,
       edad INTEGER NOT NULL,
       celular INTEGER NOT NULL UNIQUE,
       id_user INTEGER NOT NULL UNIQUE,

@@ -12,6 +12,7 @@ export class AccountComponent  implements OnInit {
 
   data:User = new User();
   nameComponent:any;
+
   constructor(private method:MethodService, private homepage:HomePage) {
     this.data = this.homepage.user;
   }
@@ -23,7 +24,10 @@ export class AccountComponent  implements OnInit {
     this.method.logOut();
   }
   IrEditarPerfil() {
-    this.method.ingresar('home', 'editarperfil');
+    this.method.ingresar('home','editarperfil');
+  }
+  generateQR() {
+    this.method.ingresar('home','generate-qr');
   }
 
   ionViewWillEnter() {

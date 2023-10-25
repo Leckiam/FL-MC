@@ -2,10 +2,12 @@ import { Component, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular
 import { AnimationController, IonCard } from '@ionic/angular';
 import { AppComponent } from 'src/app/app.component';
 import type {QueryList} from '@angular/core';
-import type {Animation} from '@ionic/angular';
+import type {Animation, IonInfiniteScroll} from '@ionic/angular';
 import { HomePage } from 'src/app/pages/home/home.page';
 import { MethodService } from 'src/app/services/method/method.service';
 import { User } from 'src/app/class/user/user';
+import { Mascota } from 'src/app/class/mascota/mascota';
+import { ApipetsService } from 'src/app/services/api/pets/apipets.service';
 
 
 @Component({
@@ -15,6 +17,10 @@ import { User } from 'src/app/class/user/user';
 })
 export class InicioComponent {
 
+  mascotas:Mascota[] = [];
+  pagina = 1;
+  mascotasPorPagina = 10;
+
   data:User;
   @ViewChildren(IonCard, {read:ElementRef})
   cardElements!: QueryList<ElementRef<HTMLIonCardElement>>;
@@ -23,7 +29,7 @@ export class InicioComponent {
   animar1!: ElementRef;
 
   private animation!: Animation;
-  constructor(private method:MethodService,private animationController:AnimationController,private homepage:HomePage) {
+  constructor(private method:MethodService,private animationController:AnimationController,private petsService: ApipetsService,private homepage:HomePage) {
     this.data = this.homepage.user;
   }
 
@@ -56,10 +62,12 @@ export class InicioComponent {
   }
   ionViewWillEnter() {
     console.log('Esto es ionViewWillEnter [/Home]');
+    this.mascotas = this.petsService.obtenerMascotas();
     this.homepage.changeHeader(false,'Inicio');
     this.homepage.bbdd.crearBD();
     this.homepage.seg  = 0;
     this.homepage.cargarUsersDelay();
     console.log(this.data);
   }
+
 }

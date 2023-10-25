@@ -10,6 +10,7 @@ import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiusersService } from './services/api/users/apiusers.service';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [AppComponent],

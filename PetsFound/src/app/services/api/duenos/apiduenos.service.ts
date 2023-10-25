@@ -1,12 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from 'src/app/class/user/user';
 import { Observable } from 'rxjs';
+import { Dueno } from 'src/app/class/dueno/dueno';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ApiusersService {
+export class ApiduenosService {
 
   //URL:string='https://jsonplaceholder.typicode.com';
   apiUrl = 'https://raw.githubusercontent.com/Leckiam/FL-MC/Maikel-C/PetsFound/usuarios_PGY4121_04.json';
@@ -16,7 +16,7 @@ export class ApiusersService {
       'Access-Control-Allow-Origin' :'*'
     }),
   };
-  usersApi:User[]= [new User()];
+  duenosApi:Dueno[]= [new Dueno()];
   constructor(private http:HttpClient) {
     this.setApiToUsers()
   }
@@ -27,8 +27,8 @@ export class ApiusersService {
 
   setApiToUsers(){
     this.getData().subscribe((data) => {
-      const dataUsers = data.users;
-      this.usersApi = dataUsers;
+      const dataUsers = data.duenos;
+      this.duenosApi = dataUsers;
     })
   }
 }
