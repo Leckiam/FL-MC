@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class ApiusersService {
 
   //URL:string='https://jsonplaceholder.typicode.com';
-  apiUrl = 'https://raw.githubusercontent.com/Leckiam/FL-MC/Maikel-C/PetsFound/usuarios_PGY4121_04.json';
+  apiUrl = 'https://raw.githubusercontent.com/Leckiam/FL-MC/main/PetsFound/usuarios_PGY4121_04.json';
   httpHeader = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

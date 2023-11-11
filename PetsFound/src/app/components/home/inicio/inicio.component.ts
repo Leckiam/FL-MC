@@ -67,9 +67,7 @@ export class InicioComponent {
     console.log('Esto es ionViewWillEnter [/Home]');
     this.mascotas = this.petsService.obtenerMascotas(this.homepage.user.id);
     this.homepage.changeHeader(false,'Inicio');
-    this.homepage.bbdd.crearBD();
-    this.homepage.seg  = 0;
-    this.homepage.cargarTablaDelay(1);
+
     console.log(this.data);
   }
 
