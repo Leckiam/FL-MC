@@ -1,5 +1,6 @@
 import { Component, inject} from '@angular/core';
 import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
+import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
 import { AppComponent } from 'src/app/app.component';
 import { Dueno } from 'src/app/class/dueno/dueno';
 import { Mascota } from 'src/app/class/mascota/mascota';
@@ -27,7 +28,8 @@ export class HomePage {
 
   seg:number;
 
-  constructor(private method:MethodService, private barcodeScanner: BarcodeScanner,private appComponent:AppComponent) {
+  constructor(private method:MethodService, private barcodeScanner: BarcodeScanner,
+    private appComponent:AppComponent,private emailComposer:EmailComposer) {
     this.appComponent.cantLoadPages += 1;
     const storedUser  = localStorage.getItem('user');
     if (storedUser) {
@@ -47,12 +49,20 @@ export class HomePage {
     this.barcodeScanner.scan().then(barcodeData => {
       this.code = barcodeData.text;
       if (this.code) {
-        this.changePage('home','message');
+        this.irMsgEmail(this.code);
         console.log('Barcode data', this.code);
       }
     }).catch(err => {
       console.log(Error, err);
     })
+  }
+
+  irMsgEmail(receptor:string){
+    this.emailComposer.isAvailable();
+    this.emailComposer.open({
+      to: receptor,
+      subject: 'PetsFound: Mascota encontrada'
+    });
   }
   
   recuperarUser(){
