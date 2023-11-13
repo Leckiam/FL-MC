@@ -59,7 +59,9 @@ export class HomePage {
 
   irMsgEmail(receptor:string){
     this.emailComposer.isAvailable();
+    this.emailComposer.addAlias('gmail','com.google.android.gm')
     this.emailComposer.open({
+      app:'gmail',
       to: receptor,
       subject: 'PetsFound: Mascota encontrada'
     });
