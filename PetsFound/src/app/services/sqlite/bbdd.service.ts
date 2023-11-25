@@ -107,6 +107,23 @@ export class BbddService {
     console.log('Lista User cargada');
     this.listaUsers.next(items);
   }
+  async encontrarUserBD(id:number) {
+    let item: User = new User();
+    this.database.executeSql('SELECT * FROM user WHERE=?', [id])
+      .then(async res => {
+        if (res.rows.length > 0) {
+          item.id = res.rows.item(0).id;
+          item.nombre = res.rows.item(0).nombre;
+          item.correo = res.rows.item(0).correo;
+          item.username = res.rows.item(0).username;
+          item.password = res.rows.item(0).password;
+          item.isStaff = res.rows.item(0).isStaff;
+        }
+        await console.log(`Usuario ${item.username} encontrado`);
+      }).catch(res =>{
+        console.log('Usuario no encontrado');
+      });
+  }
   
   async addValuesInTable(data:any,columns:string[],table:string) {
     let cantValues = '';
@@ -148,23 +165,24 @@ export class BbddService {
 
   async existeUsersInBD(){
     await this.validarStaff();
-    console.log('validacion hecha (fuera)');
-    console.log(this.usersBD.length)
+    console.log('validacion hecha (fuera de validarStaff())');
+    console.log('this.usersBD.length: '+this.usersBD.length)
     if (this.usersBD.length<=1) {
       if (this.apiUsers.usersApi.length<19) {
         window.location.reload();
-      }
-      let data=[];
-      for (let i = 0; i < this.apiUsers.usersApi.length; i++) {
-        const userApi = this.apiUsers.usersApi[i];
-        data = [userApi.nombre,userApi.correo,userApi.username,userApi.password,userApi.isStaff];
-        this.addValuesInTable(data,['nombre','correo','username','password','isStaff'],'user');
+      } else {
+        let data=[];
+        for (let i = 0; i < this.apiUsers.usersApi.length; i++) {
+          const userApi = this.apiUsers.usersApi[i];
+          data = [userApi.nombre,userApi.correo,userApi.username,userApi.password,userApi.isStaff];
+          this.addValuesInTable(data,['nombre','correo','username','password','isStaff'],'user');
+        }
       }
     }
   }
   async validarStaff(){
     this.apiUsers.setApiToUsers();
-    console.log('validacion hecha (dentro)');
+    console.log('validacion hecha (dentro de validarStaff())');
   }
   
 }

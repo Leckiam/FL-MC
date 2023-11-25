@@ -58,8 +58,9 @@ export class HomePage {
   }
 
   irMsgEmail(receptor:string){
-    this.emailComposer.isAvailable();
     this.emailComposer.addAlias('gmail','com.google.android.gm')
+    this.emailComposer.isAvailable('gmail');
+    this.emailComposer.hasAccount();
     this.emailComposer.open({
       app:'gmail',
       to: receptor,

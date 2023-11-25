@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/class/user/user';
 import { LoginPage } from 'src/app/pages/login/login.page';
 import { MethodService } from 'src/app/services/method/method.service';
+import { FormsubService } from 'src/app/services/api/formsub/formsub.service'
 
 @Component({
   selector: 'app-register',
@@ -10,7 +11,7 @@ import { MethodService } from 'src/app/services/method/method.service';
 })
 export class RegisterComponent  implements OnInit {
 
-  constructor(private method:MethodService, private loginpage:LoginPage) {}
+  constructor(private method:MethodService, private loginpage:LoginPage, private formSubmit:FormsubService) {}
 
   userTmp:User = new User();
   passwordTmp:string='';
@@ -72,11 +73,26 @@ export class RegisterComponent  implements OnInit {
     if (this.validarDatoUserTmp()) {
       let data = [this.userTmp.nombre,this.userTmp.correo,this.userTmp.username,this.userTmp.password,0];
       this.loginpage.bbdd.addValuesInTable(data,['nombre','correo','username','password','isStaff'],'user');
+      this.envioCorreoPass()
       return true;
     } else {
       return false;
     }
   }
+
+  envioCorreoPass(){
+    this.formSubmit.enviarFormulario(this.userTmp.correo,this.userTmp).subscribe(
+      response => {
+        console.log('Respuesta del servidor:', response);
+        this.method.presentToast('top','Se ha enviado una copia de sus datos a su correo');
+      },
+      error => {
+        console.error('Error en la solicitud:', error);
+        this.method.presentToast('top','Hubo un error en el envio de una copia de sus datos');
+      }
+    );
+  }
+
   validarDatoUserTmp(){
     if (this.userTmp.password == this.passwordTmp && 
       this.userTmp.password.length >= 6 && this.userTmp.username.length >= 6
