@@ -36,7 +36,7 @@ export class LogincompComponent  implements OnInit {
       }, 1000); 
     });
     btn_irRegister?.addEventListener('click',function(){
-      LoginObj.loginpage.bbdd.existeUsersInBD();
+      LoginObj.loginpage.fireBase.existeUsersInBD();
       LoginObj.loginpage.changePage('login','register');
     });
     btn_irRecover?.addEventListener('click',function(){
@@ -95,10 +95,8 @@ export class LogincompComponent  implements OnInit {
   }
   ionViewWillEnter() {
     console.log('Esto es ionViewWillEnter [/Login]');
-    this.loginpage.bbdd.crearBD();
     this.loginpage.seg  = 0;
     this.loginpage.tituleName.innerHTML = "Iniciar Sesión";
-    this.loginpage.cargarUsersDelay();
   }
 
   aprobarIngreso(namePage:string){

@@ -3,6 +3,7 @@ import { User } from 'src/app/class/user/user';
 import { LoginPage } from 'src/app/pages/login/login.page';
 import { MethodService } from 'src/app/services/method/method.service';
 import { FormsubService } from 'src/app/services/api/formsub/formsub.service'
+import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,8 @@ import { FormsubService } from 'src/app/services/api/formsub/formsub.service'
 })
 export class RegisterComponent  implements OnInit {
 
-  constructor(private method:MethodService, private loginpage:LoginPage, private formSubmit:FormsubService) {}
+  constructor(private method:MethodService, private loginpage:LoginPage,
+    private formSubmit:FormsubService, private fireBase:FirebaseService) {}
 
   userTmp:User = new User();
   passwordTmp:string='';
@@ -71,9 +73,8 @@ export class RegisterComponent  implements OnInit {
       }
     }
     if (this.validarDatoUserTmp()) {
-      let data = [this.userTmp.nombre,this.userTmp.correo,this.userTmp.username,this.userTmp.password,0];
-      this.loginpage.bbdd.addValuesInTable(data,['nombre','correo','username','password','isStaff'],'user');
-      this.envioCorreoPass()
+      this.fireBase.addUser(this.userTmp.correo,this.userTmp.password,this.userTmp.username,this.userTmp.nombre);
+      this.envioCorreoPass();
       return true;
     } else {
       return false;

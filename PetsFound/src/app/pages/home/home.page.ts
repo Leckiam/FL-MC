@@ -1,4 +1,4 @@
-import { Component, inject} from '@angular/core';
+import { Component} from '@angular/core';
 import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
 import { AppComponent } from 'src/app/app.component';
@@ -6,7 +6,6 @@ import { Dueno } from 'src/app/class/dueno/dueno';
 import { Mascota } from 'src/app/class/mascota/mascota';
 import { User } from 'src/app/class/user/user';
 import { MethodService } from 'src/app/services/method/method.service';
-import { BbddService } from 'src/app/services/sqlite/bbdd.service';
 
 
 @Component({

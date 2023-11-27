@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginPage } from 'src/app/pages/login/login.page';
 import { MethodService } from 'src/app/services/method/method.service';
-import { BbddService } from 'src/app/services/sqlite/bbdd.service';
 
 @Component({
   selector: 'app-recoverpass',
