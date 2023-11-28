@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Dueno } from 'src/app/class/dueno/dueno';
 import { User } from 'src/app/class/user/user';
 import { HomePage } from 'src/app/pages/home/home.page';
+import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 import { MethodService } from 'src/app/services/method/method.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class AccountComponent  implements OnInit {
   data:User = new User();
   nameComponent:any;
   duenos:Dueno[];
-  constructor(private method:MethodService, private homepage:HomePage) {
+  constructor(private method:MethodService, private homepage:HomePage,private fireBase:FirebaseService) {
     this.data = this.homepage.user;
   }
 
@@ -27,6 +28,7 @@ export class AccountComponent  implements OnInit {
   }
 
   logOut(){
+    this.fireBase.logOut();
     this.method.logOut();
   }
   IrEditarPerfil() {

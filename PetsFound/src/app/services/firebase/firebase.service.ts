@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FirebaseAuthentication as fireBaseAuth } from '@capacitor-firebase/authentication';
 import { FirebaseFirestore as fireBaseStore } from '@capacitor-firebase/firestore';
 import { ApiusersService } from '../api/users/apiusers.service';
+import { User } from 'src/app/class/user/user';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,22 +12,20 @@ export class FirebaseService {
   }
 
   async addUser(email:string,password:string,username:string,nombre:string,celular?:number,edad?:number){
-    let idUser:string = '';
     await fireBaseAuth.createUserWithEmailAndPassword({
       email: email,
       password: password
-    }).then((userCredential) => {
+    }).then(async (userCredential) => {
       // Signed in 
-      fireBaseAuth.updateProfile({
+      await fireBaseAuth.updateProfile({
         displayName: username
-      })
+      });
       const user = userCredential.user;
-      console.log('se creo xd')
-      if (user) {
-        idUser = user?.uid;
-        console.log(user)
+      let user_id =  user?.uid;
+      if (user_id) {
+        console.log(JSON.stringify(user_id))
+        await this.addDueno(email,nombre,'','',912345678,18,user_id);
       }
-      this.addDueno(email,nombre,'','',912345678,18,idUser);
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -51,17 +50,27 @@ export class FirebaseService {
   }
   async loginUser(email:string,password:string){
     await fireBaseAuth.signInWithEmailAndPassword({
-      email: email,
-      password: password
+      email: email.trim(),
+      password: password.trim()
     }).then((userCredential) => {
       // Signed in 
-      const user = userCredential.user;
-      console.log('se logeo xd')
-      // ...
+      const userTmp = userCredential.user;
+      let user = {
+        id: userTmp?.uid,
+        username: userTmp?.displayName,
+        correo: userTmp?.email,
+      }
+      const userJson = JSON.stringify(user);
+      console.log('entro');
+      console.log(userJson);
+      localStorage.setItem('user',userJson);
     })
     .catch((error) => {
+      console.log('o no entro error');
       const errorCode = error.code;
       const errorMessage = error.message;
+      console.log(errorCode);
+      console.log(errorMessage);
     });
   }
   async obtUsers(){
@@ -92,6 +101,10 @@ export class FirebaseService {
     }).then((data) => {
       console.log(data.snapshots.length)
     });
+  }
+
+  logOut(){
+    fireBaseAuth.signOut();
   }
 
   async existeUsersInBD(){

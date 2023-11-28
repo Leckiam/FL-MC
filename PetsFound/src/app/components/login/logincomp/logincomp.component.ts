@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { User } from 'src/app/class/user/user';
 import { LoginPage } from 'src/app/pages/login/login.page';
+import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 import { MethodService } from 'src/app/services/method/method.service';
 
 @Component({
@@ -11,9 +12,9 @@ import { MethodService } from 'src/app/services/method/method.service';
 export class LogincompComponent  implements OnInit {
 
   user:User = new User();
-  constructor(private method:MethodService, private loginpage:LoginPage) {
+  constructor(private method:MethodService, private loginpage:LoginPage, private fireBase:FirebaseService) {
     console.log('Esto es constructor [/Login]');
-    this.user.username = '';
+    this.user.correo = '';
     this.user.password = '';
   }
   
@@ -70,7 +71,7 @@ export class LogincompComponent  implements OnInit {
   }
 
   validarLogin(user:any){
-    if (user.username.length >=6 && user.password.length >=6) {
+    if (user.correo.length >=6 && user.password.length >=6) {
       return true
     } else {
       return false
@@ -85,8 +86,7 @@ export class LogincompComponent  implements OnInit {
       if (nameComponent) {
         namePage = namePage + '/' + nameComponent;
       }
-      
-      if (this.existeUser()) {
+      if (this.loginUser()) {
         this.aprobarIngreso(namePage);
       } else {
         this.method.presentToast('bottom','No sea encontrado a ningun usuario que cumpla con los parametros ingresados')
@@ -107,24 +107,20 @@ export class LogincompComponent  implements OnInit {
       }
     }
     */
-    this.user.username = "";
+    this.user.correo = "";
     this.user.password = "";
     //this.method.ingresar(namePage,'',navegationExtras);
     this.method.ingresar(namePage,'');
   }
 
-  existeUser(){
-    console.log(this.loginpage.usersDB.length)
-    for (let i = 0; i < this.loginpage.usersDB.length; i++) {
-      const userTmp = this.loginpage.usersDB[i];
-      console.log(userTmp.username)
-      if (userTmp.username==this.user.username && 
-        userTmp.password==this.user.password) {
-        const userJson = JSON.stringify(userTmp)
-        localStorage.setItem('user',userJson);
-        return true;
-      }
+  loginUser(){
+    this.fireBase.loginUser(this.user.correo,this.user.password);
+    if (localStorage.getItem('user')) {
+      return true;
+    } else {
+      this.fireBase.logOut();
+      return false;
     }
-    return false;
   }
+    
 }

@@ -15,7 +15,7 @@ export class ApipetsService {
     this.guardarMascotasEnLocalStorage();
   }
 
-  obtenerMascotas(id_user:number) {
+  obtenerMascotas(id_user:string) {
     let mascotasTmp:Mascota[]=[]
     this.cargarMascotasDesdeLocalStorage();
     for (let i = 0; i < this.mascotas.length; i++) {
@@ -38,7 +38,7 @@ export class ApipetsService {
     }
   }
 
-  editarMascota(id: number, nuevaMascota: any) {
+  editarMascota(id: string, nuevaMascota: any) {
     const index = this.mascotas.findIndex((mascota) => mascota.id === id);
     if (index !== -1) {
       this.mascotas[index] = nuevaMascota;

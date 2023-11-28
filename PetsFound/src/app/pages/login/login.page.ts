@@ -12,7 +12,6 @@ import { MethodService } from 'src/app/services/method/method.service';
 export class LoginPage implements OnInit {
   
   tituleName:any
-  usersDB: User[];
   seg:number;
   public fireBase = inject(FirebaseService);
   constructor(private method:MethodService,private appComponent:AppComponent) {

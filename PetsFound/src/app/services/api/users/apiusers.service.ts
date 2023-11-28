@@ -26,7 +26,7 @@ export class ApiusersService {
     })
   }
   
-  buscarUser(id_user:number){
+  buscarUser(id_user:string){
     let userTmp:User = new User();
     for (let i = 0; i < this.usersApi.length; i++) {
       const user = this.usersApi[i];

@@ -1,7 +1,7 @@
 import { Dueno } from '../dueno/dueno';
 
 export class Mascota {
-    id!: number;
+    id!: string;
     nombre!: string;
     tipo!: string;
     raza!: string;
