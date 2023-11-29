@@ -29,6 +29,8 @@ export class AccountComponent  implements OnInit {
     this.method.ingresar('home','generate-qr');
   }
 
+  Irnotsfound(){}
+  
   ionViewWillEnter() {
     console.log('Esto es ionViewWillEnter [/Home]');
     this.homepage.changeHeader(false,'Cuenta');

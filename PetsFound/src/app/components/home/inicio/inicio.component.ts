@@ -20,6 +20,7 @@ export class InicioComponent {
   items:string[] = [];
   MostrarMascotas = false;
   noMascotas=false;
+  hayMascotas = false; 
 
   data:User;
   @ViewChildren(IonCard, {read:ElementRef})
@@ -80,4 +81,5 @@ export class InicioComponent {
     this.MostrarMascotas = !this.MostrarMascotas;
   }
 
+  
 }

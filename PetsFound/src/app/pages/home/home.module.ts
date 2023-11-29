@@ -13,6 +13,7 @@ import { QrgenerateComponent } from 'src/app/components/home/qrgenerate/qrgenera
 import { QRCodeModule } from 'angularx-qrcode';
 
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -23,7 +24,7 @@ import { QRCodeModule } from 'angularx-qrcode';
   ],
   declarations: [HomePage,AccountComponent,InicioComponent,
     AgregarMascotaComponent,EditarperfilComponent,
-    QrgenerateComponent,
+    QrgenerateComponent, 
   ]
 })
 export class HomePageModule {}

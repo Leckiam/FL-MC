@@ -8,6 +8,7 @@ import { Error404PageRoutingModule } from './error404-routing.module';
 
 import { Error404Page } from './error404.page';
 
+
 @NgModule({
   imports: [
     CommonModule,
