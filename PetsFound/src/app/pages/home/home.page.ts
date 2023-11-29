@@ -20,10 +20,9 @@ export class HomePage {
   tituleName:any;
   headerBack:any;
 
-  user:User = new User();
-  usersDB:User[];
-  duenosDB:Dueno[];
-  petsDB:Mascota[];
+  user:User;
+  dueno:Dueno;
+  mascotas:Mascota[];
 
   seg:number;
 
@@ -31,9 +30,15 @@ export class HomePage {
     private appComponent:AppComponent,private emailComposer:EmailComposer) {
     this.appComponent.cantLoadPages += 1;
     const storedUser  = localStorage.getItem('user');
-    if (storedUser) {
+    const storedDueno  = localStorage.getItem('dueno');
+    const storedMascotas  = localStorage.getItem('mascotas');
+    if (storedUser && storedDueno && storedMascotas) {
       this.user = JSON.parse(storedUser);
-      this.method.bienvenida(this.user.username)
+      this.dueno = JSON.parse(storedDueno);
+      this.mascotas = JSON.parse(storedMascotas);
+      if (this.user.username) {
+        this.method.bienvenida(this.user.username)
+      }
     }
   }
   ngOnInit() {
@@ -63,19 +68,10 @@ export class HomePage {
     this.emailComposer.open({
       app:'gmail',
       to: receptor,
-      subject: 'PetsFound: Mascota encontrada'
+      subject: 'PetsFound: Mascota encontrada',
     });
   }
   
-  recuperarUser(){
-    for (let i = 0; i < this.usersDB.length; i++) {
-      const userTpm = this.usersDB[i];
-      if (userTpm.username==this.user.username) {
-        this.user = userTpm;
-        break;
-      }
-    }
-  }
   changeHeader(canBack:boolean,nameTitle:string){
     const divTitle = `<ion-title id="titule-name-home">${nameTitle}</ion-title>`;
     const divTitleBack = `

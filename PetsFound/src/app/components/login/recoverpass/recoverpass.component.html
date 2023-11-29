@@ -8,12 +8,12 @@
     <ion-card-content>
       <ion-item>
         <ion-label position="floating">Email</ion-label>
-        <ion-input [(ngModel)]="userSearch.email" (ionInput)="convertirAMinusculas($event)" type="email"></ion-input>
+        <ion-input [(ngModel)]="userSearch.correo" (ionInput)="convertirAMinusculas($event)" type="email"></ion-input>
       </ion-item>
       <ion-row>
         <ion-col>
           <a class="btn-irLogin" style="color: white;">¿La acaba de recordar?</a><br>
-          <ion-button id="btn-send" expand="block">Enviar</ion-button>
+          <ion-button id="btn-send" expand="block" (click)="recoverPass()">Enviar</ion-button>
         </ion-col>
       </ion-row>
     </ion-card-content>

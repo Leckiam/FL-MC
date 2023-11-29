@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/class/user/user';
 import { LoginPage } from 'src/app/pages/login/login.page';
 import { MethodService } from 'src/app/services/method/method.service';
-import { FormsubService } from 'src/app/services/api/formsub/formsub.service'
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 
 @Component({
@@ -12,8 +11,7 @@ import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 })
 export class RegisterComponent  implements OnInit {
 
-  constructor(private method:MethodService, private loginpage:LoginPage,
-    private formSubmit:FormsubService, private fireBase:FirebaseService) {}
+  constructor(private method:MethodService, private loginpage:LoginPage, private fireBase:FirebaseService) {}
 
   userTmp:User = new User();
   passwordTmp:string='';
@@ -61,37 +59,16 @@ export class RegisterComponent  implements OnInit {
   convertirAMinusculas(event: any) {
     this.loginpage.convertirAMinusculas(event);
   }
+  
   registrar(){
     const correo = this.userTmp.correo;
-    this.userTmp.username='';
-    for (let i = 0; i < correo.length; i++) {
-      const letra = correo[i];
-      if (letra == '@') {
-        break;
-      } else {
-        this.userTmp.username+=letra;
-      }
-    }
+    this.userTmp.username=this.method.getUsername(correo);
     if (this.validarDatoUserTmp()) {
       this.fireBase.addUser(this.userTmp.correo,this.userTmp.password,this.userTmp.username,this.userTmp.nombre);
-      this.envioCorreoPass();
       return true;
     } else {
       return false;
     }
-  }
-
-  envioCorreoPass(){
-    this.formSubmit.enviarFormulario(this.userTmp.correo,this.userTmp).subscribe(
-      response => {
-        console.log('Respuesta del servidor:', response);
-        this.method.presentToast('top','Se ha enviado una copia de sus datos a su correo');
-      },
-      error => {
-        console.error('Error en la solicitud:', error);
-        this.method.presentToast('top','Hubo un error en el envio de una copia de sus datos');
-      }
-    );
   }
 
   validarDatoUserTmp(){

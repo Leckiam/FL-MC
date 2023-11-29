@@ -4,9 +4,9 @@ import type {QueryList} from '@angular/core';
 import type {Animation} from '@ionic/angular';
 import { HomePage } from 'src/app/pages/home/home.page';
 import { MethodService } from 'src/app/services/method/method.service';
-import { User } from 'src/app/class/user/user';
 import { Mascota } from 'src/app/class/mascota/mascota';
 import { ApipetsService } from 'src/app/services/api/pets/apipets.service';
+import { User } from 'src/app/class/user/user';
 
 
 @Component({
@@ -31,6 +31,8 @@ export class InicioComponent {
   private animation!: Animation;
   constructor(private method:MethodService,private animationController:AnimationController,private petsService: ApipetsService,private homepage:HomePage) {
     this.data = this.homepage.user;
+    console.log('hola')
+    console.log(this.homepage.user.correo)
   }
 
   changePage(namePage:string,nameComponent?:string){
@@ -65,7 +67,6 @@ export class InicioComponent {
 
   ionViewWillEnter() {
     console.log('Esto es ionViewWillEnter [/Home]');
-    this.mascotas = this.petsService.obtenerMascotas(this.homepage.user.id);
     this.homepage.changeHeader(false,'Inicio');
 
     console.log(this.data);
@@ -73,7 +74,6 @@ export class InicioComponent {
 
   eliminarMascota(mascota:Mascota){
     this.petsService.eliminarMascota(mascota);
-    this.mascotas = this.petsService.obtenerMascotas(this.homepage.user.id);
   }
 
   toggleMostrarMascotas() {

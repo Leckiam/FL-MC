@@ -28,7 +28,7 @@ export class LoginPage implements OnInit {
 
   convertirAMinusculas(event: any) {
     const input = event.target as HTMLInputElement;
-    input.value = input.value.toLowerCase();
+    input.value = input.value.toLowerCase().trim();
   }
   ionViewWillEnter() {
     if (this.appComponent.cantLoadPages>=2) {

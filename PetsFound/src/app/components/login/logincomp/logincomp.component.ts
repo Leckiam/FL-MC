@@ -1,4 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { Mascota } from 'src/app/class/mascota/mascota';
 import { User } from 'src/app/class/user/user';
 import { LoginPage } from 'src/app/pages/login/login.page';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
@@ -80,19 +81,16 @@ export class LogincompComponent  implements OnInit {
 
   changePageLog(namePage:string,nameComponent?:string){
     if (!this.validarLogin(this.user)){
-      let msg= 'Su usuario y/o contraseña no está dentro del rango de caracteres (6 caracteres)'
+      let msg= 'Su correo y/o contraseña no está dentro del rango de caracteres (6 caracteres)'
       this.method.presentToast('bottom',msg)
     } else {
       if (nameComponent) {
         namePage = namePage + '/' + nameComponent;
       }
-      if (this.loginUser()) {
-        this.aprobarIngreso(namePage);
-      } else {
-        this.method.presentToast('bottom','No sea encontrado a ningun usuario que cumpla con los parametros ingresados')
-      } 
+      this.loginUser(namePage);
     }
   }
+
   ionViewWillEnter() {
     console.log('Esto es ionViewWillEnter [/Login]');
     this.loginpage.seg  = 0;
@@ -113,14 +111,23 @@ export class LogincompComponent  implements OnInit {
     this.method.ingresar(namePage,'');
   }
 
-  loginUser(){
-    this.fireBase.loginUser(this.user.correo,this.user.password);
+  async loginUser(namePage:string){
+    await this.fireBase.loginUser(this.user.correo,this.user.password);
     if (localStorage.getItem('user')) {
-      return true;
+      await this.getDueno();
+      await this.getMascotas();
+      this.aprobarIngreso(namePage);
     } else {
+      this.method.presentToast('bottom','No sea encontrado a ningun usuario que cumpla con los parametros ingresados (correo/contraseña)');
       this.fireBase.logOut();
-      return false;
     }
   }
-    
+  async getDueno(){
+    await this.fireBase.obtDueno(this.user.correo);
+    console.log(localStorage.getItem('dueno'));
+  } 
+  async getMascotas(){
+    localStorage.setItem('mascotas',JSON.stringify([new Mascota()]))
+    console.log(localStorage.getItem('mascotas'));
+  } 
 }

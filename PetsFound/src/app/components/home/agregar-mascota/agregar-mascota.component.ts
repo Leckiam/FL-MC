@@ -25,7 +25,6 @@ export class AgregarMascotaComponent {
         this.razasDogs = Object.keys(response.message);
       }
     });
-    this.dueno = this.apiDueno.buscarDueno(this.homepage.user)
     this.mascota.nombre = '';
     this.mascota.raza = '';
     this.mascota.tipo = '';

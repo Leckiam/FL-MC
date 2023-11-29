@@ -1,39 +1,38 @@
 import { Injectable } from '@angular/core';
-import { FirebaseAuthentication as fireBaseAuth } from '@capacitor-firebase/authentication';
-import { FirebaseFirestore as fireBaseStore } from '@capacitor-firebase/firestore';
+import { User as UserFB, FirebaseAuthentication as fireBaseAuth } from '@capacitor-firebase/authentication';
+import { GetCollectionOptions, FirebaseFirestore as fireBaseStore } from '@capacitor-firebase/firestore';
 import { ApiusersService } from '../api/users/apiusers.service';
+import { MethodService } from '../method/method.service';
 import { User } from 'src/app/class/user/user';
 @Injectable({
   providedIn: 'root'
 })
 
 export class FirebaseService {
-  constructor(private apiUsers:ApiusersService) {
-  }
+
+  constructor(private apiUsers:ApiusersService, private method:MethodService) {}
 
   async addUser(email:string,password:string,username:string,nombre:string,celular?:number,edad?:number){
     await fireBaseAuth.createUserWithEmailAndPassword({
       email: email,
       password: password
-    }).then(async (userCredential) => {
-      // Signed in 
-      await fireBaseAuth.updateProfile({
-        displayName: username
-      });
-      const user = userCredential.user;
-      let user_id =  user?.uid;
+    }).then((userCredential) => {
+      let user_id;
+      if (userCredential.user) {
+        const user:UserFB = userCredential.user;
+        user_id =  user.uid;
+      }
       if (user_id) {
         console.log(JSON.stringify(user_id))
-        await this.addDueno(email,nombre,'','',912345678,18,user_id);
+        console.log(user_id)
+        this.addDueno(email,nombre,'','',912345678,18,user_id);
       }
     })
     .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // ..
+      this.method.presentToast('top','La direccion de email/correo ya esta en uso por otro usuario');
     });
   }
-  async addDueno(email:string,nombre:string,ap_paterno:string,ap_materno:string,celular:number,edad:number,idUser:string){
+  addDueno(email:string,nombre:string,ap_paterno:string,ap_materno:string,celular:number,edad:number,idUser:string){
     fireBaseStore.addDocument({
       reference: 'Dueno',
       data: {
@@ -45,8 +44,12 @@ export class FirebaseService {
         celular:celular,
         idUser:idUser,
       }
+    }).then((document) => {
+      console.log('El dueno con id = '+document.reference.id+' a sido añadido');
+    })
+    .catch(() => {
+      console.log('No se ha podido agregar al dueno');
     });
-    console.log('Hola dueno')
   }
   async loginUser(email:string,password:string){
     await fireBaseAuth.signInWithEmailAndPassword({
@@ -54,66 +57,88 @@ export class FirebaseService {
       password: password.trim()
     }).then((userCredential) => {
       // Signed in 
+      fireBaseAuth.updateProfile({
+        displayName: this.method.getUsername(email),
+      })
       const userTmp = userCredential.user;
-      let user = {
-        id: userTmp?.uid,
-        username: userTmp?.displayName,
-        correo: userTmp?.email,
+      if (userTmp) {
+        let user = new User();
+        user.id = userTmp.uid;
+        user.username = userTmp.displayName||this.method.getUsername(email);
+        user.correo = userTmp.email||'';
+        localStorage.setItem('user',JSON.stringify(user));
+        console.log(localStorage.getItem('user'));
       }
-      const userJson = JSON.stringify(user);
-      console.log('entro');
-      console.log(userJson);
-      localStorage.setItem('user',userJson);
     })
     .catch((error) => {
-      console.log('o no entro error');
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode);
       console.log(errorMessage);
     });
   }
-  async obtUsers(){
-    await fireBaseStore.getCollection({
+  async obtDueno(correo:string){
+    let option:GetCollectionOptions = {
       reference: 'Dueno',
       compositeFilter: {
         type: 'and',
         queryConstraints: [
           {
             type: 'where',
-            fieldPath: 'born',
+            fieldPath: 'email',
             opStr: '==',
-            value: 1912,
+            value: correo.trim(),
           },
         ],
       },
       queryConstraints: [
         {
           type: 'orderBy',
-          fieldPath: 'born',
+          fieldPath: 'email',
           directionStr: 'desc',
         },
         {
           type: 'limit',
-          limit: 10,
+          limit: 1,
         },
       ],
-    }).then((data) => {
-      console.log(data.snapshots.length)
+    };
+    await fireBaseStore.getCollection(option)
+    .then((data) => {
+      let dueno = data.snapshots[0].data;
+      localStorage.setItem('dueno',JSON.stringify(dueno))
+      console.log(localStorage.getItem('dueno'));
+    })
+    .catch(() => {
+      console.log('No se ha encontrado a ningun dueno que posea el correo: '+ correo)
     });
   }
 
   logOut(){
     fireBaseAuth.signOut();
+    this.method.logOut();
   }
+
+  async recoverPass(correo:string){
+    await fireBaseAuth.sendPasswordResetEmail({
+      email: correo,
+    }).then(() => {
+      console.log('entro el recoverPass');
+      this.method.presentToast('top','Se ha enviado exitosamente a su correo la solicitud de cambio de contraseña');
+    })
+    .catch(() => {
+      this.method.presentToast('top','No se ha podido enviar la solicitud de cambio de contraseña (correo inválido)');
+    });
+  };
 
   async existeUsersInBD(){
     await this.validarStaff();
     console.log('validacion hecha (fuera de validarStaff())');
-    if (this.apiUsers.usersApi.length<19) {
+    if (this.apiUsers.usersApi.length!=19) {
       window.location.reload();
     } else {
-      for (let i = 0; i < this.apiUsers.usersApi.length; i++) {
+      console.log('entro else')
+      for (let i = 0; i < 19; i++) {
         const userApi = this.apiUsers.usersApi[i];
         this.addUser(userApi.correo,userApi.password,userApi.username,userApi.nombre);
       }

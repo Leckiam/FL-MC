@@ -13,8 +13,6 @@ export class EditarperfilComponent implements OnInit {
 
   dueno:Dueno = new Dueno();
   constructor(private homepage:HomePage,private apiDueno:ApiduenosService, private method:MethodService) {
-    this.apiDueno.setApiToUsers(this.homepage.user)
-    this.dueno = this.apiDueno.buscarDueno(this.homepage.user);
     console.log('hola gente: '+this.dueno.correo)
   }
 
@@ -28,7 +26,6 @@ export class EditarperfilComponent implements OnInit {
     console.log('entro xd')
     if (this.validarDataDueno(this.dueno)) {
       this.method.presentToast('top','Sus datos han sido actualizados')
-      this.apiDueno.editarDueno(this.homepage.user,this.dueno)
     } else {
       this.method.presentToast('top','Sus datos no han sido actualizados')
     }

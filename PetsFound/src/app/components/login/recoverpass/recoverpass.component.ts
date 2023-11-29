@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/class/user/user';
 import { LoginPage } from 'src/app/pages/login/login.page';
+import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 import { MethodService } from 'src/app/services/method/method.service';
 
 @Component({
@@ -9,21 +11,11 @@ import { MethodService } from 'src/app/services/method/method.service';
 })
 export class RecoverpassComponent  implements OnInit {
 
-  userSearch:any = {
-    email:'',
-    password:''
-  }
+  userSearch:User = new User();
 
-  constructor(private method:MethodService, private loginpage:LoginPage) {}
+  constructor(private method:MethodService, private loginpage:LoginPage, private fireBase:FirebaseService) {}
 
-  ngOnInit() {
-    let RecoverObj = this;
-    const content = document.getElementById('content-recoverpass-pf');
-    const btn_irLogin = content?.querySelector('.btn-irLogin') as HTMLElement;
-    btn_irLogin?.addEventListener('click',function(){
-      RecoverObj.changePage('login','');
-    });
-  }
+  ngOnInit() {}
 
   changePage(namePage:string,nameComponent?:string){
     this.loginpage.changePage(namePage,nameComponent);
@@ -34,9 +26,14 @@ export class RecoverpassComponent  implements OnInit {
   convertirAMinusculas(event: any) {
     this.loginpage.convertirAMinusculas(event);
   }
+
+  recoverPass(){
+    this.fireBase.recoverPass(this.userSearch.correo);
+    this.changePage('login','');
+  }
+
   ionViewWillEnter() {
     this.loginpage.tituleName.innerHTML = "Recuperar contraseña";
-    this.userSearch.email = "";
-    this.userSearch.password = "";
+    this.userSearch.correo = "";
   }
 }

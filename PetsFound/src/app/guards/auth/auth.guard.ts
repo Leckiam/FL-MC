@@ -22,17 +22,17 @@ export class AuthGuard implements CanActivate {
   validarData(namePage:string){
     switch(namePage){
       case 'login':
-        if (this.data != null) {
+        if (this.data) {
           return this.falseAuth('home');
         }
         break;
       case 'home':
-        if (this.data == null) {
+        if (!this.data) {
           return this.falseAuth('login');
         }
         break;
       default:
-        if (this.data != null) {
+        if (this.data) {
           return this.falseAuth('home');
         } else {
           return this.falseAuth('login');

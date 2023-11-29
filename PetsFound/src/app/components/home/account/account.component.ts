@@ -12,24 +12,16 @@ import { MethodService } from 'src/app/services/method/method.service';
 })
 export class AccountComponent  implements OnInit {
 
-  data:User = new User();
-  nameComponent:any;
+  data:User;
   duenos:Dueno[];
   constructor(private method:MethodService, private homepage:HomePage,private fireBase:FirebaseService) {
     this.data = this.homepage.user;
   }
 
-  ngOnInit() {
-    let btnEdit = document.querySelector('#btnEditPerf')
-    let accountObj = this;
-    btnEdit?.addEventListener('click',function(){
-    });
-
-  }
+  ngOnInit() {}
 
   logOut(){
     this.fireBase.logOut();
-    this.method.logOut();
   }
   IrEditarPerfil() {
     this.method.ingresar('home','editarperfil');
