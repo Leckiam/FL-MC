@@ -7,6 +7,8 @@ import { AuthGuard } from 'src/app/guards/auth/auth.guard';
 import { AgregarMascotaComponent } from 'src/app/components/home/agregar-mascota/agregar-mascota.component';
 import { EditarperfilComponent } from 'src/app/components/home/editarperfil/editarperfil.component';
 import { QrgenerateComponent } from 'src/app/components/home/qrgenerate/qrgenerate.component';
+import { CambiarcontraComponent } from 'src/app/components/home/cambiarcontra/cambiarcontra.component';
+import { EditarmascotaComponent } from 'src/app/components/home/editarmascota/editarmascota.component';
 
 const routes: Routes = [
   {
@@ -33,6 +35,18 @@ const routes: Routes = [
         path: 'generate-qr',
         component: QrgenerateComponent,
       },
+
+      {
+        path: 'cambiarcontra',
+        component: CambiarcontraComponent,
+      },
+
+      {
+        path: 'editarMascota',
+        component: EditarmascotaComponent,
+      },
+
+
     ],
     canActivate:[AuthGuard],
   }

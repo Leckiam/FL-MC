@@ -29,12 +29,20 @@ export class AccountComponent  implements OnInit {
     this.method.ingresar('home','generate-qr');
   }
 
-  Irnotsfound(){}
-  
+
+
   ionViewWillEnter() {
     console.log('Esto es ionViewWillEnter [/Home]');
     this.homepage.changeHeader(false,'Cuenta');
     this.homepage.seg  = 0;
     console.log(this.data);
+  }
+
+  irCambiarcontra(){
+    this.method.ingresar('home', 'cambiarcontra')
+  }
+
+  irnots(){
+    this.method.ingresar('home, cambiarContra')
   }
 }

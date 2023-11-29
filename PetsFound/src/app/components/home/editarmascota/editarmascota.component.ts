@@ -64,7 +64,7 @@ export class EditarmascotaComponent  implements OnInit {
       return false;
     }
   }
-  ionViewWillEnter() {
+  editarMascota() {
     this.homepage.changeHeader(true,'Agregar Mascota');
   }
 }
