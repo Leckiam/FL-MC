@@ -40,4 +40,12 @@ form {
       border-radius: 5px;
       cursor: pointer;
     }
+
+    .error-label {
+        color: red;
+      }
+      
+      .success-label {
+        color: green;
+      }
   }

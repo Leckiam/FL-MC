@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HomePage } from 'src/app/pages/home/home.page';
-
+import { MethodService } from 'src/app/services/method/method.service';
+import { ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-cambiarcontra',
   templateUrl: './cambiarcontra.component.html',
@@ -11,13 +12,14 @@ export class CambiarcontraComponent  implements OnInit {
   confirmPassword: string = '';
 
 
-  constructor( private homepage:HomePage,) { }
+  constructor( private homepage:HomePage, private method: MethodService) { }
 
 
-  ChangePassword() {
+  async ChangePassword() {
     if (this.isFormValid()) {
-    
-      console.log('Contraseña cambiada con éxito');
+      this.method.presentToast('bottom', 'Contraseña cambiada con éxito');
+    } else {
+      this.method.presentToast('bottom', 'Las contraseñas no coinciden o están vacías');
     }
   }
 
@@ -25,6 +27,8 @@ export class CambiarcontraComponent  implements OnInit {
  
     return this.NuevaPassword === this.confirmPassword && this.NuevaPassword !== '';
   }
+
+ 
 
   ngOnInit() {}
 
