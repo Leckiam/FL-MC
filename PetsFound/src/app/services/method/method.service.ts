@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { NavController, ToastController } from '@ionic/angular';
 import {Location} from '@angular/common';
 import { User } from 'src/app/class/user/user';
+import { Mascota } from 'src/app/class/mascota/mascota';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { User } from 'src/app/class/user/user';
 export class MethodService {
 
   data:any;
-  constructor(private router: Router, private navCtrl:NavController, private toastController: ToastController) { }
+  constructor(private router: Router, private navCtrl:NavController, private toastController: ToastController, private activatedRoute: ActivatedRoute) { }
 
   retroceder() {
     this.navCtrl.back();
@@ -46,21 +47,14 @@ export class MethodService {
     await toast.present();
   }
 
-  transfer(){
-    const getUser = localStorage.getItem('user');
-    this.bienvenida(getUser);
-    /*
-    if (!getUser) {
-      this.activatedRoute.queryParams.subscribe(params =>{
-        if (this.router.getCurrentNavigation()?.extras.state) {
-          this.data = this.router.getCurrentNavigation()?.extras.state?.["user"];
-        } else {
-          this.ingresar('login','')
-        }
-      })
-    }
-    */
-    return getUser;
+  transferPet(mascota:Mascota){
+    this.activatedRoute.queryParams.subscribe(params =>{
+      if (this.router.getCurrentNavigation()?.extras.state) {
+        mascota = this.router.getCurrentNavigation()?.extras.state?.["mascota"];
+      } else {
+        this.ingresar('home','')
+      }
+    })
   }
 
   logOut(){
@@ -79,7 +73,7 @@ export class MethodService {
     }
   }
   
-  ingresar(nombrePage:string,nameComponent?:string,navigationExt?:any){
+  ingresar(nombrePage:string,nameComponent?:string,navigationExt?:NavigationExtras){
     if (navigationExt) {
       this.router.navigate(['/'+nombrePage],navigationExt);
     } else {

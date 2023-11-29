@@ -1,0 +1,13 @@
+<form (ngSubmit)="changePassword()">
+  <div class="form-group" [ngClass]="{'error': !isFormValid() && (nuevaPassword !== '' || confirmPassword !== '')}">
+    <label for="newPassword">Nueva contraseña:</label>
+    <input type="password" id="newPassword" name="newPassword" [(ngModel)]="nuevaPassword" minlength="6">
+  </div>
+
+  <div class="form-group" [ngClass]="{'error': !isFormValid() && (nuevaPassword !== '' || confirmPassword !== '')}">
+    <label for="confirmPassword">Confirmar nueva contraseña:</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" minlength="6">
+  </div>
+
+  <button type="submit">Cambiar Contraseña</button>
+</form>

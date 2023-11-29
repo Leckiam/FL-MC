@@ -1,5 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { Mascota } from 'src/app/class/mascota/mascota';
+import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/class/user/user';
 import { LoginPage } from 'src/app/pages/login/login.page';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
@@ -11,6 +10,7 @@ import { MethodService } from 'src/app/services/method/method.service';
   styleUrls: ['./logincomp.component.scss'],
 })
 export class LogincompComponent  implements OnInit {
+  showPassword = false;
 
   user:User = new User();
   constructor(private method:MethodService, private loginpage:LoginPage, private fireBase:FirebaseService) {
@@ -19,6 +19,9 @@ export class LogincompComponent  implements OnInit {
     this.user.password = '';
   }
   
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
   ngOnInit() {
     console.log('Esto es ngOnInit [/Login]');
     let LoginObj = this;
@@ -125,6 +128,9 @@ export class LogincompComponent  implements OnInit {
   async getDueno(){
     await this.fireBase.obtDueno(this.user.correo);
     console.log(localStorage.getItem('dueno'));
+    if (!localStorage.getItem('dueno')) {
+      await this.fireBase.obtDueno(this.user.correo);
+    }
   } 
   async getMascotas(){
     let duenoTmp = localStorage.getItem('dueno');

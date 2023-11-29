@@ -26,8 +26,14 @@ export class AccountComponent  implements OnInit {
   IrEditarPerfil() {
     this.method.ingresar('home','editarperfil');
   }
+  irCambiarcontra(){
+    this.method.ingresar('home', 'cambiarcontra')
+  }
   generateQR() {
     this.method.ingresar('home','generate-qr');
+  }
+  irnots(){
+    this.method.ingresar('errorxd')
   }
 
   ionViewWillEnter() {

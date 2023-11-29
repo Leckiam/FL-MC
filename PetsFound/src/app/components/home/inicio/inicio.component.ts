@@ -8,6 +8,7 @@ import { Mascota } from 'src/app/class/mascota/mascota';
 import { User } from 'src/app/class/user/user';
 import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 import { Dueno } from 'src/app/class/dueno/dueno';
+import { NavigationExtras } from '@angular/router';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class InicioComponent {
 
   mascotas:Mascota[];
   items:string[] = [];
-  MostrarMascotas = false;
+  mostrarMascotas = false;
   noMascotas=false;
 
   data:User;
@@ -37,8 +38,14 @@ export class InicioComponent {
     this.mascotas = this.homepage.mascotas;
   }
 
-  changePage(namePage:string,nameComponent?:string){
+  changePage(namePage:string,nameComponent?:string,clase?:Mascota|Dueno|User){
+    if (this.mascotas.length >= 10) {
+      return;
+    }
+    this.mostrarMascotas = false;
+    localStorage.setItem('clase',JSON.stringify(clase));
     this.method.ingresar(namePage,nameComponent);
+    this.mostrarMascotas = false;
   }
 
   ngAfterViewInit(){
@@ -67,23 +74,34 @@ export class InicioComponent {
 
   ngOnInit() {}
 
+  async getsClases(){
+    if (localStorage.getItem('dueno')) {
+      await this.fireBase.obtDueno(this.data.correo);
+      this.homepage.dueno = JSON.parse(localStorage.getItem('dueno')||'[]');
+      this.dueno = this.homepage.dueno;
+      await this.fireBase.obtPets(this.dueno.id);
+      this.homepage.mascotas = JSON.parse(localStorage.getItem('mascotas')||'[]');
+      this.mascotas = this.homepage.mascotas;
+    }
+  }
   ionViewWillEnter() {
     console.log('Esto es ionViewWillEnter [/Home]');
     this.homepage.changeHeader(false,'Inicio');
-    console.log(JSON.stringify(this.data));
+    this.getsClases();
   }
 
   async eliminarMascota(mascota:Mascota){
     this.fireBase.deletePet(mascota.id);
     await this.fireBase.obtPets(this.dueno.id);
     this.homepage.mascotas = JSON.parse(localStorage.getItem('mascotas')||'[]');
-    this.MostrarMascotas = !this.MostrarMascotas;
+    this.mostrarMascotas = !this.mostrarMascotas;
   }
 
   toggleMostrarMascotas() {
     this.fireBase.obtPets(this.dueno.id);
+    this.homepage.mascotas = JSON.parse(localStorage.getItem('mascotas')||'[]')
     this.mascotas = this.homepage.mascotas;
-    this.MostrarMascotas = !this.MostrarMascotas;
+    this.mostrarMascotas = !this.mostrarMascotas;
   }
 
 }

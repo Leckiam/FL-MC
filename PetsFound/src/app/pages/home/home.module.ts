@@ -11,6 +11,8 @@ import { AgregarMascotaComponent } from 'src/app/components/home/agregar-mascota
 import { EditarperfilComponent } from 'src/app/components/home/editarperfil/editarperfil.component';
 import { QrgenerateComponent } from 'src/app/components/home/qrgenerate/qrgenerate.component';
 import { QRCodeModule } from 'angularx-qrcode';
+import { EditarmascotaComponent } from 'src/app/components/home/editarmascota/editarmascota.component';
+import { CambiarcontraComponent } from 'src/app/components/home/cambiarcontra/cambiarcontra.component';
 
 
 @NgModule({
@@ -23,7 +25,7 @@ import { QRCodeModule } from 'angularx-qrcode';
   ],
   declarations: [HomePage,AccountComponent,InicioComponent,
     AgregarMascotaComponent,EditarperfilComponent,
-    QrgenerateComponent,
+    QrgenerateComponent,EditarmascotaComponent,CambiarcontraComponent,
   ]
 })
 export class HomePageModule {}

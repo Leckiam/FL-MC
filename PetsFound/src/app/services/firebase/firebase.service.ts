@@ -16,7 +16,7 @@ export class FirebaseService {
   constructor(private apiUsers:ApiusersService, private method:MethodService,
     private fBUser:FbuserService, private fBDueno:FbduenoService, private fbMascota:FbmascotaService) {}
 
-  async addUser(email:string,password:string,nombre:string){
+  async addUser(email:string,password:string,nombre:string,isApi:boolean){
     await fireBaseAuth.createUserWithEmailAndPassword({
       email: email,
       password: password
@@ -33,7 +33,9 @@ export class FirebaseService {
       }
     })
     .catch((error) => {
-      this.method.presentToast('top','La direccion de email/correo ya esta en uso por otro usuario');
+      if (!isApi) {
+        this.method.presentToast('top','La direccion de email/correo ya esta en uso por otro usuario');
+      }
     });
   }
 
@@ -87,7 +89,7 @@ export class FirebaseService {
       console.log('entro else')
       for (let i = 0; i < 19; i++) {
         const userApi = this.apiUsers.usersApi[i];
-        await this.addUser(userApi.correo,userApi.password,userApi.nombre);
+        await this.addUser(userApi.correo,userApi.password,userApi.nombre,true);
       }
     }
   }

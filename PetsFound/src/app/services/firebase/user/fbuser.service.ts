@@ -52,11 +52,12 @@ export class FbuserService {
   };
 
   async updatePass(newPass:string){
-    let user = (await fireBaseAuth.getCurrentUser()).user;
-    if (user) {
-      fireBaseAuth.updatePassword({
-        newPassword: newPass
-      })
+    const currentUser = fireBaseAuth.getCurrentUser();
+    if (!currentUser) {
+      return;
     }
+    await fireBaseAuth.updatePassword({
+      newPassword: newPass,
+    });
   }
 }

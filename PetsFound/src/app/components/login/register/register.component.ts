@@ -11,10 +11,13 @@ import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 })
 export class RegisterComponent  implements OnInit {
 
-  constructor(private method:MethodService, private loginpage:LoginPage, private fireBase:FirebaseService) {}
-
   userTmp:User = new User();
   passwordTmp:string='';
+  constructor(private method:MethodService, private loginpage:LoginPage, private fireBase:FirebaseService) {
+    this.userTmp.nombre = "";
+    this.userTmp.correo = "";
+    this.userTmp.password = "";
+  }
 
   ngOnInit() {
     let RegisterObj = this;
@@ -29,10 +32,10 @@ export class RegisterComponent  implements OnInit {
       setTimeout(function () {
         let seg = 0;
         if (seg=1) {
-          RegisterObj.changePageReg();
           spinner.style.display = 'none';
-          btn_register.style.pointerEvents = 'auto'
-          btn_irLogin.style.pointerEvents = 'auto'
+          btn_register.style.pointerEvents = 'auto';
+          btn_irLogin.style.pointerEvents = 'auto';
+          RegisterObj.changePageReg();
         }
         seg+=1;
       }, 1000); 
@@ -47,9 +50,6 @@ export class RegisterComponent  implements OnInit {
       let msg = 'Se ha registrado exitosamente';
       this.method.presentToast('bottom',msg);
       this.changePage('login','');
-    } else {
-      let msgErr = 'Su registro ha fallado'
-      this.method.presentToast('bottom',msgErr)
     }
   }
 
@@ -64,16 +64,17 @@ export class RegisterComponent  implements OnInit {
     const correo = this.userTmp.correo;
     this.userTmp.username=this.method.getUsername(correo);
     if (this.validarDatoUserTmp()) {
-      this.fireBase.addUser(this.userTmp.correo,this.userTmp.password,this.userTmp.nombre);
+      this.fireBase.addUser(this.userTmp.correo,this.userTmp.password,this.userTmp.nombre,false);
       return true;
     } else {
+      this.method.presentToast('bottom','Registro no valido')
       return false;
     }
   }
 
   validarDatoUserTmp(){
     if (this.userTmp.password == this.passwordTmp && 
-      this.userTmp.password.length >= 6 && this.userTmp.username.length >= 6
+      this.userTmp.password.length >= 6 && this.userTmp.nombre.length >= 4
       && this.userTmp.correo.length >= 8){
       for (let i = 0; i < this.userTmp.correo.length; i++) {
         const element = this.userTmp.correo[i];
@@ -81,10 +82,25 @@ export class RegisterComponent  implements OnInit {
           return true
         }
       }
+      this.method.presentToast('top',this.msgError())
       return false
     }else {
+      this.method.presentToast('top',this.msgError())
       return false
     }
+  }
+  msgError(){
+    let msgErr = 'ERROR:';
+    if (this.userTmp.password != this.passwordTmp) {
+      msgErr += '-Contraseñas no coinciden \n';
+    } if (this.userTmp.password && this.userTmp.password.length >= 6) {
+      msgErr += '-La contraseña es inferior a los 6 digitos \n';
+    } if (this.userTmp.nombre && this.userTmp.nombre.length >= 4) {
+      msgErr += '-El nombre es inferior a los 4 digitos \n';
+    } if (this.userTmp.correo && this.userTmp.correo.length >= 8) {
+      msgErr += '-El correo es inferior a los 8 digitos';
+    }
+    return msgErr;
   }
   retroceder() {
     this.method.retroceder();
