@@ -1,5 +1,3 @@
-import { Dueno } from '../dueno/dueno';
-
 export class Mascota {
     id!: string;
     nombre!: string;
@@ -7,5 +5,5 @@ export class Mascota {
     raza!: string;
     edad!: number;
     descripcion!: string;
-    dueno!: Dueno;
+    idDueno!: string;
 }

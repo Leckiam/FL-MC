@@ -127,7 +127,11 @@ export class LogincompComponent  implements OnInit {
     console.log(localStorage.getItem('dueno'));
   } 
   async getMascotas(){
-    localStorage.setItem('mascotas',JSON.stringify([new Mascota()]))
+    let duenoTmp = localStorage.getItem('dueno');
+    if (duenoTmp) {
+      let dueno = JSON.parse(duenoTmp);
+      await this.fireBase.obtPets(dueno);
+    }
     console.log(localStorage.getItem('mascotas'));
   } 
 }

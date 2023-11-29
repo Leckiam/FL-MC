@@ -24,21 +24,23 @@ export class HomePage {
   dueno:Dueno;
   mascotas:Mascota[];
 
-  seg:number;
-
   constructor(private method:MethodService, private barcodeScanner: BarcodeScanner,
     private appComponent:AppComponent,private emailComposer:EmailComposer) {
     this.appComponent.cantLoadPages += 1;
     const storedUser  = localStorage.getItem('user');
     const storedDueno  = localStorage.getItem('dueno');
     const storedMascotas  = localStorage.getItem('mascotas');
-    if (storedUser && storedDueno && storedMascotas) {
+    console.log(localStorage.getItem('user'));
+    console.log(localStorage.getItem('dueno'));
+    console.log(localStorage.getItem('mascotas'));
+    if (storedUser){
       this.user = JSON.parse(storedUser);
+    } if(storedDueno){
       this.dueno = JSON.parse(storedDueno);
+    } if (storedMascotas) {
       this.mascotas = JSON.parse(storedMascotas);
-      if (this.user.username) {
-        this.method.bienvenida(this.user.username)
-      }
+    } if (this.user.username) {
+      this.method.bienvenida(this.user.username)
     }
   }
   ngOnInit() {

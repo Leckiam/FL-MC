@@ -8,7 +8,7 @@
     <ion-card-content>
         <ion-item>
           <ion-label position="floating">Correo</ion-label>
-          <ion-input [(ngModel)]="user.correo" (ionInput)="convertirAMinusculas($event)" type="correo" minlength="6" ></ion-input>
+          <ion-input [(ngModel)]="user.correo" (ionInput)="convertirAMinusculas($event)" type="email" minlength="6" ></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Password</ion-label>

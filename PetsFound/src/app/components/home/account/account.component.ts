@@ -14,7 +14,7 @@ export class AccountComponent  implements OnInit {
 
   data:User;
   duenos:Dueno[];
-  constructor(private method:MethodService, private homepage:HomePage,private fireBase:FirebaseService) {
+  constructor(private method:MethodService, public homepage:HomePage,private fireBase:FirebaseService) {
     this.data = this.homepage.user;
   }
 
@@ -33,7 +33,6 @@ export class AccountComponent  implements OnInit {
   ionViewWillEnter() {
     console.log('Esto es ionViewWillEnter [/Home]');
     this.homepage.changeHeader(false,'Cuenta');
-    this.homepage.seg  = 0;
     console.log(this.data);
   }
 }

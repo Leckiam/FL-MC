@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Dueno } from 'src/app/class/dueno/dueno';
 import { HomePage } from 'src/app/pages/home/home.page';
-import { ApiduenosService } from 'src/app/services/api/duenos/apiduenos.service';
+import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 import { MethodService } from 'src/app/services/method/method.service';
 
 @Component({
@@ -12,7 +12,8 @@ import { MethodService } from 'src/app/services/method/method.service';
 export class EditarperfilComponent implements OnInit {
 
   dueno:Dueno = new Dueno();
-  constructor(private homepage:HomePage,private apiDueno:ApiduenosService, private method:MethodService) {
+  constructor(public homepage:HomePage, private method:MethodService, private fireBase:FirebaseService) {
+    this.dueno = this.homepage.dueno;
     console.log('hola gente: '+this.dueno.correo)
   }
 
@@ -22,10 +23,12 @@ export class EditarperfilComponent implements OnInit {
     this.homepage.changeHeader(true,'Editar perfil');
   }
 
-  updateDueno(){
+  async updateDueno(){
     console.log('entro xd')
     if (this.validarDataDueno(this.dueno)) {
-      this.method.presentToast('top','Sus datos han sido actualizados')
+      this.method.presentToast('top','Sus datos han sido actualizados');
+      await this.fireBase.updateDueno(this.dueno);
+      this.homepage.dueno = JSON.parse(localStorage.getItem('dueno')||'undefined');
     } else {
       this.method.presentToast('top','Sus datos no han sido actualizados')
     }

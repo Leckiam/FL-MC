@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Observable } from 'rxjs';
+import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 
 @Injectable({
   providedIn: 'root'

@@ -1,18 +1,22 @@
 import { Injectable } from '@angular/core';
 import { User as UserFB, FirebaseAuthentication as fireBaseAuth } from '@capacitor-firebase/authentication';
-import { GetCollectionOptions, FirebaseFirestore as fireBaseStore } from '@capacitor-firebase/firestore';
 import { ApiusersService } from '../api/users/apiusers.service';
 import { MethodService } from '../method/method.service';
-import { User } from 'src/app/class/user/user';
+import { FbduenoService } from './dueno/fbdueno.service';
+import { FbuserService } from './user/fbuser.service';
+import { FbmascotaService } from './mascota/fbmascota.service';
+import { Dueno } from 'src/app/class/dueno/dueno';
+import { Mascota } from 'src/app/class/mascota/mascota';
 @Injectable({
   providedIn: 'root'
 })
 
 export class FirebaseService {
 
-  constructor(private apiUsers:ApiusersService, private method:MethodService) {}
+  constructor(private apiUsers:ApiusersService, private method:MethodService,
+    private fBUser:FbuserService, private fBDueno:FbduenoService, private fbMascota:FbmascotaService) {}
 
-  async addUser(email:string,password:string,username:string,nombre:string,celular?:number,edad?:number){
+  async addUser(email:string,password:string,nombre:string){
     await fireBaseAuth.createUserWithEmailAndPassword({
       email: email,
       password: password
@@ -25,111 +29,54 @@ export class FirebaseService {
       if (user_id) {
         console.log(JSON.stringify(user_id))
         console.log(user_id)
-        this.addDueno(email,nombre,'','',912345678,18,user_id);
+        this.fBDueno.addDueno(user_id,email,nombre);
       }
     })
     .catch((error) => {
       this.method.presentToast('top','La direccion de email/correo ya esta en uso por otro usuario');
     });
   }
-  addDueno(email:string,nombre:string,ap_paterno:string,ap_materno:string,celular:number,edad:number,idUser:string){
-    fireBaseStore.addDocument({
-      reference: 'Dueno',
-      data: {
-        email:email,
-        nombre:nombre,
-        ap_paterno:ap_paterno,
-        ap_materno:ap_materno,
-        edad:edad,
-        celular:celular,
-        idUser:idUser,
-      }
-    }).then((document) => {
-      console.log('El dueno con id = '+document.reference.id+' a sido añadido');
-    })
-    .catch(() => {
-      console.log('No se ha podido agregar al dueno');
-    });
-  }
-  async loginUser(email:string,password:string){
-    await fireBaseAuth.signInWithEmailAndPassword({
-      email: email.trim(),
-      password: password.trim()
-    }).then((userCredential) => {
-      // Signed in 
-      fireBaseAuth.updateProfile({
-        displayName: this.method.getUsername(email),
-      })
-      const userTmp = userCredential.user;
-      if (userTmp) {
-        let user = new User();
-        user.id = userTmp.uid;
-        user.username = userTmp.displayName||this.method.getUsername(email);
-        user.correo = userTmp.email||'';
-        localStorage.setItem('user',JSON.stringify(user));
-        console.log(localStorage.getItem('user'));
-      }
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode);
-      console.log(errorMessage);
-    });
+
+  addDueno(user_id:string,email:string,nombre:string,ap_paterno?:string,ap_materno?:string,celular?:number,edad?:number){
+    this.fBDueno.addDueno(user_id,email,nombre,ap_paterno,ap_materno,celular,edad);
   }
   async obtDueno(correo:string){
-    let option:GetCollectionOptions = {
-      reference: 'Dueno',
-      compositeFilter: {
-        type: 'and',
-        queryConstraints: [
-          {
-            type: 'where',
-            fieldPath: 'email',
-            opStr: '==',
-            value: correo.trim(),
-          },
-        ],
-      },
-      queryConstraints: [
-        {
-          type: 'orderBy',
-          fieldPath: 'email',
-          directionStr: 'desc',
-        },
-        {
-          type: 'limit',
-          limit: 1,
-        },
-      ],
-    };
-    await fireBaseStore.getCollection(option)
-    .then((data) => {
-      let dueno = data.snapshots[0].data;
-      localStorage.setItem('dueno',JSON.stringify(dueno))
-      console.log(localStorage.getItem('dueno'));
-    })
-    .catch(() => {
-      console.log('No se ha encontrado a ningun dueno que posea el correo: '+ correo)
-    });
+    await this.fBDueno.obtDueno(correo);
+  }
+  async updateDueno(dueno:Dueno){
+    await this.fBDueno.updateDueno(dueno);
+  }
+  async deleteDueno(id_dueno:string){
+    await this.fBDueno.deleteDueno(id_dueno);
   }
 
+  async updatePass(newPass:string){
+    this.fBUser.updatePass(newPass);
+  }
+  async loginUser(email:string,password:string){
+    await this.fBUser.loginUser(email,password);
+  }
   logOut(){
-    fireBaseAuth.signOut();
-    this.method.logOut();
+    this.fBUser.logOut();
   }
 
   async recoverPass(correo:string){
-    await fireBaseAuth.sendPasswordResetEmail({
-      email: correo,
-    }).then(() => {
-      console.log('entro el recoverPass');
-      this.method.presentToast('top','Se ha enviado exitosamente a su correo la solicitud de cambio de contraseña');
-    })
-    .catch(() => {
-      this.method.presentToast('top','No se ha podido enviar la solicitud de cambio de contraseña (correo inválido)');
-    });
+    await this.fBUser.recoverPass(correo);
   };
+
+  addMascota(id_dueno:string,nombre:string,tipo:string,edad:number,descripcion?:string,raza?:string){
+    this.fbMascota.addMascota(id_dueno,nombre,tipo,edad,descripcion,raza);
+  }
+  async obtPets(id_dueno:string){
+    await this.fbMascota.obtPets(id_dueno);
+  }
+  async updatePet(mascota:Mascota){
+    await this.fbMascota.updatePet(mascota);
+  }
+  async deletePet(id_pet:string){
+    await this.fbMascota.deletePet(id_pet);
+  }
+
 
   async existeUsersInBD(){
     await this.validarStaff();
@@ -140,7 +87,7 @@ export class FirebaseService {
       console.log('entro else')
       for (let i = 0; i < 19; i++) {
         const userApi = this.apiUsers.usersApi[i];
-        this.addUser(userApi.correo,userApi.password,userApi.username,userApi.nombre);
+        await this.addUser(userApi.correo,userApi.password,userApi.nombre);
       }
     }
   }

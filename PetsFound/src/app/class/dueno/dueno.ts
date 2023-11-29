@@ -7,5 +7,5 @@ export class Dueno {
     ap_materno!: string;
     edad!: number;
     celular!: number;
-    id_user!:string;
+    idUser!:string;
 }

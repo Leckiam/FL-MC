@@ -64,7 +64,7 @@ export class RegisterComponent  implements OnInit {
     const correo = this.userTmp.correo;
     this.userTmp.username=this.method.getUsername(correo);
     if (this.validarDatoUserTmp()) {
-      this.fireBase.addUser(this.userTmp.correo,this.userTmp.password,this.userTmp.username,this.userTmp.nombre);
+      this.fireBase.addUser(this.userTmp.correo,this.userTmp.password,this.userTmp.nombre);
       return true;
     } else {
       return false;
