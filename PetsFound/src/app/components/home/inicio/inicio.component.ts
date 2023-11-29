@@ -4,9 +4,11 @@ import type {QueryList} from '@angular/core';
 import type {Animation} from '@ionic/angular';
 import { HomePage } from 'src/app/pages/home/home.page';
 import { MethodService } from 'src/app/services/method/method.service';
-import { User } from 'src/app/class/user/user';
 import { Mascota } from 'src/app/class/mascota/mascota';
-import { ApipetsService } from 'src/app/services/api/pets/apipets.service';
+import { User } from 'src/app/class/user/user';
+import { FirebaseService } from 'src/app/services/firebase/firebase.service';
+import { Dueno } from 'src/app/class/dueno/dueno';
+import { NavigationExtras } from '@angular/router';
 
 
 @Component({
@@ -16,12 +18,13 @@ import { ApipetsService } from 'src/app/services/api/pets/apipets.service';
 })
 export class InicioComponent {
 
-  mascotas:Mascota[] = [];
+  mascotas:Mascota[];
   items:string[] = [];
-  MostrarMascotas = false;
+  mostrarMascotas = false;
   noMascotas=false;
 
   data:User;
+  dueno:Dueno;
   @ViewChildren(IonCard, {read:ElementRef})
   cardElements!: QueryList<ElementRef<HTMLIonCardElement>>;
 
@@ -29,12 +32,20 @@ export class InicioComponent {
   animar1!: ElementRef;
 
   private animation!: Animation;
-  constructor(private method:MethodService,private animationController:AnimationController,private petsService: ApipetsService,private homepage:HomePage) {
+  constructor(private method:MethodService,private animationController:AnimationController,public homepage:HomePage,private fireBase:FirebaseService) {
     this.data = this.homepage.user;
+    this.dueno = this.homepage.dueno;
+    this.mascotas = this.homepage.mascotas;
   }
 
-  changePage(namePage:string,nameComponent?:string){
+  changePage(namePage:string,nameComponent?:string,clase?:Mascota|Dueno|User){
+    if (this.mascotas.length >= 10) {
+      return;
+    }
+    this.mostrarMascotas = false;
+    localStorage.setItem('clase',JSON.stringify(clase));
     this.method.ingresar(namePage,nameComponent);
+    this.mostrarMascotas = false;
   }
 
   ngAfterViewInit(){
@@ -63,21 +74,34 @@ export class InicioComponent {
 
   ngOnInit() {}
 
+  async getsClases(){
+    if (localStorage.getItem('dueno')) {
+      await this.fireBase.obtDueno(this.data.correo);
+      this.homepage.dueno = JSON.parse(localStorage.getItem('dueno')||'[]');
+      this.dueno = this.homepage.dueno;
+      await this.fireBase.obtPets(this.dueno.id);
+      this.homepage.mascotas = JSON.parse(localStorage.getItem('mascotas')||'[]');
+      this.mascotas = this.homepage.mascotas;
+    }
+  }
   ionViewWillEnter() {
     console.log('Esto es ionViewWillEnter [/Home]');
-    this.mascotas = this.petsService.obtenerMascotas(this.homepage.user.id);
     this.homepage.changeHeader(false,'Inicio');
-
-    console.log(this.data);
+    this.getsClases();
   }
 
-  eliminarMascota(mascota:Mascota){
-    this.petsService.eliminarMascota(mascota);
-    this.mascotas = this.petsService.obtenerMascotas(this.homepage.user.id);
+  async eliminarMascota(mascota:Mascota){
+    this.fireBase.deletePet(mascota.id);
+    await this.fireBase.obtPets(this.dueno.id);
+    this.homepage.mascotas = JSON.parse(localStorage.getItem('mascotas')||'[]');
+    this.mostrarMascotas = !this.mostrarMascotas;
   }
 
   toggleMostrarMascotas() {
-    this.MostrarMascotas = !this.MostrarMascotas;
+    this.fireBase.obtPets(this.dueno.id);
+    this.homepage.mascotas = JSON.parse(localStorage.getItem('mascotas')||'[]')
+    this.mascotas = this.homepage.mascotas;
+    this.mostrarMascotas = !this.mostrarMascotas;
   }
 
 }

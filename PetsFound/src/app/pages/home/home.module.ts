@@ -9,9 +9,10 @@ import { AccountComponent } from 'src/app/components/home/account/account.compon
 import { InicioComponent } from 'src/app/components/home/inicio/inicio.component';
 import { AgregarMascotaComponent } from 'src/app/components/home/agregar-mascota/agregar-mascota.component';
 import { EditarperfilComponent } from 'src/app/components/home/editarperfil/editarperfil.component';
-import { MessageComponent } from 'src/app/components/home/message/message.component';
 import { QrgenerateComponent } from 'src/app/components/home/qrgenerate/qrgenerate.component';
 import { QRCodeModule } from 'angularx-qrcode';
+import { EditarmascotaComponent } from 'src/app/components/home/editarmascota/editarmascota.component';
+import { CambiarcontraComponent } from 'src/app/components/home/cambiarcontra/cambiarcontra.component';
 
 
 @NgModule({
@@ -23,8 +24,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     QRCodeModule
   ],
   declarations: [HomePage,AccountComponent,InicioComponent,
-    AgregarMascotaComponent,EditarperfilComponent,MessageComponent,
-    QrgenerateComponent,
+    AgregarMascotaComponent,EditarperfilComponent,
+    QrgenerateComponent,EditarmascotaComponent,CambiarcontraComponent,
   ]
 })
 export class HomePageModule {}

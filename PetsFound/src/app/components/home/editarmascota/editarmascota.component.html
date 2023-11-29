@@ -1,0 +1,42 @@
+<ion-card>
+  <ion-card-header>
+    Detalles de la Mascota
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list lines="full">
+      <ion-item>
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input [(ngModel)]="mascota.nombre" type="text" minlength="4" maxlength="25"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Tipo</ion-label>
+        <ion-select [(ngModel)]="mascota.tipo">
+          <ion-select-option value="Perro">Perro</ion-select-option>
+          <ion-select-option value="Gato">Gato</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="mascota.tipo === 'Perro'">
+        <ion-label position="stacked">Raza</ion-label>
+        <ion-select [(ngModel)]="mascota.raza">
+          <ion-select-option *ngFor="let raza of razasDogs">{{ raza }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Edad</ion-label>
+        <ion-input [(ngModel)]="mascota.edad" type="number" min="1" max="20"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Descripción</ion-label>
+        <ion-textarea [(ngModel)]="mascota.descripcion" maxlength="240"></ion-textarea>
+      </ion-item>
+
+    </ion-list>
+  </ion-card-content>
+</ion-card>
+
+<ion-button expand="full" (click)="editarPet()">Guardar Cambios</ion-button>
+

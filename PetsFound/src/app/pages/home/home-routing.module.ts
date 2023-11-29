@@ -6,8 +6,9 @@ import { InicioComponent } from 'src/app/components/home/inicio/inicio.component
 import { AuthGuard } from 'src/app/guards/auth/auth.guard';
 import { AgregarMascotaComponent } from 'src/app/components/home/agregar-mascota/agregar-mascota.component';
 import { EditarperfilComponent } from 'src/app/components/home/editarperfil/editarperfil.component';
-import { MessageComponent } from 'src/app/components/home/message/message.component';
 import { QrgenerateComponent } from 'src/app/components/home/qrgenerate/qrgenerate.component';
+import { EditarmascotaComponent } from 'src/app/components/home/editarmascota/editarmascota.component';
+import { CambiarcontraComponent } from 'src/app/components/home/cambiarcontra/cambiarcontra.component';
 
 const routes: Routes = [
   {
@@ -27,16 +28,20 @@ const routes: Routes = [
         component: AgregarMascotaComponent,
       },
       {
+        path: 'editarpet',
+        component: EditarmascotaComponent,
+      },
+      {
         path: 'editarperfil',
         component: EditarperfilComponent,
       },
       {
-        path: 'message',
-        component: MessageComponent,
-      },
-      {
         path: 'generate-qr',
         component: QrgenerateComponent,
+      },
+      {
+        path: 'cambiarcontra',
+        component: CambiarcontraComponent,
       },
     ],
     canActivate:[AuthGuard],

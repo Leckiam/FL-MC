@@ -12,7 +12,7 @@
     <div style="display: flex; align-items: center;">>
       <ion-card class="buttonCustom1">
           <ion-button class="buttonCustom1" (click)="toggleMostrarMascotas()">
-            {{ MostrarMascotas ? 'Ocultar' : 'Mostrar' }} Mas +
+            {{ mostrarMascotas ? 'Ocultar' : 'Mostrar' }} Mas +
           </ion-button>
       </ion-card>
 
@@ -23,15 +23,19 @@
     </ion-card>
   </div>
 
-  <div class="mascotas-container" *ngIf="MostrarMascotas">
+  <div class="mascotas-container" *ngIf="mostrarMascotas">
     <ion-list>
-      <ion-item-sliding *ngFor="let mascota of mascotas">
+      <ion-item-sliding *ngFor="let mascota of mascotas;">
         <ion-item>
           {{ mascota.nombre }}
         </ion-item>
         <ion-item-options side="end">
-          <ion-item-option (click)="eliminarMascota(mascota)">Eliminar</ion-item-option>
+          <ion-item-option color="primary" (click)="changePage('home','editarpet',mascota)">
+            Editar
+          </ion-item-option>
+          <ion-item-option color="danger" (click)="eliminarMascota(mascota)">Eliminar</ion-item-option>
         </ion-item-options>
+        
       </ion-item-sliding>
     </ion-list>
   </div>

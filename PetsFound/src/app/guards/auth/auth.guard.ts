@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Observable } from 'rxjs';
+import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,17 +23,17 @@ export class AuthGuard implements CanActivate {
   validarData(namePage:string){
     switch(namePage){
       case 'login':
-        if (this.data != null) {
+        if (this.data) {
           return this.falseAuth('home');
         }
         break;
       case 'home':
-        if (this.data == null) {
+        if (!this.data) {
           return this.falseAuth('login');
         }
         break;
       default:
-        if (this.data != null) {
+        if (this.data) {
           return this.falseAuth('home');
         } else {
           return this.falseAuth('login');

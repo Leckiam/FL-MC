@@ -1,8 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { AppComponent } from 'src/app/app.component';
 import { User } from 'src/app/class/user/user';
+import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 import { MethodService } from 'src/app/services/method/method.service';
-import { BbddService } from 'src/app/services/sqlite/bbdd.service';
 
 @Component({
   selector: 'app-login',
@@ -12,9 +12,8 @@ import { BbddService } from 'src/app/services/sqlite/bbdd.service';
 export class LoginPage implements OnInit {
   
   tituleName:any
-  usersDB: User[];
   seg:number;
-  public bbdd = inject(BbddService);
+  public fireBase = inject(FirebaseService);
   constructor(private method:MethodService,private appComponent:AppComponent) {
     this.appComponent.cantLoadPages += 1;
   }
@@ -29,36 +28,13 @@ export class LoginPage implements OnInit {
 
   convertirAMinusculas(event: any) {
     const input = event.target as HTMLInputElement;
-    input.value = input.value.toLowerCase();
+    input.value = input.value.toLowerCase().trim();
   }
   ionViewWillEnter() {
     if (this.appComponent.cantLoadPages>=2) {
       this.method.ingresar('login','')
       window.location.reload();
     }
-  }
-  cargarUsersDelay(){
-    const estadoTbls = localStorage.getItem('createTable');
-    if (estadoTbls=='end') {
-      console.log('entra return xd')
-      this.cargarUsers();
-      return;
-    } else if(this.seg==7){
-      this.method.presentToast('top','No se ha cargado la BBDD, favor de cerrar y abrir la app');
-      return;
-    }
-    this.seg +=1;
-    setTimeout(() => this.cargarUsersDelay(), 1000);
-  }
-  cargarUsers(){
-    this.bbdd.dbState().subscribe((res: any) =>{
-      if(res){
-        this.bbdd.fetchUsers().subscribe((item: any) =>{
-          this.usersDB = item;
-          this.bbdd.usersBD = this.usersDB;
-        })
-      }
-    });
   }
 }
 

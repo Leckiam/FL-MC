@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "346195095113",
+    "project_id": "petsfound-d37f6",
+    "storage_bucket": "petsfound-d37f6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346195095113:android:b5c36fd9474d7a00611998",
+        "android_client_info": {
+          "package_name": "com.flmc.petsfound"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDM9xbc0mei9PbzPJLi_hsPK_P6IyRg2c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
