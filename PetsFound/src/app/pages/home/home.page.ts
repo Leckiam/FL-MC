@@ -1,9 +1,11 @@
-import { Component, inject} from '@angular/core';
+import { Component} from '@angular/core';
 import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
+import { EmailComposer } from '@awesome-cordova-plugins/email-composer/ngx';
 import { AppComponent } from 'src/app/app.component';
+import { Dueno } from 'src/app/class/dueno/dueno';
+import { Mascota } from 'src/app/class/mascota/mascota';
 import { User } from 'src/app/class/user/user';
 import { MethodService } from 'src/app/services/method/method.service';
-import { BbddService } from 'src/app/services/sqlite/bbdd.service';
 
 
 @Component({
@@ -18,17 +20,25 @@ export class HomePage {
   tituleName:any;
   headerBack:any;
 
-  user:User = new User();
-  usersDB:User[]=[];
-  seg:number=0;
-  public bbdd = inject(BbddService);
+  user!:User;
+  dueno!:Dueno;
+  mascotas!:Mascota[];
 
-  constructor(private method:MethodService, private barcodeScanner: BarcodeScanner,private appComponent:AppComponent) {
+  seg!:number;
+
+  constructor(private method:MethodService, private barcodeScanner: BarcodeScanner,
+    private appComponent:AppComponent,private emailComposer:EmailComposer) {
     this.appComponent.cantLoadPages += 1;
     const storedUser  = localStorage.getItem('user');
-    if (storedUser) {
+    const storedDueno  = localStorage.getItem('dueno');
+    const storedMascotas  = localStorage.getItem('mascotas');
+    if (storedUser && storedDueno && storedMascotas) {
       this.user = JSON.parse(storedUser);
-      this.method.bienvenida(this.user.username)
+      this.dueno = JSON.parse(storedDueno);
+      this.mascotas = JSON.parse(storedMascotas);
+      if (this.user.username) {
+        this.method.bienvenida(this.user.username)
+      }
     }
   }
   ngOnInit() {
@@ -43,23 +53,25 @@ export class HomePage {
     this.barcodeScanner.scan().then(barcodeData => {
       this.code = barcodeData.text;
       if (this.code) {
-        this.changePage('home','message');
+        this.irMsgEmail(this.code);
         console.log('Barcode data', this.code);
       }
     }).catch(err => {
       console.log(Error, err);
     })
   }
-  
-  recuperarUser(){
-    for (let i = 0; i < this.usersDB.length; i++) {
-      const userTpm = this.usersDB[i];
-      if (userTpm.username==this.user.username) {
-        this.user = userTpm;
-        break;
-      }
-    }
+
+  irMsgEmail(receptor:string){
+    this.emailComposer.addAlias('gmail','com.google.android.gm')
+    this.emailComposer.isAvailable('gmail');
+    this.emailComposer.hasAccount();
+    this.emailComposer.open({
+      app:'gmail',
+      to: receptor,
+      subject: 'PetsFound: Mascota encontrada',
+    });
   }
+  
   changeHeader(canBack:boolean,nameTitle:string){
     const divTitle = `<ion-title id="titule-name-home">${nameTitle}</ion-title>`;
     const divTitleBack = `
@@ -86,28 +98,5 @@ export class HomePage {
     } catch (error) {
       console.log(error)
     }
-  }
-  cargarUsersDelay(){
-    const estadoTbls = localStorage.getItem('createTable');
-    if (estadoTbls=='end') {
-      console.log('entra return xd')
-      this.cargarUsers();
-      return;
-    } else if(this.seg==7){
-      location.reload();
-    }
-    this.seg +=1;
-    setTimeout(() => this.cargarUsersDelay(), 1000);
-  }
-  cargarUsers(){
-    this.bbdd.dbState().subscribe((res: any) =>{
-      if(res){
-        this.bbdd.fetchUsers().subscribe((item: any) =>{
-          this.usersDB = item;
-          this.bbdd.usersBD = this.usersDB;
-          console.log(this.usersDB[0].username)
-        })
-      }
-    });
   }
 }

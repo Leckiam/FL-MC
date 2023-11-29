@@ -8,11 +8,12 @@
     <ion-card-content>
         <ion-item>
           <ion-label position="floating">Usuario</ion-label>
-          <ion-input [(ngModel)]="user.username" (ionInput)="convertirAMinusculas($event)" type="text" minlength="6" ></ion-input>
+          <ion-input [(ngModel)]="user.correo" (ionInput)="convertirAMinusculas($event)" type="email" minlength="6" ></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Password</ion-label>
-          <ion-input [(ngModel)]="user.password" type="password" minlength="6"></ion-input>
+          <ion-input [(ngModel)]="user.password" [type]="showPassword ? 'text' : 'password'" minlength="6"></ion-input>
+          <ion-icon slot="end" (click)="togglePassword()" name="{{ showPassword ? 'eye-off' : 'eye' }}"></ion-icon>
         </ion-item>
         <div class="ion-justify-content-center" id="div-spinner" style="display: none;">
           <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">

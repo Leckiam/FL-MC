@@ -9,9 +9,8 @@ import { HomePage } from 'src/app/pages/home/home.page';
 export class QrgenerateComponent  implements OnInit {
   qrdata: string; 
   createCode : any;
-  constructor(private homepage:HomePage, ) {
+  constructor(private homepage:HomePage) {
     this.qrdata = this.homepage.user.correo;
-    
   }
 
   public create(){

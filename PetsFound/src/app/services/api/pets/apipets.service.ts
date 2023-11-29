@@ -1,17 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Dueno } from 'src/app/class/dueno/dueno';
 import { Mascota } from 'src/app/class/mascota/mascota';
-import { HomePage } from 'src/app/pages/home/home.page';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApipetsService {
 
-  pagina = 1;
-  mascotasPorPagina = 10;
   private mascotas: Mascota[] = [];
-  dueno: Dueno = new Dueno();  // Crea una instancia de Dueno para el formulario
 
   constructor() { }
   
@@ -20,19 +15,18 @@ export class ApipetsService {
     this.guardarMascotasEnLocalStorage();
   }
 
-
-  obtenerMascotas(idDueno: number) {
-    let mascotasTmp: Mascota[] = [];
+  obtenerMascotas(id_user:string) {
+    let mascotasTmp:Mascota[]=[]
     this.cargarMascotasDesdeLocalStorage();
     for (let i = 0; i < this.mascotas.length; i++) {
       const mascota = this.mascotas[i];
-      if (mascota.dueno.id == idDueno) {
-        mascotasTmp.push(mascota)
+      if (mascota.dueno.id_user == id_user) {
+        mascotasTmp.push(mascota);
       }
     }
     return mascotasTmp;
   }
-  
+
   private guardarMascotasEnLocalStorage() {
     localStorage.setItem('mascotas', JSON.stringify(this.mascotas));
   }
@@ -44,7 +38,7 @@ export class ApipetsService {
     }
   }
 
-  editarMascota(id: number, nuevaMascota: any) {
+  editarMascota(id: string, nuevaMascota: any) {
     const index = this.mascotas.findIndex((mascota) => mascota.id === id);
     if (index !== -1) {
       this.mascotas[index] = nuevaMascota;
@@ -52,9 +46,11 @@ export class ApipetsService {
     }
   }
 
-  eliminarMascota(id: number) {
-    const index = this.mascotas.findIndex((mascota) => mascota.id === id);
-    if (index !== -1) {
+  eliminarMascota(mascota: Mascota) {
+    console.log(mascota.nombre)
+    const index = this.mascotas.indexOf(mascota);
+    console.log(index)
+    if (index != -1) {
       this.mascotas.splice(index, 1);
       this.guardarMascotasEnLocalStorage();
     }

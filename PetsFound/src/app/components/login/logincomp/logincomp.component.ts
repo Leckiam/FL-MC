@@ -1,6 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { Mascota } from 'src/app/class/mascota/mascota';
 import { User } from 'src/app/class/user/user';
 import { LoginPage } from 'src/app/pages/login/login.page';
+import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 import { MethodService } from 'src/app/services/method/method.service';
 
 @Component({
@@ -9,12 +11,16 @@ import { MethodService } from 'src/app/services/method/method.service';
   styleUrls: ['./logincomp.component.scss'],
 })
 export class LogincompComponent  implements OnInit {
+  showPassword = false;
 
   user:User = new User();
-  constructor(private method:MethodService, private loginpage:LoginPage) {
+  constructor(private method:MethodService, private loginpage:LoginPage, private fireBase:FirebaseService) {
     console.log('Esto es constructor [/Login]');
-    this.user.username = '';
+    this.user.correo = '';
     this.user.password = '';
+  }
+  togglePassword() {
+    this.showPassword = !this.showPassword;
   }
   
   ngOnInit() {
@@ -36,7 +42,7 @@ export class LogincompComponent  implements OnInit {
       }, 1000); 
     });
     btn_irRegister?.addEventListener('click',function(){
-      LoginObj.loginpage.bbdd.existeUsersInBD();
+      LoginObj.loginpage.fireBase.existeUsersInBD();
       LoginObj.loginpage.changePage('login','register');
     });
     btn_irRecover?.addEventListener('click',function(){
@@ -70,7 +76,8 @@ export class LogincompComponent  implements OnInit {
   }
 
   validarLogin(user:any){
-    if (user.username.length >=6 && user.password.length >=6) {
+    console.log(JSON.stringify(user))
+    if (user.correo.length >=6 && user.password.length >=6) {
       return true
     } else {
       return false
@@ -79,26 +86,20 @@ export class LogincompComponent  implements OnInit {
 
   changePageLog(namePage:string,nameComponent?:string){
     if (!this.validarLogin(this.user)){
-      let msg= 'Su usuario y/o contraseña no está dentro del rango de caracteres (6 caracteres)'
+      let msg= 'Su correo y/o contraseña no está dentro del rango de caracteres (6 caracteres)'
       this.method.presentToast('bottom',msg)
     } else {
       if (nameComponent) {
         namePage = namePage + '/' + nameComponent;
       }
-      
-      if (this.existeUser()) {
-        this.aprobarIngreso(namePage);
-      } else {
-        this.method.presentToast('bottom','No sea encontrado a ningun usuario que cumpla con los parametros ingresados')
-      } 
+      this.loginUser(namePage);
     }
   }
+
   ionViewWillEnter() {
     console.log('Esto es ionViewWillEnter [/Login]');
-    this.loginpage.bbdd.crearBD();
     this.loginpage.seg  = 0;
     this.loginpage.tituleName.innerHTML = "Iniciar Sesión";
-    this.loginpage.cargarUsersDelay();
   }
 
   aprobarIngreso(namePage:string){
@@ -109,23 +110,29 @@ export class LogincompComponent  implements OnInit {
       }
     }
     */
-    this.user.username = "";
+    this.user.correo = "";
     this.user.password = "";
     //this.method.ingresar(namePage,'',navegationExtras);
     this.method.ingresar(namePage,'');
   }
 
-  existeUser(){
-    console.log(this.loginpage.usersDB.length)
-    for (let i = 0; i < this.loginpage.usersDB.length; i++) {
-      const userTmp = this.loginpage.usersDB[i];
-      if (userTmp.username==this.user.username && 
-        userTmp.password==this.user.password) {
-          const userJson = JSON.stringify(userTmp)
-        localStorage.setItem('user',userJson);
-        return true;
-      }
+  async loginUser(namePage:string){
+    await this.fireBase.loginUser(this.user.correo,this.user.password);
+    if (localStorage.getItem('user')) {
+      await this.getDueno();
+      await this.getMascotas();
+      this.aprobarIngreso(namePage);
+    } else {
+      this.method.presentToast('bottom','No sea encontrado a ningun usuario que cumpla con los parametros ingresados (correo/contraseña)');
+      this.fireBase.logOut();
     }
-    return false;
   }
+  async getDueno(){
+    await this.fireBase.obtDueno(this.user.correo);
+    console.log(localStorage.getItem('dueno'));
+  } 
+  async getMascotas(){
+    localStorage.setItem('mascotas',JSON.stringify([new Mascota()]))
+    console.log(localStorage.getItem('mascotas'));
+  } 
 }

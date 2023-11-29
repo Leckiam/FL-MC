@@ -8,17 +8,11 @@ import { Observable } from 'rxjs';
 })
 export class ApiusersService {
 
-  //URL:string='https://jsonplaceholder.typicode.com';
-  apiUrl = 'https://raw.githubusercontent.com/Leckiam/FL-MC/Maikel-C/PetsFound/usuarios_PGY4121_04.json';
-  httpHeader = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin' :'*'
-    }),
-  };
+  apiUrl = 'https://raw.githubusercontent.com/Leckiam/FL-MC/main/PetsFound/usuarios_PGY4121_04.json';
+
   usersApi:User[]= [new User()];
   constructor(private http:HttpClient) {
-    this.setApiToUsers()
+    this.setApiToUsers();
   }
 
   getData(): Observable<any> {
@@ -26,9 +20,21 @@ export class ApiusersService {
   }
 
   setApiToUsers(){
-    this.getData().subscribe((data) => {
+    this.getData().subscribe(async (data) => {
       const dataUsers = data.users;
-      this.usersApi = dataUsers;
+      this.usersApi = await dataUsers;
     })
+  }
+  
+  buscarUser(id_user:string){
+    let userTmp:User = new User();
+    for (let i = 0; i < this.usersApi.length; i++) {
+      const user = this.usersApi[i];
+      if (user.id == id_user) {
+        userTmp=user;
+        break;
+      }
+    }
+    return userTmp;
   }
 }

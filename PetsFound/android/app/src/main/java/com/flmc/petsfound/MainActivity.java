@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.flmc.petsfound;
 
 import com.getcapacitor.BridgeActivity;
 

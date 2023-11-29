@@ -1,13 +1,12 @@
-import { Component, ElementRef, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, ViewChild, ViewChildren } from '@angular/core';
 import { AnimationController, IonCard } from '@ionic/angular';
-import { AppComponent } from 'src/app/app.component';
 import type {QueryList} from '@angular/core';
-import type {Animation, IonInfiniteScroll} from '@ionic/angular';
+import type {Animation} from '@ionic/angular';
 import { HomePage } from 'src/app/pages/home/home.page';
 import { MethodService } from 'src/app/services/method/method.service';
-import { User } from 'src/app/class/user/user';
 import { Mascota } from 'src/app/class/mascota/mascota';
 import { ApipetsService } from 'src/app/services/api/pets/apipets.service';
+import { User } from 'src/app/class/user/user';
 
 
 @Component({
@@ -18,9 +17,9 @@ import { ApipetsService } from 'src/app/services/api/pets/apipets.service';
 export class InicioComponent {
 
   mascotas:Mascota[] = [];
-  pagina = 1;
-  mascotasPorPagina = 10;
+  items:string[] = [];
   MostrarMascotas = false;
+  noMascotas=false;
 
   data:User;
   @ViewChildren(IonCard, {read:ElementRef})
@@ -32,6 +31,8 @@ export class InicioComponent {
   private animation!: Animation;
   constructor(private method:MethodService,private animationController:AnimationController,private petsService: ApipetsService,private homepage:HomePage) {
     this.data = this.homepage.user;
+    console.log('hola')
+    console.log(this.homepage.user.correo)
   }
 
   changePage(namePage:string,nameComponent?:string){
@@ -61,28 +62,22 @@ export class InicioComponent {
 
     this.animation.play();
   }
+
+  ngOnInit() {}
+
   ionViewWillEnter() {
     console.log('Esto es ionViewWillEnter [/Home]');
-    this.mascotas = this.petsService.obtenerMascotas(this.homepage.user.id);
     this.homepage.changeHeader(false,'Inicio');
-    this.homepage.bbdd.crearBD();
-    this.homepage.seg  = 0;
-    this.homepage.cargarUsersDelay();
+
     console.log(this.data);
   }
 
-  eliminarMascota(mascota: any) {
-    const index = this.mascotas.indexOf(mascota);
-    if (index !== -1) {
-      this.mascotas.splice(index, 1);
-    }
+  eliminarMascota(mascota:Mascota){
+    this.petsService.eliminarMascota(mascota);
+  }
 
-}
-
-toggleMostrarMascotas() {
-  this.MostrarMascotas = !this.MostrarMascotas;
-}
-
-
+  toggleMostrarMascotas() {
+    this.MostrarMascotas = !this.MostrarMascotas;
+  }
 
 }

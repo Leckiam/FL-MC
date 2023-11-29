@@ -10,29 +10,18 @@
         ]
         },
       {
-          "id": "cordova-pdf-generator.pdf",
-          "file": "plugins/cordova-pdf-generator/www/pdf.js",
-          "pluginId": "cordova-pdf-generator",
+          "id": "cordova-plugin-email-composer.EmailComposer",
+          "file": "plugins/cordova-plugin-email-composer/www/email_composer.js",
+          "pluginId": "cordova-plugin-email-composer",
         "clobbers": [
-          "cordova.plugins.pdf",
-          "pugin.pdf",
-          "pdf"
-        ]
-        },
-      {
-          "id": "cordova-sqlite-storage.SQLitePlugin",
-          "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
-          "pluginId": "cordova-sqlite-storage",
-        "clobbers": [
-          "SQLitePlugin"
+          "cordova.plugins.email"
         ]
         }
     ];
     module.exports.metadata =
     // TOP OF METADATA
     {
-      "cordova-pdf-generator": "2.1.1",
-      "cordova-sqlite-storage": "6.1.0",
+      "cordova-plugin-email-composer": "0.10.1",
       "phonegap-plugin-barcodescanner": "8.1.0"
     };
     // BOTTOM OF METADATA

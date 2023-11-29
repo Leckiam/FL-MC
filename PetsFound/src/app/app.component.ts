@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -9,19 +8,11 @@ import { NavController, ToastController } from '@ionic/angular';
 export class AppComponent {
   
   cantLoadPages!:number;
-  constructor(private toastController: ToastController) { 
+  constructor() { 
     this.cantLoadPages = 0;
   }
 
   ngOnInit() {}
 
-  async presentToast(position: 'top' | 'middle' | 'bottom',msg:any) {
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: 2000,
-      position: position,
-    });
-
-    await toast.present();
-  }
+  
 }

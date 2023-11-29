@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/class/user/user';
 import { LoginPage } from 'src/app/pages/login/login.page';
 import { MethodService } from 'src/app/services/method/method.service';
-import { BbddService } from 'src/app/services/sqlite/bbdd.service';
-
-
+import { FirebaseService } from 'src/app/services/firebase/firebase.service';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +11,7 @@ import { BbddService } from 'src/app/services/sqlite/bbdd.service';
 })
 export class RegisterComponent  implements OnInit {
 
-  constructor(private method:MethodService, private loginpage:LoginPage) {}
+  constructor(private method:MethodService, private loginpage:LoginPage, private fireBase:FirebaseService) {}
 
   userTmp:User = new User();
   passwordTmp:string='';
@@ -61,25 +59,18 @@ export class RegisterComponent  implements OnInit {
   convertirAMinusculas(event: any) {
     this.loginpage.convertirAMinusculas(event);
   }
+  
   registrar(){
     const correo = this.userTmp.correo;
-    for (let i = 0; i < correo.length; i++) {
-      const letra = correo[i];
-      if (letra == '@') {
-        break;
-      } else {
-        this.userTmp.username+=letra;
-      }
-    }
+    this.userTmp.username=this.method.getUsername(correo);
     if (this.validarDatoUserTmp()) {
-      let data = [this.userTmp.username,this.userTmp.correo,this.userTmp.username,this.userTmp.password,0];
-      this.loginpage.bbdd.addValuesInTable(data,['nombre','correo','username','password','isStaff'],'user');
+      this.fireBase.addUser(this.userTmp.correo,this.userTmp.password,this.userTmp.username,this.userTmp.nombre);
       return true;
     } else {
       return false;
     }
-    
   }
+
   validarDatoUserTmp(){
     if (this.userTmp.password == this.passwordTmp && 
       this.userTmp.password.length >= 6 && this.userTmp.username.length >= 6

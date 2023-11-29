@@ -1,8 +1,9 @@
 export class User {
-    id!: number;
+    id!: string;
     nombre!: string;
     correo!: string;
     username!: string;
     password!: string;
     isStaff!: number;
+    showPassword: boolean = false;
 }

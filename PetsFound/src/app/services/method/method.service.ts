@@ -16,6 +16,19 @@ export class MethodService {
     this.navCtrl.back();
   }
 
+  getUsername(correo:string){
+    let username = '';
+    for (let i = 0; i < correo.length; i++) {
+      const letra = correo[i];
+      if (letra == '@') {
+        break;
+      } else {
+        username+=letra;
+      }
+    }
+    return username;
+  }
+  
   bienvenida(data:any){
     let msg1 = 'Bienvenido, '+ data;
     this.presentToast('top', msg1);
@@ -52,6 +65,8 @@ export class MethodService {
 
   logOut(){
     localStorage.removeItem('user');
+    localStorage.removeItem('dueno');
+    localStorage.removeItem('mascotas');
     this.ingresar('login','')
   }
 
