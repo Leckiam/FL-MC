@@ -1,0 +1,21 @@
+body{
+    font-family: 'Circular', sans-serif;
+    background-image: url("https://png.pngtree.com/background/20210716/original/pngtree-cute-cartoon-dog-wallpaper-picture-image_1348618.jpg");
+}
+
+
+
+h1 {
+    font-size: 2em;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .mbr-section-text p {
+    color: rgb(0, 0, 0);
+    font-size: 1.2em;
+    border: 2px solid aqua; 
+    border-radius: 10px; 
+    padding: 10px; 
+    background-color: black;
+  }
