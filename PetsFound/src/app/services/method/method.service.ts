@@ -10,7 +10,6 @@ import { Mascota } from 'src/app/class/mascota/mascota';
 })
 export class MethodService {
 
-  data:any;
   constructor(private router: Router, private navCtrl:NavController, private toastController: ToastController, private activatedRoute: ActivatedRoute) { }
 
   retroceder() {
@@ -47,16 +46,6 @@ export class MethodService {
     await toast.present();
   }
 
-  transferPet(mascota:Mascota){
-    this.activatedRoute.queryParams.subscribe(params =>{
-      if (this.router.getCurrentNavigation()?.extras.state) {
-        mascota = this.router.getCurrentNavigation()?.extras.state?.["mascota"];
-      } else {
-        this.ingresar('home','')
-      }
-    })
-  }
-
   logOut(){
     localStorage.removeItem('user');
     localStorage.removeItem('dueno');
@@ -82,7 +71,6 @@ export class MethodService {
       }
       this.router.navigate(['/'+nombrePage]);
     }
-    
   }
 
 }

@@ -67,7 +67,6 @@ export class RegisterComponent  implements OnInit {
       this.fireBase.addUser(this.userTmp.correo,this.userTmp.password,this.userTmp.nombre,false);
       return true;
     } else {
-      this.method.presentToast('bottom','Registro no valido')
       return false;
     }
   }
@@ -75,30 +74,36 @@ export class RegisterComponent  implements OnInit {
   validarDatoUserTmp(){
     if (this.userTmp.password == this.passwordTmp && 
       this.userTmp.password.length >= 6 && this.userTmp.nombre.length >= 4
-      && this.userTmp.correo.length >= 8){
-      for (let i = 0; i < this.userTmp.correo.length; i++) {
-        const element = this.userTmp.correo[i];
-        if (element=='@') {
-          return true
-        }
-      }
-      this.method.presentToast('top',this.msgError())
-      return false
+      && this.validarCorreo(this.userTmp.correo)){
+      return true;
     }else {
-      this.method.presentToast('top',this.msgError())
+      this.method.presentToast('top',this.msgError());
       return false
     }
+  }
+  validarCorreo(correo:string):boolean {
+    if (correo.length >= 8) {
+      if (correo.indexOf('@') != -1 || correo.indexOf('@') != 0) {
+        if (correo.substring(-4) == '.com' || correo.substring(-3) == '.cl') {
+          return true;
+        }
+      }
+    }
+    return false;
   }
   msgError(){
     let msgErr = 'ERROR:';
     if (this.userTmp.password != this.passwordTmp) {
       msgErr += '-Contraseñas no coinciden \n';
-    } if (this.userTmp.password && this.userTmp.password.length >= 6) {
+    } if (this.userTmp.password.length && this.userTmp.password.length < 6) {
       msgErr += '-La contraseña es inferior a los 6 digitos \n';
-    } if (this.userTmp.nombre && this.userTmp.nombre.length >= 4) {
+    } if (this.userTmp.nombre.length && this.userTmp.nombre.length < 4) {
       msgErr += '-El nombre es inferior a los 4 digitos \n';
-    } if (this.userTmp.correo && this.userTmp.correo.length >= 8) {
-      msgErr += '-El correo es inferior a los 8 digitos';
+    } if (!this.validarCorreo(this.userTmp.correo)) {
+      msgErr += '-El correo es inválido (sin formato y/o inferior a 8 digitos)';
+    }
+    if (msgErr = 'ERROR') {
+      this.method.presentToast('bottom','Registro no valido');
     }
     return msgErr;
   }

@@ -17,8 +17,8 @@ Cambios en el node_modules
 
 Ruta: "node_modules/phonegap-plugin-barcodescanner/src/android/barcodescanner.gradle"
 
-dependencies {
+    dependencies {
+        implementation(name:'barcodescanner-release-2.1.5', ext:'aar')
+    }
 
-    implementation(name:'barcodescanner-release-2.1.5', ext:'aar')
-
-}
+Pagina html: https://leckiam.github.io/FL-MC/PaginaParaAPK/index.html
