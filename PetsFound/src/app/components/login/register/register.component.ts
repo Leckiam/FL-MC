@@ -101,21 +101,29 @@ export class RegisterComponent  implements OnInit {
     if (this.userTmp.password == this.passwordTmp && 
       this.getLength(this.userTmp.password) >= 6 && this.getLength(this.userTmp.nombre) >= 4
       && this.validarCorreo(this.userTmp.correo)){
+        console.log('true validator')
       return true;
-    }else {
+    } else {
       this.method.presentToast('top',this.msgError());
+      console.log('false validator');
       return false
     }
   }
   validarCorreo(correo:string):boolean {
     console.log('111');
     if (this.getLength(correo) >= 8) {
+      console.log('mayor a 8');
       if (correo.indexOf('@') != -1 || correo.indexOf('@') != 0) {
-        if (correo.substring(-4) == '.com' || correo.substring(-3) == '.cl') {
+        console.log('@@@@@@@@');
+        console.log(correo.slice(-4));
+        console.log(correo.slice(-3));
+        if (correo.slice(-4) == '.com' || correo.slice(-3) == '.cl') {
+          console.log('validator correo true');
           return true;
         }
       }
     }
+    console.log('validator correo false');
     return false;
   }
   msgError(){
@@ -132,6 +140,10 @@ export class RegisterComponent  implements OnInit {
     }
     this.method.presentToast('bottom','Registro no valido');
     console.log(msgErr);
+    console.log(this.userTmp.correo);
+    console.log(this.userTmp.nombre);
+    console.log(this.userTmp.password);
+    console.log(this.passwordTmp);
     return msgErr;
   }
   getLength(texto:string):number{

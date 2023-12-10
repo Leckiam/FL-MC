@@ -16,11 +16,11 @@ export class MethodService {
     let textoLength = 0;
     console.log(texto + ' inicio');
     if (texto==undefined) {
-      textoLength==0;
+      textoLength=0;
     } else {
-      textoLength==texto.length;
+      textoLength=texto.length;
     }
-    console.log(texto + textoLength);
+    console.log(texto + ' '+ textoLength);
     return textoLength;
   }
   getUsername(correo:string){
