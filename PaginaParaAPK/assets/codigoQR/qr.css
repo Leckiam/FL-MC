@@ -1,0 +1,31 @@
+@media screen and (max-width: 767px) {
+    #codigoQR {
+        display: none; /* Oculta la imagen del código QR en pantallas pequeñas (celulares) */
+    }
+
+    .mbr-valign-top {
+        width: 100% !important; /* Ajusta el ancho del contenedor en pantallas pequeñas */
+    }
+
+    .descarga-btn {
+        display: block !important; /* Muestra el botón de descarga en pantallas pequeñas */
+    }
+
+    .mensaje-original {
+        display: none; /* Oculta el mensaje original en pantallas pequeñas */
+    }
+
+    .mensaje-movil {
+        display: block !important; /* Muestra el nuevo mensaje en pantallas pequeñas */
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .descarga-btn {
+        display: none !important; /* Oculta el botón de descarga en pantallas grandes (PC) */
+    }
+
+    .mensaje-movil {
+        display: none !important; /* Oculta el nuevo mensaje en pantallas grandes (PC) */
+    }
+}
