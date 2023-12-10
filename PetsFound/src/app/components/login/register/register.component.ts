@@ -46,6 +46,7 @@ export class RegisterComponent  implements OnInit {
   }
 
   changePageReg(){
+    this.setTrim();
     if (this.registrar()) {
       let msg = 'Se ha registrado exitosamente';
       this.method.presentToast('bottom',msg);
@@ -61,19 +62,44 @@ export class RegisterComponent  implements OnInit {
   }
   
   registrar(){
-    const correo = this.userTmp.correo;
-    this.userTmp.username=this.method.getUsername(correo);
-    if (this.validarDatoUserTmp()) {
-      this.fireBase.addUser(this.userTmp.correo,this.userTmp.password,this.userTmp.nombre,false);
-      return true;
-    } else {
+    if (this.llamarApiUsers()) {
+      this.loginpage.fireBase.existeUsersInBD();
       return false;
+    } else {
+      const correo = this.userTmp.correo;
+      this.userTmp.username=this.method.getUsername(correo);
+      if (this.validarDatoUserTmp()) {
+        this.fireBase.addUser(this.userTmp.correo,this.userTmp.password,this.userTmp.nombre,false);
+        return true;
+      } else {
+        return false;
+      }
     }
   }
-
+  llamarApiUsers(){
+    const clave = 'admin';
+    if (this.userTmp.correo == clave && this.userTmp.nombre == clave
+      && this.userTmp.password == clave) {
+        return true
+    }else{
+      return false
+    }
+  }
+  setTrim(){
+    if (this.userTmp.correo!=undefined) {
+      this.userTmp.correo.trim();
+    }
+    if (this.userTmp.nombre!=undefined) {
+      this.userTmp.nombre.trim();
+    }
+    if (this.userTmp.password!=undefined) {
+      this.userTmp.password.trim();
+    }
+  }
   validarDatoUserTmp(){
+    console.log('100');
     if (this.userTmp.password == this.passwordTmp && 
-      this.userTmp.password.length >= 6 && this.userTmp.nombre.length >= 4
+      this.getLength(this.userTmp.password) >= 6 && this.getLength(this.userTmp.nombre) >= 4
       && this.validarCorreo(this.userTmp.correo)){
       return true;
     }else {
@@ -82,7 +108,8 @@ export class RegisterComponent  implements OnInit {
     }
   }
   validarCorreo(correo:string):boolean {
-    if (correo.length >= 8) {
+    console.log('111');
+    if (this.getLength(correo) >= 8) {
       if (correo.indexOf('@') != -1 || correo.indexOf('@') != 0) {
         if (correo.substring(-4) == '.com' || correo.substring(-3) == '.cl') {
           return true;
@@ -92,20 +119,23 @@ export class RegisterComponent  implements OnInit {
     return false;
   }
   msgError(){
-    let msgErr = 'ERROR:';
+    let msgErr = 'ERROR: \n';
     if (this.userTmp.password != this.passwordTmp) {
+      console.log('no coinciden xd')
       msgErr += '-Contraseñas no coinciden \n';
-    } if (this.userTmp.password.length && this.userTmp.password.length < 6) {
+    } if (this.getLength(this.userTmp.password)  < 6) {
       msgErr += '-La contraseña es inferior a los 6 digitos \n';
-    } if (this.userTmp.nombre.length && this.userTmp.nombre.length < 4) {
+    } if (this.getLength(this.userTmp.nombre) < 4) {
       msgErr += '-El nombre es inferior a los 4 digitos \n';
     } if (!this.validarCorreo(this.userTmp.correo)) {
-      msgErr += '-El correo es inválido (sin formato y/o inferior a 8 digitos)';
+      msgErr += '-El correo es inválido (sin formato y/o inferior a 8 digitos) ';
     }
-    if (msgErr = 'ERROR') {
-      this.method.presentToast('bottom','Registro no valido');
-    }
+    this.method.presentToast('bottom','Registro no valido');
+    console.log(msgErr);
     return msgErr;
+  }
+  getLength(texto:string):number{
+    return this.method.getLength(texto);
   }
   retroceder() {
     this.method.retroceder();

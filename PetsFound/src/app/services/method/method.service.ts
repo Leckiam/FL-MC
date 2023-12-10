@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { NavController, ToastController } from '@ionic/angular';
-import {Location} from '@angular/common';
-import { User } from 'src/app/class/user/user';
-import { Mascota } from 'src/app/class/mascota/mascota';
 
 @Injectable({
   providedIn: 'root'
@@ -15,15 +12,28 @@ export class MethodService {
   retroceder() {
     this.navCtrl.back();
   }
-
+  getLength(texto:string):number{
+    let textoLength = 0;
+    console.log(texto + ' inicio');
+    if (texto==undefined) {
+      textoLength==0;
+    } else {
+      textoLength==texto.length;
+    }
+    console.log(texto + textoLength);
+    return textoLength;
+  }
   getUsername(correo:string){
     let username = '';
-    for (let i = 0; i < correo.length; i++) {
-      const letra = correo[i];
-      if (letra == '@') {
-        break;
-      } else {
-        username+=letra;
+    if (correo!=undefined) {
+      correo=correo.trim();
+      for (let i = 0; i < this.getLength(correo); i++) {
+        const letra = correo[i];
+        if (letra == '@') {
+          break;
+        } else {
+          username+=letra;
+        }
       }
     }
     return username;

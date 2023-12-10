@@ -33,6 +33,7 @@ export class FirebaseService {
       }
     })
     .catch((error) => {
+      console.log('User ya existe');
       if (!isApi) {
         this.method.presentToast('top','La direccion de email/correo ya esta en uso por otro usuario');
       }
