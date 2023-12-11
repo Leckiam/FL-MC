@@ -33,7 +33,7 @@ export class RecoverpassComponent  implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.loginpage.tituleName.innerHTML = "Recuperar contraseña";
+    this.loginpage.changeHeader(true,'Recuperar contraseña');
     this.userSearch.correo = "";
   }
 }

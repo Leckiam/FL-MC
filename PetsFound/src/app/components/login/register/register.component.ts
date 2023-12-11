@@ -153,7 +153,7 @@ export class RegisterComponent  implements OnInit {
     this.method.retroceder();
   }
   ionViewWillEnter() {
-    this.loginpage.tituleName.innerHTML = "Registrarse";
+    this.loginpage.changeHeader(true,'Registrarse');
     this.userTmp = new User();
   }
 }
