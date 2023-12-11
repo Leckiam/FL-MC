@@ -96,7 +96,7 @@ export class LogincompComponent  implements OnInit {
   ionViewWillEnter() {
     console.log('Esto es ionViewWillEnter [/Login]');
     this.loginpage.seg  = 0;
-    this.loginpage.tituleName.innerHTML = "Iniciar Sesión";
+    this.loginpage.changeHeader(false,'Iniciar Sesión');
   }
 
   aprobarIngreso(namePage:string){
