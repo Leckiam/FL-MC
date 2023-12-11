@@ -21,7 +21,7 @@ export class CambiarcontraComponent  implements OnInit {
       console.log('Contraseña cambiada con éxito');
       this.method.presentToast('bottom', 'Contraseña cambiada con éxito');
     }else{
-      this.method.presentToast('bottom', 'Las contraseñas no coinciden o están vacías');
+      this.method.presentToast('bottom', 'Las contraseñas no coinciden o son inferiores a los 6 digitos');
     }
   }
   ionViewWillEnter() {

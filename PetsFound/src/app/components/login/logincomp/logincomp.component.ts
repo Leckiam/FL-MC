@@ -41,7 +41,6 @@ export class LogincompComponent  implements OnInit {
       }, 1000); 
     });
     btn_irRegister?.addEventListener('click',function(){
-      LoginObj.loginpage.fireBase.existeUsersInBD();
       LoginObj.loginpage.changePage('login','register');
     });
     btn_irRecover?.addEventListener('click',function(){

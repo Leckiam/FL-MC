@@ -46,6 +46,7 @@ export class RegisterComponent  implements OnInit {
   }
 
   changePageReg(){
+    this.setTrim();
     if (this.registrar()) {
       let msg = 'Se ha registrado exitosamente';
       this.method.presentToast('bottom',msg);
@@ -61,46 +62,92 @@ export class RegisterComponent  implements OnInit {
   }
   
   registrar(){
-    const correo = this.userTmp.correo;
-    this.userTmp.username=this.method.getUsername(correo);
-    if (this.validarDatoUserTmp()) {
-      this.fireBase.addUser(this.userTmp.correo,this.userTmp.password,this.userTmp.nombre,false);
+    if (this.llamarApiUsers()) {
+      this.loginpage.fireBase.existeUsersInBD();
+      return false;
+    } else {
+      const correo = this.userTmp.correo;
+      this.userTmp.username=this.method.getUsername(correo);
+      if (this.validarDatoUserTmp()) {
+        this.fireBase.addUser(this.userTmp.correo,this.userTmp.password,this.userTmp.nombre,false);
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+  llamarApiUsers(){
+    const clave = 'admin';
+    if (this.userTmp.correo == clave && this.userTmp.nombre == clave
+      && this.userTmp.password == clave) {
+        return true
+    }else{
+      return false
+    }
+  }
+  setTrim(){
+    if (this.userTmp.correo!=undefined) {
+      this.userTmp.correo.trim();
+    }
+    if (this.userTmp.nombre!=undefined) {
+      this.userTmp.nombre.trim();
+    }
+    if (this.userTmp.password!=undefined) {
+      this.userTmp.password.trim();
+    }
+  }
+  validarDatoUserTmp(){
+    console.log('100');
+    if (this.userTmp.password == this.passwordTmp && 
+      this.getLength(this.userTmp.password) >= 6 && this.getLength(this.userTmp.nombre) >= 4
+      && this.validarCorreo(this.userTmp.correo)){
+        console.log('true validator')
       return true;
     } else {
-      this.method.presentToast('bottom','Registro no valido')
-      return false;
+      this.method.presentToast('top',this.msgError());
+      console.log('false validator');
+      return false
     }
   }
-
-  validarDatoUserTmp(){
-    if (this.userTmp.password == this.passwordTmp && 
-      this.userTmp.password.length >= 6 && this.userTmp.nombre.length >= 4
-      && this.userTmp.correo.length >= 8){
-      for (let i = 0; i < this.userTmp.correo.length; i++) {
-        const element = this.userTmp.correo[i];
-        if (element=='@') {
-          return true
+  validarCorreo(correo:string):boolean {
+    console.log('111');
+    if (this.getLength(correo) >= 8) {
+      console.log('mayor a 8');
+      if (correo.indexOf('@') != -1 || correo.indexOf('@') != 0) {
+        console.log('@@@@@@@@');
+        console.log(correo.slice(-4));
+        console.log(correo.slice(-3));
+        if (correo.slice(-4) == '.com' || correo.slice(-3) == '.cl') {
+          console.log('validator correo true');
+          return true;
         }
       }
-      this.method.presentToast('top',this.msgError())
-      return false
-    }else {
-      this.method.presentToast('top',this.msgError())
-      return false
     }
+    console.log('validator correo false');
+    return false;
   }
   msgError(){
-    let msgErr = 'ERROR:';
+    let msgErr = 'ERROR: \n';
     if (this.userTmp.password != this.passwordTmp) {
+      console.log('no coinciden xd')
       msgErr += '-Contraseñas no coinciden \n';
-    } if (this.userTmp.password && this.userTmp.password.length >= 6) {
+    } if (this.getLength(this.userTmp.password)  < 6) {
       msgErr += '-La contraseña es inferior a los 6 digitos \n';
-    } if (this.userTmp.nombre && this.userTmp.nombre.length >= 4) {
+    } if (this.getLength(this.userTmp.nombre) < 4) {
       msgErr += '-El nombre es inferior a los 4 digitos \n';
-    } if (this.userTmp.correo && this.userTmp.correo.length >= 8) {
-      msgErr += '-El correo es inferior a los 8 digitos';
+    } if (!this.validarCorreo(this.userTmp.correo)) {
+      msgErr += '-El correo es inválido (sin formato y/o inferior a 8 digitos) ';
     }
+    this.method.presentToast('bottom','Registro no valido');
+    console.log(msgErr);
+    console.log(this.userTmp.correo);
+    console.log(this.userTmp.nombre);
+    console.log(this.userTmp.password);
+    console.log(this.passwordTmp);
     return msgErr;
+  }
+  getLength(texto:string):number{
+    return this.method.getLength(texto);
   }
   retroceder() {
     this.method.retroceder();

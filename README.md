@@ -22,3 +22,5 @@ dependencies {
     implementation(name:'barcodescanner-release-2.1.5', ext:'aar')
 
 }
+
+Pagina html: https://leckiam.github.io/FL-MC/PaginaParaAPK/index.html
